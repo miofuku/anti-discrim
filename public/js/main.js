@@ -1,12 +1,38 @@
+// Function to validate input
+function validateInput(title, content, type) {
+    let errors = [];
+
+    if (title.length < 3 || title.length > 100) {
+        errors.push('Title should be between 3 and 100 characters');
+    }
+
+    if (content.length < 10 || content.length > 1000) {
+        errors.push('Content should be between 10 and 1000 characters');
+    }
+
+    if (!['general', 'question', 'idea'].includes(type)) {
+        errors.push('Type must be either general, question, or idea');
+    }
+
+    return errors;
+}
+
 // Function to create a new post
 async function createPost(event) {
     event.preventDefault();
 
-    const post = {
-        title: document.getElementById('title').value,
-        content: document.getElementById('content').value,
-        type: document.getElementById('type').value
-    };
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    const type = document.getElementById('type').value;
+
+    const errors = validateInput(title, content, type);
+
+    if (errors.length > 0) {
+        alert('Validation errors:\n' + errors.join('\n'));
+        return;
+    }
+
+    const post = { title, content, type };
 
     try {
         const response = await fetch('/api/posts', {
@@ -53,9 +79,9 @@ async function displayPosts(filter = 'all') {
                     const postElement = document.createElement('div');
                     postElement.className = 'post';
                     postElement.innerHTML = `
-                        <h2>${post.title}</h2>
-                        <p>${post.content}</p>
-                        <p class="post-meta">Type: ${post.type} | Posted on: ${new Date(post.timestamp).toLocaleString()}</p>
+                        <h2>${escapeHTML(post.title)}</h2>
+                        <p>${escapeHTML(post.content)}</p>
+                        <p class="post-meta">Type: ${escapeHTML(post.type)} | Posted on: ${new Date(post.timestamp).toLocaleString()}</p>
                     `;
                     postsContainer.appendChild(postElement);
                 }
@@ -65,6 +91,19 @@ async function displayPosts(filter = 'all') {
             postsContainer.innerHTML = `<p>Error: ${error.message || 'Failed to load posts. Please try again later.'}</p>`;
         }
     }
+}
+
+// Function to escape HTML to prevent XSS
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g,
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[tag] || tag)
+    );
 }
 
 // Event listeners

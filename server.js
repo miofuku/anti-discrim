@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs').promises;
 const AppError = require('./errors');
+const { postSchema } = require('./validation');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,16 @@ const catchAsync = fn => {
   return (req, res, next) => {
     fn(req, res, next).catch(next);
   };
+};
+
+// Validation middleware
+const validatePost = (req, res, next) => {
+  const { error } = postSchema.validate(req.body);
+  if (error) {
+    const errorMessage = error.details.map(detail => detail.message).join(', ');
+    throw new AppError(errorMessage, 400);
+  }
+  next();
 };
 
 // Routes
@@ -32,12 +43,8 @@ app.get('/api/posts', catchAsync(async (req, res) => {
   res.json(JSON.parse(data));
 }));
 
-app.post('/api/posts', catchAsync(async (req, res) => {
+app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
   const { title, content, type } = req.body;
-
-  if (!title || !content || !type) {
-    throw new AppError('Please provide title, content, and type', 400);
-  }
 
   const posts = JSON.parse(await fs.readFile(path.join(__dirname, 'data', 'posts.json'), 'utf8'));
   const newPost = {
