@@ -139,6 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayPosts(posts) {
         postsContainer.innerHTML = '';
+        if (posts.length === 0) {
+            postsContainer.innerHTML = '<p>No posts found matching all selected tags.</p>';
+            return;
+        }
         posts.forEach(post => {
             const postElement = document.createElement('div');
             postElement.className = 'post';
