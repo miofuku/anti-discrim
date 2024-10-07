@@ -30,17 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         const formData = new FormData(form);
-        const story = formData.get('story');
-        const title = generateTitle(story);
-
         const post = {
             name: formData.get('name') || 'Anonymous',
-            title: title,
-            content: story,
+            title: formData.get('title'),
+            content: formData.get('story'),
             type: 'general', // You might want to adjust this based on your needs
             tags: formData.getAll('tag'),
             userType: formData.get('userType'),
-            backgrounds: JSON.parse(formData.get('background[]') || '[]')
+            background: JSON.parse(formData.get('background[]') || '[]')
         };
 
         console.log('Post data:', post);
@@ -112,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>${escapeHTML(post.content || 'No content')}</p>
                     <p>By: ${escapeHTML(post.name || 'Anonymous')}</p>
                     <p>Tags: ${(post.tags || []).map(escapeHTML).join(', ') || 'No tags'}</p>
+                    ${post.background && post.background.length ? `<p>Background: ${post.background.map(escapeHTML).join(', ')}</p>` : ''}
                     <p>Posted on: ${post.timestamp ? new Date(post.timestamp).toLocaleString() : 'Unknown date'}</p>
                 `;
                 postsContainer.appendChild(postElement);
