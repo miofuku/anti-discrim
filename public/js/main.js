@@ -73,14 +73,12 @@ async function displayPosts(filter = 'all') {
     if (postsContainer) {
         try {
             const response = await fetch('/api/posts');
-
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to fetch posts');
+                throw new Error('Failed to fetch posts');
             }
-
             let posts = await response.json();
 
+            // Sort posts by timestamp (newest first)
             posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
             postsContainer.innerHTML = '';
@@ -102,7 +100,7 @@ async function displayPosts(filter = 'all') {
             });
         } catch (error) {
             console.error('Error:', error);
-            postsContainer.innerHTML = `<p>Error: ${error.message || 'Failed to load posts. Please try again later.'}</p>`;
+            postsContainer.innerHTML = '<p>Error: Failed to load posts. Please try again later.</p>';
         }
     }
 }
@@ -244,4 +242,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Here you would typically send this data to your server
     });
+
+    // Add event listener for the filter dropdown
+    const filterType = document.getElementById('filterType');
+    if (filterType) {
+        filterType.addEventListener('change', function() {
+            displayPosts(this.value);
+        });
+    }
+
+    // Display all posts when the page loads
+    displayPosts();
 });
