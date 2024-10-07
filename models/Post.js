@@ -23,6 +23,19 @@ const PostSchema = new mongoose.Schema({
     required: true,
     enum: ['general', 'question', 'idea']
   },
+  tags: {
+    type: [String],
+    default: []
+  },
+  userType: {
+    type: String,
+    enum: ['immigrant', 'finnish'],
+    required: true
+  },
+  background: {
+    type: [String],
+    default: []
+  },
   timestamp: {
     type: Date,
     default: Date.now

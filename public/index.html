@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Post Website</title>
+    <title>Share Your Story</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
         .container {
@@ -168,40 +168,51 @@
     <div class="container">
         <h1>Share your story below and tag it with all the relevant tags you wish.</h1>
 
-        <form class="form-container">
+        <form id="postForm">
             <label for="name">Name *</label>
             <input type="text" id="name" name="name" required>
-            <div class="info-text">If you don't feel comfortable leaving a name, please use 'anonymous'</div>
+            <p class="info-text">If you don't feel comfortable leaving a name, please use 'anonymous'</p>
+
+            <label for="title">Title *</label>
+            <input type="text" id="title" name="title" required>
 
             <label for="story">Your Story *</label>
-            <textarea id="story" name="story" maxlength="1800" required></textarea>
-            <div class="char-count">Limit is 1800 characters. Characters remaining: <span id="charCount">1800</span></div>
-
-            <h2>Post tags refer to why and where this happened (select all that apply)</h2>
-            <div class="checkbox-grid">
-                <label><input type="checkbox" name="tag" value="Gender"> Gender</label>
-                <label><input type="checkbox" name="tag" value="Race"> Race</label>
-                <label><input type="checkbox" name="tag" value="At work"> At work</label>
-                <label><input type="checkbox" name="tag" value="Sexual identity"> Sexual identity</label>
-                <label><input type="checkbox" name="tag" value="In business"> In business</label>
-                <label><input type="checkbox" name="tag" value="In public"> In public</label>
-                <label><input type="checkbox" name="tag" value="Immigrant"> Immigrant</label>
-                <label><input type="checkbox" name="tag" value="At school/uni"> At school/uni</label>
-                <label><input type="checkbox" name="tag" value="Near home"> Near home</label>
-                <label><input type="checkbox" name="tag" value="Age"> Age</label>
-                <label><input type="checkbox" name="tag" value="Online"> Online</label>
-                <label><input type="checkbox" name="tag" value="On public transport"> On public transport</label>
-                <label><input type="checkbox" name="tag" value="Language"> Language</label>
-                <label><input type="checkbox" name="tag" value="Government agency"> Government agency</label>
-                <label><input type="checkbox" name="tag" value="Uncategorized"> Uncategorized</label>
+            <textarea id="story" name="story" required></textarea>
+            <div class="char-count">
+                Limit is 1800 characters. Characters remaining: <span id="charCount">1800</span>
             </div>
 
-            <h2>Are you *</h2>
-            <select id="userType" name="userType" required>
-                <option value="immigrant">Immigrant (born outside of Finland)</option>
-                <!-- Add other options as needed -->
-            </select>
-            <div class="info-text">These tags are not public information nor displayed - only for background information.</div>
+            <fieldset>
+                <legend>Post tags refer to why and where this happened (select all that apply)</legend>
+                <div class="checkbox-grid">
+                    <label><input type="checkbox" name="tag" value="Gender"> Gender</label>
+                    <label><input type="checkbox" name="tag" value="Race"> Race</label>
+                    <label><input type="checkbox" name="tag" value="At work"> At work</label>
+                    <label><input type="checkbox" name="tag" value="Sexual identity"> Sexual identity</label>
+                    <label><input type="checkbox" name="tag" value="In business"> In business</label>
+                    <label><input type="checkbox" name="tag" value="In public"> In public</label>
+                    <label><input type="checkbox" name="tag" value="Immigrant"> Immigrant</label>
+                    <label><input type="checkbox" name="tag" value="At school/uni"> At school/uni</label>
+                    <label><input type="checkbox" name="tag" value="Near home"> Near home</label>
+                    <label><input type="checkbox" name="tag" value="Age"> Age</label>
+                    <label><input type="checkbox" name="tag" value="Online"> Online</label>
+                    <label><input type="checkbox" name="tag" value="On public transport"> On public transport</label>
+                    <label><input type="checkbox" name="tag" value="Language"> Language</label>
+                    <label><input type="checkbox" name="tag" value="Government agency"> Government agency</label>
+                    <label><input type="checkbox" name="tag" value="Uncategorized"> Uncategorized</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Are you *</legend>
+                <select name="userType" required>
+                    <option value="">Choose an option</option>
+                    <option value="immigrant">Immigrant (born outside of Finland)</option>
+                    <option value="finnish">Finnish</option>
+                </select>
+                <p class="info-text">These tags are not public information nor displayed - only for background information.</p>
+            </fieldset>
 
             <h2>What is your background? (select all the countries that apply)</h2>
             <div class="tag-select">
