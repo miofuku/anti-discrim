@@ -122,16 +122,126 @@ function escapeHTML(str) {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    const postForm = document.getElementById('postForm');
-    if (postForm) {
-        postForm.addEventListener('submit', createPost);
+    const storyTextarea = document.getElementById('story');
+    const charCountSpan = document.getElementById('charCount');
+    const cookieNotice = document.querySelector('.cookie-notice');
+    const acceptCookiesBtn = document.getElementById('acceptCookies');
+    const rejectCookiesBtn = document.getElementById('rejectCookies');
+    const cookieSettingsBtn = document.getElementById('cookieSettings');
+    const form = document.querySelector('form');
+    const backgroundInput = document.getElementById('backgroundInput');
+    const countryOptions = document.getElementById('countryOptions');
+    const selectedTags = document.getElementById('selectedTags');
+    const backgroundHidden = document.getElementById('backgroundHidden');
+
+    const countries = ['Albania', 'Algeria', 'Andorra', 'Angola', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'East Timor', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Ivory Coast', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 'Korea, South', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
+
+    let selectedCountries = [];
+
+    function updateBackgroundHidden() {
+        backgroundHidden.value = JSON.stringify(selectedCountries);
     }
 
-    const filterType = document.getElementById('filterType');
-    if (filterType) {
-        filterType.addEventListener('change', function(e) {
-            displayPosts(e.target.value);
-        });
-        displayPosts();
+    function addTag(country) {
+        if (!selectedCountries.includes(country)) {
+            selectedCountries.push(country);
+            const tag = document.createElement('div');
+            tag.className = 'selected-tag';
+            tag.innerHTML = `${country} <span class="remove-tag" data-country="${country}">×</span>`;
+            selectedTags.appendChild(tag);
+            updateBackgroundHidden();
+        }
     }
+
+    function removeTag(country) {
+        selectedCountries = selectedCountries.filter(c => c !== country);
+        const tag = selectedTags.querySelector(`[data-country="${country}"]`).parentNode;
+        selectedTags.removeChild(tag);
+        updateBackgroundHidden();
+    }
+
+    backgroundInput.addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        const filteredCountries = countries.filter(country =>
+            country.toLowerCase().includes(value)
+        );
+
+        countryOptions.innerHTML = '';
+        filteredCountries.forEach(country => {
+            const option = document.createElement('div');
+            option.className = 'tag-option';
+            option.textContent = country;
+            option.addEventListener('click', function() {
+                addTag(country);
+                backgroundInput.value = '';
+                countryOptions.style.display = 'none';
+            });
+            countryOptions.appendChild(option);
+        });
+
+        countryOptions.style.display = filteredCountries.length > 0 ? 'block' : 'none';
+    });
+
+    backgroundInput.addEventListener('focus', function() {
+        if (this.value) {
+            countryOptions.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!backgroundInput.contains(e.target) && !countryOptions.contains(e.target)) {
+            countryOptions.style.display = 'none';
+        }
+    });
+
+    selectedTags.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-tag')) {
+            removeTag(e.target.dataset.country);
+        }
+    });
+
+    // Character count
+    storyTextarea.addEventListener('input', function() {
+        const remainingChars = 1800 - this.value.length;
+        charCountSpan.textContent = remainingChars;
+    });
+
+    // Cookie notice
+    acceptCookiesBtn.addEventListener('click', function() {
+        cookieNotice.style.display = 'none';
+        // Here you would set a cookie to remember the user's choice
+    });
+
+    rejectCookiesBtn.addEventListener('click', function() {
+        cookieNotice.style.display = 'none';
+        // Here you would ensure no non-essential cookies are set
+    });
+
+    cookieSettingsBtn.addEventListener('click', function() {
+        // Here you would open a modal or navigate to a page with detailed cookie settings
+        alert('Cookie settings functionality to be implemented');
+    });
+
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Here you would handle form submission, potentially sending data to a server
+        console.log('Form submitted');
+
+        // Accessing form data, including multiple selections
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const story = formData.get('story');
+        const tags = formData.getAll('tag');
+        const userType = formData.get('userType');
+        const backgrounds = JSON.parse(formData.get('background[]') || '[]');
+
+        console.log('Name:', name);
+        console.log('Story:', story);
+        console.log('Tags:', tags);
+        console.log('User Type:', userType);
+        console.log('Backgrounds:', backgrounds);
+
+        // Here you would typically send this data to your server
+    });
 });
