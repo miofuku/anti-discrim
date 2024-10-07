@@ -87,12 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch posts
     async function fetchPosts(filter = 'all') {
         try {
-            const response = await fetch('/api/posts');
+            const response = await fetch(`/api/posts?filter=${filter}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch posts');
             }
             const posts = await response.json();
-            displayPosts(posts, filter);
+            displayPosts(posts);
         } catch (error) {
             console.error('Error:', error);
             postsContainer.innerHTML = '<p>Error: Failed to load posts. Please try again later.</p>';
@@ -100,22 +100,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to display posts
-    function displayPosts(posts, filter) {
+    function displayPosts(posts) {
         postsContainer.innerHTML = '';
         posts.forEach(post => {
-            if (filter === 'all' || (post.tags && post.tags.includes(filter))) {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                postElement.innerHTML = `
-                    <h2>${escapeHTML(post.title || 'Untitled')}</h2>
-                    <p>${escapeHTML(post.content || 'No content')}</p>
-                    <p>By: ${escapeHTML(post.name || 'Anonymous')}</p>
-                    <p>Tags: ${(post.tags || []).map(escapeHTML).join(', ') || 'No tags'}</p>
-                    ${post.background && post.background.length ? `<p>Background: ${post.background.map(escapeHTML).join(', ')}</p>` : ''}
-                    <p>Posted on: ${post.timestamp ? new Date(post.timestamp).toLocaleString() : 'Unknown date'}</p>
-                `;
-                postsContainer.appendChild(postElement);
-            }
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.innerHTML = `
+                <h2>${escapeHTML(post.title || 'Untitled')}</h2>
+                <p>${escapeHTML(post.content || 'No content')}</p>
+                <p>By: ${escapeHTML(post.name || 'Anonymous')}</p>
+                <p>Tags: ${(post.tags || []).map(escapeHTML).join(', ') || 'No tags'}</p>
+                <p>Posted on: ${post.timestamp ? new Date(post.timestamp).toLocaleString() : 'Unknown date'}</p>
+            `;
+            postsContainer.appendChild(postElement);
         });
     }
 

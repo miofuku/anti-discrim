@@ -44,13 +44,20 @@ app.get('/posts', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
-  const posts = await Post.find().sort({ timestamp: -1 });
+  const { filter } = req.query;
+  let query = {};
+
+  if (filter && filter !== 'all') {
+    query.tags = filter;
+  }
+
+  const posts = await Post.find(query).sort({ timestamp: -1 });
   res.json(posts);
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
-  const { name, title, content, type } = req.body;
-  const newPost = new Post({ name, title, content, type });
+  const { name, title, content, tags, userType, background } = req.body;
+  const newPost = new Post({ name, title, content, tags, userType, background });
   await newPost.save();
   res.status(201).json(newPost);
 }));
