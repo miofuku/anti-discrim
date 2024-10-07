@@ -1,11 +1,16 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const fs = require('fs').promises;
+const connectDB = require('./db');
+const Post = require('./models/Post');
 const AppError = require('./errors');
 const { postSchema } = require('./validation');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+connectDB();
 
 // Middleware
 app.use(express.static('public'));
@@ -39,24 +44,14 @@ app.get('/posts', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
-  const data = await fs.readFile(path.join(__dirname, 'data', 'posts.json'), 'utf8');
-  res.json(JSON.parse(data));
+  const posts = await Post.find().sort({ timestamp: -1 });
+  res.json(posts);
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
   const { name, title, content, type } = req.body;
-
-  const posts = JSON.parse(await fs.readFile(path.join(__dirname, 'data', 'posts.json'), 'utf8'));
-  const newPost = {
-    id: Date.now(),
-    name: name || 'Anonymous',
-    title,
-    content,
-    type,
-    timestamp: new Date().toISOString()
-  };
-  posts.push(newPost);
-  await fs.writeFile(path.join(__dirname, 'data', 'posts.json'), JSON.stringify(posts, null, 2));
+  const newPost = new Post({ name, title, content, type });
+  await newPost.save();
   res.status(201).json(newPost);
 }));
 
