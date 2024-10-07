@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
             name: formData.get('name') || 'Anonymous',
             title: formData.get('title'),
             content: formData.get('story'),
-            type: 'general', // You might want to adjust this based on your needs
             tags: formData.getAll('tag'),
             userType: formData.get('userType'),
             background: JSON.parse(formData.get('background[]') || '[]')
@@ -51,16 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(post),
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                console.log('Post created successfully');
-                alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
-                form.reset();
-                // You might want to redirect here or show a success message in the page
-            } else {
-                throw new Error(data.message || 'Failed to create post');
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to create post');
             }
+
+            const data = await response.json();
+            console.log('Post created successfully');
+            alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
+            form.reset();
+            // You might want to redirect here or show a success message in the page
         } catch (error) {
             console.error('Error:', error);
             alert(error.message || 'Failed to submit post. Please try again.');

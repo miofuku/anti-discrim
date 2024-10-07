@@ -18,11 +18,6 @@ const PostSchema = new mongoose.Schema({
     minlength: 10,
     maxlength: 1000
   },
-  type: {
-    type: String,
-    required: true,
-    enum: ['general', 'question', 'idea']
-  },
   tags: {
     type: [String],
     default: []

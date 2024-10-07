@@ -16,10 +16,12 @@ const postSchema = Joi.object({
       'string.min': 'Content should have at least 10 characters',
       'string.max': 'Content should not exceed 1000 characters'
     }),
-  type: Joi.string().valid('general', 'question', 'idea').required()
+  tags: Joi.array().items(Joi.string()).default([]),
+  userType: Joi.string().valid('immigrant', 'finnish').required()
     .messages({
-      'any.only': 'Type must be either general, question, or idea'
-    })
+      'any.only': 'User type must be either immigrant or finnish'
+    }),
+  background: Joi.array().items(Joi.string()).default([])
 });
 
 module.exports = {
