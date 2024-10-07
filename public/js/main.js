@@ -105,12 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         posts.forEach(post => {
             const postElement = document.createElement('div');
             postElement.className = 'post';
+
+            const tagsHTML = post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
+
             postElement.innerHTML = `
-                <h2>${escapeHTML(post.title || 'Untitled')}</h2>
-                <p>${escapeHTML(post.content || 'No content')}</p>
-                <p>By: ${escapeHTML(post.name || 'Anonymous')}</p>
-                <p>Tags: ${(post.tags || []).map(escapeHTML).join(', ') || 'No tags'}</p>
-                <p>Posted on: ${post.timestamp ? new Date(post.timestamp).toLocaleString() : 'Unknown date'}</p>
+                <div class="post-tags">${tagsHTML}</div>
+                <h2 class="post-title">${escapeHTML(post.name || 'Anonymous')}</h2>
+                <p class="post-date">${post.timestamp ? new Date(post.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date'}</p>
+                <p class="post-content">${escapeHTML(post.content || 'No content')}</p>
             `;
             postsContainer.appendChild(postElement);
         });

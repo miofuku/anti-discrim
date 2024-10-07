@@ -48,7 +48,7 @@ app.get('/api/posts', catchAsync(async (req, res) => {
   let query = {};
 
   if (filter && filter !== 'all') {
-    query.tags = filter;
+    query.tags = { $regex: new RegExp(filter, 'i') };
   }
 
   const posts = await Post.find(query).sort({ timestamp: -1 });
