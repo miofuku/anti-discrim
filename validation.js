@@ -1,6 +1,9 @@
 const Joi = require('joi');
 
 const postSchema = Joi.object({
+  name: Joi.string().allow('').max(50).messages({
+    'string.max': 'Name should not exceed 50 characters'
+  }),
   title: Joi.string().min(3).max(100).required()
     .messages({
       'string.empty': 'Title is required',

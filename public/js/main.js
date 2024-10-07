@@ -1,6 +1,10 @@
 // Function to validate input
-function validateInput(title, content, type) {
+function validateInput(name, title, content, type) {
     let errors = [];
+
+    if (name.length > 50) {
+        errors.push('Name should not exceed 50 characters');
+    }
 
     if (title.length < 3 || title.length > 100) {
         errors.push('Title should be between 3 and 100 characters');
@@ -21,18 +25,24 @@ function validateInput(title, content, type) {
 async function createPost(event) {
     event.preventDefault();
 
+    const name = document.getElementById('name').value.trim();
     const title = document.getElementById('title').value.trim();
     const content = document.getElementById('content').value.trim();
     const type = document.getElementById('type').value;
 
-    const errors = validateInput(title, content, type);
+    const errors = validateInput(name, title, content, type);
 
     if (errors.length > 0) {
         alert('Validation errors:\n' + errors.join('\n'));
         return;
     }
 
-    const post = { title, content, type };
+    const post = {
+        name: name || 'Anonymous',
+        title,
+        content,
+        type
+    };
 
     try {
         const response = await fetch('/api/posts', {
@@ -81,7 +91,11 @@ async function displayPosts(filter = 'all') {
                     postElement.innerHTML = `
                         <h2>${escapeHTML(post.title)}</h2>
                         <p>${escapeHTML(post.content)}</p>
-                        <p class="post-meta">Type: ${escapeHTML(post.type)} | Posted on: ${new Date(post.timestamp).toLocaleString()}</p>
+                        <p class="post-meta">
+                            By: ${escapeHTML(post.name)} |
+                            Type: ${escapeHTML(post.type)} |
+                            Posted on: ${new Date(post.timestamp).toLocaleString()}
+                        </p>
                     `;
                     postsContainer.appendChild(postElement);
                 }

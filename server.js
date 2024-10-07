@@ -44,11 +44,12 @@ app.get('/api/posts', catchAsync(async (req, res) => {
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
-  const { title, content, type } = req.body;
+  const { name, title, content, type } = req.body;
 
   const posts = JSON.parse(await fs.readFile(path.join(__dirname, 'data', 'posts.json'), 'utf8'));
   const newPost = {
     id: Date.now(),
+    name: name || 'Anonymous',
     title,
     content,
     type,

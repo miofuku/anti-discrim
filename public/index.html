@@ -4,42 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Post Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        nav {
-            margin-bottom: 20px;
-        }
-        nav a {
-            margin-right: 10px;
-        }
-        form {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        label, input, textarea, select {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 5px;
-        }
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <nav>
@@ -50,9 +15,12 @@
 
     <h1>Welcome to our Simple Post Website</h1>
 
-    <p>This is a place where you can share your thoughts anonymously. Feel free to create a new post below!</p>
+    <p>This is a place where you can share your thoughts. Feel free to create a new post below!</p>
 
     <form id="postForm">
+        <label for="name">Name (optional):</label>
+        <input type="text" id="name" placeholder="Anonymous">
+
         <label for="title">Title:</label>
         <input type="text" id="title" required>
 
@@ -69,24 +37,6 @@
         <input type="submit" value="Submit Post">
     </form>
 
-    <script>
-        document.getElementById('postForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const post = {
-                title: document.getElementById('title').value,
-                content: document.getElementById('content').value,
-                type: document.getElementById('type').value,
-                timestamp: new Date().toISOString()
-            };
-
-            let posts = JSON.parse(localStorage.getItem('posts')) || [];
-            posts.push(post);
-            localStorage.setItem('posts', JSON.stringify(posts));
-
-            alert('Post submitted successfully!');
-            this.reset();
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
