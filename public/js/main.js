@@ -68,17 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Posts listing functionality
     const postsContainer = document.getElementById('postsContainer');
-    const filterType = document.getElementById('filterType');
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
     if (postsContainer) {
         console.log('Setting up posts listing');
         fetchPosts();
 
-        if (filterType) {
-            filterType.addEventListener('change', function() {
-                fetchPosts(this.value);
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                fetchPosts(filter);
             });
-        }
+        });
     }
 
     // Function to fetch posts

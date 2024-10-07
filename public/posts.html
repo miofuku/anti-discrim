@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Stories</title>
+    <title>All Stories - Daily Discrimination</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/posts" class="active">Show Stories</a>
-        <a href="#about">About</a>
-    </nav>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/posts" class="active">All Stories</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
 
-    <h1>All Stories</h1>
+    <main>
+        <h1>All Stories</h1>
 
-    <div id="filterContainer">
-        <label for="filterType">Filter by type:</label>
-        <select id="filterType">
-            <option value="all">All Types</option>
-            <option value="general">General</option>
-            <option value="question">Question</option>
-            <option value="idea">Idea</option>
-        </select>
-    </div>
+        <div id="filterContainer">
+            <button class="filter-btn" data-filter="gender">Gender</button>
+            <button class="filter-btn" data-filter="race">Race</button>
+            <button class="filter-btn" data-filter="at-work">At Work</button>
+            <button class="filter-btn" data-filter="sexual-identity">Sexual Identity</button>
+            <button class="filter-btn" data-filter="in-business">In Business</button>
+            <button class="filter-btn" data-filter="in-public">In Public</button>
+            <button class="filter-btn" data-filter="immigrant">Immigrant</button>
+            <button class="filter-btn" data-filter="at-school-uni">At School/Uni</button>
+            <button class="filter-btn" data-filter="near-home">Near Home</button>
+            <button class="filter-btn" data-filter="age">Age</button>
+            <button class="filter-btn" data-filter="online">Online</button>
+            <button class="filter-btn" data-filter="on-public-transport">On Public Transport</button>
+            <button class="filter-btn" data-filter="language">Language</button>
+            <button class="filter-btn" data-filter="government-agency">Government Agency</button>
+            <button class="filter-btn" data-filter="uncategorized">Uncategorized</button>
+        </div>
 
-    <div id="postsContainer" class="content"></div>
+        <div id="postsContainer"></div>
+    </main>
 
     <script src="/js/main.js"></script>
 </body>
