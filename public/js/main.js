@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const filter = this.getAttribute('data-filter');
+                const filter = this.textContent.trim(); // Use the button text as the filter
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 fetchPosts(filter);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch posts
     async function fetchPosts(filter = 'all') {
         try {
-            const response = await fetch(`/api/posts?filter=${filter}`);
+            const response = await fetch(`/api/posts?filter=${encodeURIComponent(filter)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch posts');
             }

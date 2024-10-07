@@ -48,7 +48,9 @@ app.get('/api/posts', catchAsync(async (req, res) => {
   let query = {};
 
   if (filter && filter !== 'all') {
-    query.tags = { $regex: new RegExp(filter, 'i') };
+    // Convert filter to lowercase and escape special characters
+    const escapedFilter = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    query.tags = { $regex: new RegExp(escapedFilter, 'i') };
   }
 
   const posts = await Post.find(query).sort({ timestamp: -1 });
