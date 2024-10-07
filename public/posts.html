@@ -19,21 +19,25 @@
         <h1>All Stories</h1>
 
         <div id="filterContainer">
-            <button class="filter-btn">Gender</button>
-            <button class="filter-btn">Race</button>
-            <button class="filter-btn">At Work</button>
-            <button class="filter-btn">Sexual Identity</button>
-            <button class="filter-btn">In Business</button>
-            <button class="filter-btn">In Public</button>
-            <button class="filter-btn">Immigrant</button>
-            <button class="filter-btn">At School/Uni</button>
-            <button class="filter-btn">Near Home</button>
-            <button class="filter-btn">Age</button>
-            <button class="filter-btn">Online</button>
-            <button class="filter-btn">On Public Transport</button>
-            <button class="filter-btn">Language</button>
-            <button class="filter-btn">Government Agency</button>
-            <button class="filter-btn">Uncategorized</button>
+          <div id="selectedTags"></div>
+          <div id="availableTags">
+            <button class="filter-btn" data-tag="Gender">Gender</button>
+            <button class="filter-btn" data-tag="Race">Race</button>
+            <button class="filter-btn" data-tag="At Work">At Work</button>
+            <button class="filter-btn" data-tag="Sexual Identity">Sexual Identity</button>
+            <button class="filter-btn" data-tag="In Business">In Business</button>
+            <button class="filter-btn" data-tag="In Public">In Public</button>
+            <button class="filter-btn" data-tag="Immigrant">Immigrant</button>
+            <button class="filter-btn" data-tag="At School/Uni">At School/Uni</button>
+            <button class="filter-btn" data-tag="Near Home">Near Home</button>
+            <button class="filter-btn" data-tag="Age">Age</button>
+            <button class="filter-btn" data-tag="Online">Online</button>
+            <button class="filter-btn" data-tag="On Public Transport">On Public Transport</button>
+            <button class="filter-btn" data-tag="Language">Language</button>
+            <button class="filter-btn" data-tag="Government Agency">Government Agency</button>
+            <button class="filter-btn" data-tag="Uncategorized">Uncategorized</button>
+          </div>
+          <button id="clearFilters">Clear Filters</button>
         </div>
 
         <div id="postsContainer"></div>

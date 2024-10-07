@@ -4,11 +4,54 @@ document.addEventListener('DOMContentLoaded', function() {
     // Character count functionality
     const storyTextarea = document.getElementById('story');
     const charCountSpan = document.getElementById('charCount');
+    const form = document.querySelector('form');
+    const postsContainer = document.getElementById('postsContainer');
+    const selectedTagsContainer = document.getElementById('selectedTags');
+    const availableTagsContainer = document.getElementById('availableTags');
+    const clearFiltersButton = document.getElementById('clearFilters');
 
+    const selectedTags = new Set();
+
+    // Set up event listeners
     if (storyTextarea && charCountSpan) {
         console.log('Setting up character count');
         updateCharCount();
         storyTextarea.addEventListener('input', updateCharCount);
+    }
+
+    if (form) {
+        console.log('Setting up form submission');
+        form.addEventListener('submit', createPost);
+    }
+
+    if (availableTagsContainer) {
+        availableTagsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('filter-btn')) {
+                const tag = event.target.dataset.tag;
+                toggleTag(tag);
+            }
+        });
+    }
+
+    if (clearFiltersButton) {
+        clearFiltersButton.addEventListener('click', clearFilters);
+    }
+
+    if (selectedTagsContainer) {
+        selectedTagsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-tag')) {
+                const tag = event.target.dataset.tag;
+                selectedTags.delete(tag);
+                updateSelectedTags();
+                fetchPosts();
+            }
+        });
+    }
+
+    // If we're on the posts page, fetch posts immediately
+    if (postsContainer) {
+        console.log('Setting up posts listing');
+        fetchPosts();
     }
 
     function updateCharCount() {
@@ -17,14 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Updated char count:', remainingChars);
     }
 
-    // Form submission
-    const form = document.querySelector('form');
-    if (form) {
-        console.log('Setting up form submission');
-        form.addEventListener('submit', createPost);
-    }
-
-    // Function to create a new post
     async function createPost(event) {
         console.log('Create post function called');
         event.preventDefault();
@@ -35,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: formData.get('title'),
             content: formData.get('story'),
             tags: formData.getAll('tag'),
-            userType: formData.get('userType') || 'finnish', // Provide a default value
+            userType: formData.get('userType') || 'finnish',
             background: JSON.parse(formData.get('background[]') || '[]')
         };
 
@@ -59,35 +94,38 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Post created successfully');
             alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
             form.reset();
-            // You might want to redirect here or show a success message in the page
         } catch (error) {
             console.error('Error:', error);
             alert(error.message || 'Failed to submit post. Please try again.');
         }
     }
 
-    // Posts listing functionality
-    const postsContainer = document.getElementById('postsContainer');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-
-    if (postsContainer) {
-        console.log('Setting up posts listing');
+    function toggleTag(tag) {
+        if (selectedTags.has(tag)) {
+            selectedTags.delete(tag);
+        } else {
+            selectedTags.add(tag);
+        }
+        updateSelectedTags();
         fetchPosts();
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filter = this.textContent.trim(); // Use the button text as the filter
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                fetchPosts(filter);
-            });
-        });
     }
 
-    // Function to fetch posts
-    async function fetchPosts(filter = 'all') {
+    function updateSelectedTags() {
+        selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
+            `<span class="selected-tag">${escapeHTML(tag)} <button class="remove-tag" data-tag="${escapeHTML(tag)}">×</button></span>`
+        ).join('');
+    }
+
+    function clearFilters() {
+        selectedTags.clear();
+        updateSelectedTags();
+        fetchPosts();
+    }
+
+    async function fetchPosts() {
         try {
-            const response = await fetch(`/api/posts?filter=${encodeURIComponent(filter)}`);
+            const tagsParam = Array.from(selectedTags).join(',');
+            const response = await fetch(`/api/posts?tags=${encodeURIComponent(tagsParam)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch posts');
             }
@@ -99,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to display posts
     function displayPosts(posts) {
         postsContainer.innerHTML = '';
         posts.forEach(post => {
@@ -118,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to escape HTML to prevent XSS
     function escapeHTML(str) {
         if (str === null || str === undefined) {
             return '';

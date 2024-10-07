@@ -44,13 +44,12 @@ app.get('/posts', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
-  const { filter } = req.query;
+  const { tags } = req.query;
   let query = {};
 
-  if (filter && filter !== 'all') {
-    // Convert filter to lowercase and escape special characters
-    const escapedFilter = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    query.tags = { $regex: new RegExp(escapedFilter, 'i') };
+  if (tags) {
+    const tagArray = tags.split(',').map(tag => tag.trim());
+    query.tags = { $in: tagArray.map(tag => new RegExp(tag, 'i')) };
   }
 
   const posts = await Post.find(query).sort({ timestamp: -1 });
