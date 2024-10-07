@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: formData.get('title'),
             content: formData.get('story'),
             tags: formData.getAll('tag'),
-            userType: formData.get('userType'),
+            userType: formData.get('userType') || 'finnish', // Provide a default value
             background: JSON.parse(formData.get('background[]') || '[]')
         };
 

@@ -17,7 +17,7 @@ const postSchema = Joi.object({
       'string.max': 'Content should not exceed 1000 characters'
     }),
   tags: Joi.array().items(Joi.string()).default([]),
-  userType: Joi.string().valid('immigrant', 'finnish').required()
+  userType: Joi.string().valid('immigrant', 'finnish').default('finnish')
     .messages({
       'any.only': 'User type must be either immigrant or finnish'
     }),
