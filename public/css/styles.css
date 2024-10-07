@@ -17,46 +17,32 @@ nav a {
     color: #333;
 }
 
-nav a:hover {
-    text-decoration: underline;
+nav a.active {
+    font-weight: bold;
 }
 
-form {
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 5px;
+h1 {
+    color: #333;
 }
 
-label, input, textarea, select {
-    display: block;
-    margin-bottom: 10px;
+#filterContainer {
+    margin-bottom: 20px;
 }
 
-input[type="text"], textarea, select {
-    width: 100%;
+#filterType {
     padding: 5px;
-}
-
-input[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #555;
 }
 
 .post {
     background-color: #f4f4f4;
-    padding: 15px;
-    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
 .post h2 {
+    color: #333;
     margin-top: 0;
 }
 
@@ -65,7 +51,8 @@ input[type="submit"]:hover {
     color: #666;
 }
 
-#filterType {
-    margin-bottom: 15px;
-    padding: 5px;
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
 }

@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Posts</title>
+    <title>All Stories</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <nav>
         <a href="/">Home</a>
-        <a href="/posts">All Posts</a>
+        <a href="/posts" class="active">Show Stories</a>
         <a href="#about">About</a>
     </nav>
 
-    <h1>All Posts</h1>
+    <h1>All Stories</h1>
 
-    <select id="filterType">
-        <option value="all">All Types</option>
-        <option value="general">General</option>
-        <option value="question">Question</option>
-        <option value="idea">Idea</option>
-    </select>
+    <div id="filterContainer">
+        <label for="filterType">Filter by type:</label>
+        <select id="filterType">
+            <option value="all">All Types</option>
+            <option value="general">General</option>
+            <option value="question">Question</option>
+            <option value="idea">Idea</option>
+        </select>
+    </div>
 
-    <div id="posts"></div>
+    <div id="postsContainer"></div>
 
     <script src="/js/main.js"></script>
 </body>
