@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Character count functionality
     const storyTextarea = document.getElementById('story');
     const charCountSpan = document.getElementById('charCount');
-    const form = document.querySelector('form');
+    const form = document.querySelector('#share-form form');
     const postsContainer = document.getElementById('postsContainer');
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
@@ -94,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Post created successfully');
             alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
             form.reset();
+            // Optionally, scroll back to the top of the page or to the intro section
+            window.scrollTo(0, 0);
         } catch (error) {
             console.error('Error:', error);
             alert(error.message || 'Failed to submit post. Please try again.');

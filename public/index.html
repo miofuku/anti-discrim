@@ -154,23 +154,28 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="/" class="active">Home</a>
-        <a href="/posts" id="allStories">All Stories</a>
-        <a href="#about">About</a>
-    </nav>
+    <header>
+        <nav>
+            <a href="/" class="active">Home</a>
+            <a href="/posts" id="showStories">All Stories</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
 
-    <h1>Welcome to Simple Post Website</h1>
+    <main>
+        <h1>Welcome to Simple Post Website</h1>
 
-    <div class="content">
+    <section id="intro">
         <p>This is a platform where you can share your stories, ask questions, and share ideas with others.</p>
-        <p>Click on "Show Stories" to view all the posts or use the form below to create a new post.</p>
-    </div>
+        <div class="button-container">
+            <a href="/posts" class="btn">Read Stories</a>
+            <a href="#share-form" class="btn">Share Your Story</a>
+        </div>
+    </section>
 
-    <div class="container">
-        <h1>Share your story below and tag it with all the relevant tags you wish.</h1>
-
-        <form id="postForm">
+    <section id="share-form">
+        <h2>Share your story below and tag it with all the relevant tags you wish.</h2>
+        <form>
             <label for="name">Name *</label>
             <input type="text" id="name" name="name" required>
             <p class="info-text">If you don't feel comfortable leaving a name, please use 'anonymous'</p>
@@ -226,13 +231,14 @@
             <div class="info-text">These tags are not public information nor displayed - you can select more than one.</div>
 
             <button type="submit" class="submit-btn">SUBMIT</button>
-        </form>
+         </form>
+    </section>
+    </main>
 
         <p class="note">PLEASE NOTE: Stories provided via this website may be anonymously quoted in various forms of media.</p>
-    </div>
 
     <footer>
-        <p>hello@infoshareproject.com</p>
+        <p>Contact: hello@xxx</p>
     </footer>
 
     <div class="cookie-notice">
