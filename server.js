@@ -42,6 +42,10 @@ app.get('/posts', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'posts.html'));
 });
 
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+});
+
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
   const { tags } = req.query;
