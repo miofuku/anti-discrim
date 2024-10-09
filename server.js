@@ -46,6 +46,10 @@ app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'about.html'));
 });
 
+app.get('/help-support', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'help-support.html'));
+});
+
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
   const { tags } = req.query;

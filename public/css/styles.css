@@ -258,3 +258,57 @@ html {
     color: #444;
     margin-bottom: 10px;
 }
+
+#help-support {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#help-support h1 {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+#help-support h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#help-support h3 {
+    font-size: 1.4em;
+    color: #007bff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#help-support p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+#help-support ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+#help-support li {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+#help-support a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#help-support a:hover {
+    text-decoration: underline;
+}
