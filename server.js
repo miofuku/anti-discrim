@@ -84,13 +84,12 @@ app.get('/api/posts', catchAsync(async (req, res) => {
     query.tags = { $all: tagArray.map(tag => new RegExp(tag, 'i')) };
   }
 
-  const posts = await Post.find(query).sort({ timestamp: -1 });
-
-  res.json(posts.map(post => ({
-    ...post,
-    title: res.__(post.title),
-        content: res.__(post.content)
-  })));
+  try {
+    const posts = await Post.find({}).sort({ timestamp: -1 });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {

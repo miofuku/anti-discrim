@@ -162,15 +162,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
 
-                const tagsHTML = Array.isArray(post.tags) && post.tags.length > 0
-                    ? post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')
-                    : '<span class="tag">Uncategorized</span>';
+                const tagsHTML = post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
 
                 postElement.innerHTML = `
-                    <div class="post-tags">${tagsHTML}</div>
-                    <h2 class="post-title">${escapeHTML(post.name || 'Anonymous')}</h2>
-                    <p class="post-date">${post.timestamp ? new Date(post.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date'}</p>
-                    <p class="post-content">${escapeHTML(post.content || 'No content')}</p>
+                  <div class="post-tags">${tagsHTML}</div>
+                  <h2 class="post-title">${escapeHTML(post.title)}</h2>
+                  <p class="post-author">${escapeHTML(post.name || 'Anonymous')}</p>
+                  <div class="post-content">${escapeHTML(post.content)}</div>
                 `;
                 postsContainer.appendChild(postElement);
             } else {
