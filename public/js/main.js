@@ -9,8 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
     const clearFiltersButton = document.getElementById('clearFilters');
+    const langSelect = document.getElementById('langSelect');
 
     const selectedTags = new Set();
+
+    if (langSelect) {
+        langSelect.addEventListener('change', (event) => {
+          const lang = event.target.value;
+          document.cookie = `lang=${lang};path=/`;
+          window.location.reload();
+        });
+    }
 
     // Set up event listeners
     if (storyTextarea && charCountSpan) {

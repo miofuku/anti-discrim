@@ -160,13 +160,15 @@
             <a href="/posts">All Stories</a>
             <a href="/help-support" class="active">Help & Support</a>
             <a href="/about">About</a>
+            <option value="en" <%= (getLocale() === 'en') ? 'selected' : '' %>>English
+            <option value="zh" <%= (getLocale() === 'zh') ? 'selected' : '' %>>中文
         </nav>
     </header>
 
     <main>
         <section id="intro">
-            <h1>Voice Out</h1>
-            <h2>Speak Up Against Discrimination in Germany</h2>
+            <h1><%= __('title') %></h1>
+            <h2><%= __('subtitle') %></h2>
 
             <p>Welcome to Voice Out, a platform dedicated to amplifying the voices of those who have faced discrimination, with a special focus on the experiences of immigrants.</p>
 
@@ -177,8 +179,8 @@
             <p>Here, you can share your stories, connect with others who understand, and contribute to making Germany a more inclusive place for all of us.</p>
 
         <div class="button-container">
-            <a href="/posts" class="btn">Read Stories</a>
-            <a href="#share-form" class="btn">Share Your Story</a>
+            <a href="/posts" class="btn"><%= __('readStories') %></a>
+            <a href="#share-form" class="btn"><%= __('shareStory') %></a>
         </div>
     </section>
 

@@ -312,3 +312,8 @@ html {
 #help-support a:hover {
     text-decoration: underline;
 }
+
+body[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}

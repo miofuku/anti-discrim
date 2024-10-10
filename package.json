@@ -9,10 +9,12 @@
     "generate-posts": "node generateSamplePosts.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^6.0.12",
     "dotenv": "^10.0.0",
-    "joi": "^17.4.0"
+    "ejs": "^3.1.10",
+    "express": "^4.17.1",
+    "i18n": "^0.15.1",
+    "joi": "^17.4.0",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"

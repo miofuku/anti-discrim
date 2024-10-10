@@ -1,0 +1,16 @@
+{
+  "intro": {
+    "title": "Voice Out",
+    "subtitle": "在德国反对歧视，勇于发声",
+    "welcome": "欢迎来到Voice Out平台，这是一个致力于放大那些面临歧视的人们声音的平台，特别关注移民的经历。",
+    "readStories": "阅读故事",
+    "shareStory": "分享你的故事"
+  },
+  "form": {
+    "title": "分享你的经历",
+    "name": "姓名",
+    "storyTitle": "标题",
+    "storyContent": "你的故事",
+    "submit": "提交"
+  }
+}

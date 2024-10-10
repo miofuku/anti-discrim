@@ -1,0 +1,20 @@
+{
+	"intro": {
+		"title": "Voice Out",
+		"subtitle": "Speak Up Against Discrimination in Germany",
+		"welcome": "Welcome to Voice Out, a platform dedicated to amplifying the voices of those who have faced discrimination, with a special focus on the experiences of immigrants.",
+		"readStories": "Read Stories",
+		"shareStory": "Share Your Story"
+	},
+	"form": {
+		"title": "Voice Out Your Experience",
+		"name": "Name",
+		"storyTitle": "Title",
+		"storyContent": "Your Story",
+		"submit": "Submit"
+	},
+	"title": "title",
+	"subtitle": "subtitle",
+	"readStories": "readStories",
+	"shareStory": "shareStory"
+}

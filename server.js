@@ -5,12 +5,29 @@ const connectDB = require('./db');
 const Post = require('./models/Post');
 const AppError = require('./errors');
 const { postSchema } = require('./validation');
+const i18n = require('i18n');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 connectDB();
+
+// Configure i18n
+i18n.configure({
+  locales: ['en', 'zh'],
+  directory: path.join(__dirname, 'locales'),
+  defaultLocale: 'en',
+  cookie: 'lang',
+  objectNotation: true
+});
+
+// Set up EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public'));
+
+// Use i18n middleware
+app.use(i18n.init);
 
 // Middleware
 app.use(express.static('public'));
@@ -35,19 +52,19 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.render('index', { title: 'Voice Out' });
 });
 
 app.get('/posts', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'posts.html'));
+  res.render('posts', { title: 'All Stories' });
 });
 
 app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'about.html'));
+  res.render('about', { title: 'About Us' });
 });
 
 app.get('/help-support', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'help-support.html'));
+  res.render('help-support', { title: 'Help & Support' });
 });
 
 // API routes
@@ -61,7 +78,12 @@ app.get('/api/posts', catchAsync(async (req, res) => {
   }
 
   const posts = await Post.find(query).sort({ timestamp: -1 });
-  res.json(posts);
+
+  res.json(posts.map(post => ({
+    ...post,
+    title: res.__(post.title),
+        content: res.__(post.content)
+  })));
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
