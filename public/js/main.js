@@ -141,32 +141,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to fetch posts');
             }
             const posts = await response.json();
+            if (!Array.isArray(posts)) {
+                throw new Error('Received data is not an array');
+            }
             displayPosts(posts);
         } catch (error) {
             console.error('Error:', error);
-            postsContainer.innerHTML = '<p>Error: Failed to load posts. Please try again later.</p>';
+            postsContainer.innerHTML = `<p>Error: ${error.message}. Please try again later.</p>`;
         }
     }
 
     function displayPosts(posts) {
         postsContainer.innerHTML = '';
-        if (posts.length === 0) {
-            postsContainer.innerHTML = '<p>No posts found matching all selected tags.</p>';
+        if (!Array.isArray(posts) || posts.length === 0) {
+            postsContainer.innerHTML = '<p>No posts found matching the selected tags.</p>';
             return;
         }
         posts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.className = 'post';
+            if (post && typeof post === 'object') {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
 
-            const tagsHTML = post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
+                const tagsHTML = Array.isArray(post.tags)
+                    ? post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')
+                    : '';
 
-            postElement.innerHTML = `
-                <div class="post-tags">${tagsHTML}</div>
-                <h2 class="post-title">${escapeHTML(post.name || 'Anonymous')}</h2>
-                <p class="post-date">${post.timestamp ? new Date(post.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date'}</p>
-                <p class="post-content">${escapeHTML(post.content || 'No content')}</p>
-            `;
-            postsContainer.appendChild(postElement);
+                postElement.innerHTML = `
+                    <div class="post-tags">${tagsHTML}</div>
+                    <h2 class="post-title">${escapeHTML(post.name || 'Anonymous')}</h2>
+                    <p class="post-date">${post.timestamp ? new Date(post.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date'}</p>
+                    <p class="post-content">${escapeHTML(post.content || 'No content')}</p>
+                `;
+                postsContainer.appendChild(postElement);
+            } else {
+                console.error('Invalid post data:', post);
+            }
         });
     }
 
