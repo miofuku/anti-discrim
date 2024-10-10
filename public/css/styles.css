@@ -49,8 +49,7 @@ nav a.active {
 }
 
 h1, h2 {
-    margin-bottom: 20px;
-    color: #333;
+    color: var(--main-text-color);
 }
 
 label {
@@ -195,18 +194,23 @@ footer {
 }
 
 .selected-tag {
-    background-color: #4a90e2;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .remove-tag {
-    margin-left: 5px;
-    cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+  cursor: pointer;
 }
+
 
 #availableTags {
   display: flex;
