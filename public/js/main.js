@@ -34,11 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (availableTagsContainer) {
-        availableTagsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('filter-btn')) {
-                const tag = event.target.dataset.tag;
-                toggleTag(tag);
-            }
+        availableTagsContainer.addEventListener('click', (event) => {
+          if (event.target.classList.contains('filter-btn')) {
+            toggleTag(event.target.dataset.tag);
+          }
         });
     }
 
@@ -47,15 +46,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (selectedTagsContainer) {
-        selectedTagsContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('remove-tag')) {
-                const tag = event.target.dataset.tag;
-                selectedTags.delete(tag);
-                updateSelectedTags();
-                fetchPosts();
-            }
+        selectedTagsContainer.addEventListener('click', (event) => {
+          if (event.target.classList.contains('remove-tag')) {
+            toggleTag(event.target.dataset.tag);
+          }
         });
     }
+
+    applyFilters();
 
     // If we're on the posts page, fetch posts immediately
     if (postsContainer) {
@@ -112,19 +110,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleTag(tag) {
-        if (selectedTags.has(tag)) {
-            selectedTags.delete(tag);
-        } else {
-            selectedTags.add(tag);
-        }
-        updateSelectedTags();
-        fetchPosts();
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+      } else {
+        selectedTags.add(tag);
+      }
+      updateSelectedTags();
+      applyFilters();
+    }
+
+    async function applyFilters() {
+      try {
+        const posts = await fetchPosts(Array.from(selectedTags));
+        displayPosts(posts);
+      } catch (error) {
+        console.error('Error applying filters:', error);
+      }
     }
 
     function updateSelectedTags() {
-        selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
-            `<span class="selected-tag">${escapeHTML(tag)} <button class="remove-tag" data-tag="${escapeHTML(tag)}">×</button></span>`
-        ).join('');
+      const selectedTagsContainer = document.getElementById('selectedTags');
+      selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
+        `<span class="selected-tag">${tag} <button class="remove-tag" data-tag="${tag}">×</button></span>`
+      ).join('');
     }
 
     function clearFilters() {
@@ -133,22 +141,13 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchPosts();
     }
 
-    async function fetchPosts() {
-        try {
-            const tagsParam = Array.from(selectedTags).join(',');
-            const response = await fetch(`/api/posts?tags=${encodeURIComponent(tagsParam)}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch posts');
-            }
-            const posts = await response.json();
-            if (!Array.isArray(posts)) {
-                throw new Error('Received data is not an array');
-            }
-            displayPosts(posts);
-        } catch (error) {
-            console.error('Error:', error);
-            postsContainer.innerHTML = `<p>Error: ${error.message}. Please try again later.</p>`;
-        }
+    async function fetchPosts(tags = []) {
+      const queryString = tags.length > 0 ? `?tags=${tags.join(',')}` : '';
+      const response = await fetch(`/api/posts${queryString}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+      }
+      return response.json();
     }
 
     function displayPosts(posts) {

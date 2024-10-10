@@ -194,21 +194,22 @@ footer {
 }
 
 .selected-tag {
+  display: inline-block;
   background-color: #007bff;
   color: white;
   padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
   border-radius: 15px;
-  display: flex;
-  align-items: center;
 }
 
 .remove-tag {
   background: none;
   border: none;
   color: white;
+  cursor: pointer;
   font-weight: bold;
   margin-left: 5px;
-  cursor: pointer;
 }
 
 
@@ -219,12 +220,13 @@ footer {
 }
 
 .filter-btn {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
   background-color: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .filter-btn:hover {

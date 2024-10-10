@@ -76,16 +76,13 @@ app.get('/help-support', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
-  const { tags } = req.query;
-  let query = {};
-
-  if (tags) {
-    const tagArray = tags.split(',').map(tag => tag.trim());
-    query.tags = { $all: tagArray.map(tag => new RegExp(tag, 'i')) };
-  }
-
   try {
-    const posts = await Post.find({}).sort({ timestamp: -1 });
+    let query = {};
+    if (req.query.tags) {
+      const tagArray = req.query.tags.split(',');
+      query.tags = { $all: tagArray };
+    }
+    const posts = await Post.find(query).sort({ timestamp: -1 });
     res.json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
