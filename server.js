@@ -24,14 +24,13 @@ i18n.configure({
 
 // Set up EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public'));
+app.set('views', path.join(__dirname, 'views'));
 
 // Use i18n middleware
 app.use(i18n.init);
 
 // Middleware
-app.use(express.static('public'));
-app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Helper function to catch async errors
 const catchAsync = fn => {
@@ -52,19 +51,27 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Voice Out' });
+  res.render('index', {
+    path: req.path
+  });
 });
 
 app.get('/posts', (req, res) => {
-  res.render('posts', { title: 'All Stories' });
+  res.render('posts', {
+    path: req.path,
+  });
 });
 
 app.get('/about', (req, res) => {
-  res.render('about', { title: 'About Us' });
+  res.render('about', {
+    path: req.path,
+  });
 });
 
 app.get('/help-support', (req, res) => {
-  res.render('help-support', { title: 'Help & Support' });
+  res.render('help-support', {
+    path: req.path,
+  });
 });
 
 // API routes

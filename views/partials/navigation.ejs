@@ -1,0 +1,7 @@
+<!-- views/partials/navigation.ejs -->
+<nav>
+  <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>"><%= __('nav.home') %></a>
+  <a href="/posts" class="<%= currentPath === '/posts' ? 'active' : '' %>"><%= __('nav.allStories') %></a>
+  <a href="/help-support" class="<%= currentPath === '/help-support' ? 'active' : '' %>"><%= __('nav.helpSupport') %></a>
+  <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>"><%= __('nav.about') %></a>
+</nav>

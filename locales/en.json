@@ -1,22 +1,110 @@
 {
+	"nav": {
+		"home": "Home",
+		"allStories": "All Stories",
+		"helpSupport": "Help & Support",
+		"about": "About"
+	},
 	"intro": {
 		"title": "Voice Out",
 		"subtitle": "Speak Up Against Discrimination in Germany",
 		"welcome": "Welcome to Voice Out, a platform dedicated to amplifying the voices of those who have faced discrimination, with a special focus on the experiences of immigrants.",
+		"description": "Every day, people encounter discrimination in various forms - at work, in public spaces, or even in their own neighborhoods. These experiences often go unheard, but at Voice Out, we believe every story deserves to be shared and listened to.",
+		"encouragement": "Whether you're an immigrant who has faced prejudice, or anyone who has witnessed or experienced discrimination, we encourage you to voice out. By sharing our stories, we can raise awareness, foster understanding, and work towards a more inclusive society.",
+		"purpose": "Here, you can share your stories, connect with others who understand, and contribute to making Germany a more inclusive place for all of us.",
 		"readStories": "Read Stories",
 		"shareStory": "Share Your Story"
 	},
 	"form": {
 		"title": "Voice Out Your Experience",
+		"description": "Your voice matters. Use the form below to share your story of discrimination. You can remain anonymous if you prefer.",
 		"name": "Name",
+		"nameDescription": "If you don't feel comfortable leaving a name, please use 'anonymous'",
 		"storyTitle": "Title",
 		"storyContent": "Your Story",
-		"submit": "Submit"
+		"characterLimit": "Limit is 1800 characters. Characters remaining:",
+		"tagLabel": "Post tags refer to why and where this happened (select all that apply)",
+		"tags": [
+			{
+				"value": "gender",
+				"label": "Gender"
+			},
+			{
+				"value": "race",
+				"label": "Race"
+			},
+			{
+				"value": "work",
+				"label": "At Work"
+			},
+			{
+				"value": "sexual_identity",
+				"label": "Sexual Identity"
+			},
+			{
+				"value": "business",
+				"label": "In Business"
+			},
+			{
+				"value": "public",
+				"label": "In Public"
+			},
+			{
+				"value": "immigrant",
+				"label": "Immigrant"
+			},
+			{
+				"value": "school",
+				"label": "At School/Uni"
+			},
+			{
+				"value": "home",
+				"label": "Near Home"
+			},
+			{
+				"value": "age",
+				"label": "Age"
+			},
+			{
+				"value": "online",
+				"label": "Online"
+			},
+			{
+				"value": "transport",
+				"label": "On Public Transport"
+			},
+			{
+				"value": "language",
+				"label": "Language"
+			},
+			{
+				"value": "government",
+				"label": "Government Agency"
+			},
+			{
+				"value": "uncategorized",
+				"label": "Uncategorized"
+			}
+		],
+		"userTypeLabel": "Are you",
+		"userTypeSelect": "Choose an option",
+		"userTypeImmigrant": "Immigrant (born outside of Finland)",
+		"userTypeLocal": "Finnish",
+		"backgroundLabel": "What is your background? (select all the countries that apply)",
+		"backgroundDescription": "These tags are not public information nor displayed - only for background information.",
+		"backgroundNote": "These tags are not public information nor displayed - you can select more than one.",
+		"submit": "SUBMIT"
 	},
-	"title": "title",
-	"subtitle": "subtitle",
-	"readStories": "readStories",
-	"shareStory": "shareStory",
+	"footer": {
+		"disclaimer": "PLEASE NOTE: Stories provided via this website may be anonymously quoted in various forms of media.",
+		"contact": "Contact"
+	},
+	"cookies": {
+		"notice": "We are using cookies (mainly Google Analytics) to understand how many people are interested in reading/writing stories on InfoShare.",
+		"accept": "Accept",
+		"reject": "Reject",
+		"settings": "Settings"
+	},
 	"A Test Story": "A Test Story",
 	"Share your story below and tag it with all the relevant tags you wish. Share your story below and tag it with all the relevant tags you wish.": "Share your story below and tag it with all the relevant tags you wish. Share your story below and tag it with all the relevant tags you wish.",
 	"Question about JavaScript": "Question about JavaScript",

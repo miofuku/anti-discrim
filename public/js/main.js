@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (langSelect) {
         langSelect.addEventListener('change', (event) => {
-          const lang = event.target.value;
-          document.cookie = `lang=${lang};path=/`;
+          var lang = this.value;
+          document.cookie = 'lang=' + lang + ';path=/';
           window.location.reload();
         });
     }
@@ -162,9 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
 
-                const tagsHTML = Array.isArray(post.tags)
+                const tagsHTML = Array.isArray(post.tags) && post.tags.length > 0
                     ? post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('')
-                    : '';
+                    : '<span class="tag">Uncategorized</span>';
 
                 postElement.innerHTML = `
                     <div class="post-tags">${tagsHTML}</div>

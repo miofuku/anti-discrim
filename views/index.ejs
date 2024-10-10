@@ -1,0 +1,100 @@
+<%- include('partials/navigation', { currentPath: path }) %>
+
+    <select id="langSelect">
+      <option value="en" <%= (getLocale() === 'en') ? 'selected' : '' %>>English</option>
+      <option value="zh" <%= (getLocale() === 'zh') ? 'selected' : '' %>>中文</option>
+    </select>
+
+    <main role="main">
+      <section id="intro" class="section">
+        <h1><%= __('intro.title') %></h1>
+        <h2><%= __('intro.subtitle') %></h2>
+        <p><%= __('intro.welcome') %></p>
+        <p><%= __('intro.description') %></p>
+        <p><%= __('intro.encouragement') %></p>
+        <p><%= __('intro.purpose') %></p>
+
+        <div class="button-container">
+          <a href="/posts" class="btn"><%= __('intro.readStories') %></a>
+          <a href="#share-form" class="btn"><%= __('intro.shareStory') %></a>
+        </div>
+      </section>
+
+      <section id="share-form" class="section">
+        <h2><%= __('form.title') %></h2>
+        <p><%= __('form.description') %></p>
+
+        <form>
+          <label for="name"><%= __('form.name') %> *</label>
+          <input type="text" id="name" name="name" required>
+          <small><%= __('form.nameDescription') %></small>
+
+          <label for="title"><%= __('form.storyTitle') %> *</label>
+          <input type="text" id="title" name="title" required>
+
+          <label for="story"><%= __('form.storyContent') %> *</label>
+          <textarea id="story" name="story" required></textarea>
+
+          <div class="char-count">
+            <span><%= __('form.characterLimit') %></span>
+            <span id="charCount">1800</span>
+          </div>
+
+          <fieldset>
+              <legend><%= __('form.tagLabel') %></legend>
+              <div class="checkbox-grid">
+                <% const tags = __('form.tags'); %>
+                <% if (Array.isArray(tags)) { %>
+                  <% tags.forEach(tag => { %>
+                    <label>
+                      <input type="checkbox" name="tag" value="<%= typeof tag === 'object' ? tag.value : tag %>">
+                      <%= typeof tag === 'object' ? tag.label : tag %>
+                    </label>
+                  <% }); %>
+                <% } else if (typeof tags === 'object') { %>
+                  <% Object.entries(tags).forEach(([value, label]) => { %>
+                    <label>
+                      <input type="checkbox" name="tag" value="<%= value %>">
+                      <%= label %>
+                    </label>
+                  <% }); %>
+                <% } %>
+              </div>
+            </fieldset>
+
+          <fieldset>
+            <legend><%= __('form.userTypeLabel') %> *</legend>
+            <select name="userType" required>
+              <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
+              <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
+              <option value="finnish"><%= __('form.userTypeLocal') %></option>
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <legend><%= __('form.backgroundLabel') %></legend>
+            <p><%= __('form.backgroundDescription') %></p>
+            <div id="countryOptions" class="tag-options"></div>
+            <div id="selectedTags" class="selected-tags"></div>
+            <small><%= __('form.backgroundNote') %></small>
+          </fieldset>
+
+          <button type="submit"><%= __('form.submit') %></button>
+        </form>
+      </section>
+    </main>
+
+    <p><%= __('footer.disclaimer') %></p>
+
+<p><%= __('footer.contact') %>: hello@voiceout.org</p>
+
+<div class="cookie-notice">
+  <p><%= __('cookies.notice') %></p>
+  <div>
+    <button id="acceptCookies"><%= __('cookies.accept') %></button>
+    <button id="rejectCookies"><%= __('cookies.reject') %></button>
+    <button id="cookieSettings"><%= __('cookies.settings') %></button>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
