@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Stories - Daily Discrimination</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body data-page="posts">
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/posts" class="active">All Stories</a>
-            <a href="/help-support">Help & Support</a>
-            <a href="/about">About</a>
-        </nav>
-    </header>
+    <%- include('partials/navigation', { currentPath: path }) %>
+
+    <select id="langSelect">
+        <option value="en" <%= (language === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (language === 'zh') ? 'selected' : '' %>>中文</option>
+    </select>
 
     <main>
-        <h1>All Stories</h1>
+        <h1><%= __('posts.title') %></h1>
 
         <div id="filterContainer">
           <div id="selectedTags"></div>

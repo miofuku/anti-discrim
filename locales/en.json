@@ -1,4 +1,31 @@
 {
+	"about": {
+		"title": "About Voice Out",
+		"subtitle": "Why We Created This Platform for You",
+		"description": "Voice Out was born from our desire to create a space where you, as an immigrant in Germany, can freely express your experiences and feelings.",
+		"ourMotivation": "Our Motivation",
+		"motivation": "We understand that life in Germany can be both rewarding and challenging. As immigrants ourselves or children of immigrants, we know that sometimes you might face situations where you feel unfairly treated or misunderstood. We created Voice Out because we believe your stories deserve to be heard.",
+		"hopeToAchieve": "What We Hope to Achieve",
+		"achieve": "By providing this platform, we aim to:",
+		"achieve-1": "Give you a safe space to share your experiences in Germany",
+		"achieve-2": "Help you connect with others who may have gone through similar situations",
+		"achieve-3": "Raise awareness about the challenges immigrants face in everyday life in Germany",
+		"achieve-4": "Promote understanding and empathy within our diverse community",
+		"achieve-5": "Empower you to speak up and seek support when needed",
+		"whyMatters": "Why Your Voice Matters",
+		"matters": "Every story you share on Voice Out is important. By speaking out, you're:",
+		"matters-1": "Helping other immigrants realize they're not alone in their experiences",
+		"matters-2": "Contributing to a more accurate picture of immigrant life in Germany",
+		"matters-3": "Potentially helping to shape a more inclusive environment for all of us",
+		"matters-4": "Inspiring others to stand up against unfair treatment",
+		"visionForTheFuture": "Our Vision for the Future",
+		"vision-1": "We dream of a Germany where all of us, regardless of where we or our parents came from, feel truly at home. We believe that by sharing our stories and experiences, we can help create a more understanding and inclusive society for everyone.",
+		"vision-2": "Join us in this important conversation. Whether you're sharing your own story, reading about others' experiences, or telling your friends about Voice Out, you're helping to build a stronger, more connected immigrant community in Germany.",
+		"vision-3": "Together, we can make our voices heard and work towards a Germany that feels like home for all of us."
+	},
+	"posts": {
+		"title": "All Stories"
+	},
 	"intro": {
 		"title": "Voice Out",
 		"subtitle": "Speak Up Against Discrimination in Germany",

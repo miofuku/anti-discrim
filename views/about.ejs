@@ -1,56 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Voice Out - Our Motivation</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/posts">All Stories</a>
-            <a href="/help-support">Help & Support</a>
-            <a href="/about" class="active">About</a>
-        </nav>
-    </header>
+    <%- include('partials/navigation', { currentPath: path }) %>
+
+    <select id="langSelect">
+        <option value="en" <%= (language === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (language === 'zh') ? 'selected' : '' %>>中文</option>
+    </select>
 
     <main>
         <section id="about">
-            <h1>About Voice Out</h1>
-            <h2>Why We Created This Platform for You</h2>
+            <h1><%= __('about.title') %></h1>
+            <h2><%= __('about.subtitle') %></h2>
 
-            <p>Voice Out was born from our desire to create a space where you, as an immigrant in Germany, can freely express your experiences and feelings.</p>
+            <p><%= __('about.description') %></p>
 
-            <h3>Our Motivation</h3>
-            <p>We understand that life in Germany can be both rewarding and challenging. As immigrants ourselves or children of immigrants, we know that sometimes you might face situations where you feel unfairly treated or misunderstood. We created Voice Out because we believe your stories deserve to be heard.</p>
+            <h3><%= __('about.ourMotivation') %></h3>
+            <p><%= __('about.motivation') %></p>
 
-            <h3>What We Hope to Achieve</h3>
-            <p>By providing this platform, we aim to:</p>
+            <h3><%= __('about.hopeToAchieve') %></h3>
+            <p><%= __('about.achieve') %></p>
             <ul>
-                <li>Give you a safe space to share your experiences in Germany</li>
-                <li>Help you connect with others who may have gone through similar situations</li>
-                <li>Raise awareness about the challenges immigrants face in everyday life in Germany</li>
-                <li>Promote understanding and empathy within our diverse community</li>
-                <li>Empower you to speak up and seek support when needed</li>
+                <li><%= __('about.achieve-1') %></li>
+                <li><%= __('about.achieve-2') %></li>
+                <li><%= __('about.achieve-3') %></li>
+                <li><%= __('about.achieve-4') %></li>
+                <li><%= __('about.achieve-5') %></li>
             </ul>
 
-            <h3>Why Your Voice Matters</h3>
-            <p>Every story you share on Voice Out is important. By speaking out, you're:</p>
+            <h3><%= __('about.whyMatters') %></h3>
+            <p><%= __('about.matters') %></p>
             <ul>
-                <li>Helping other immigrants realize they're not alone in their experiences</li>
-                <li>Contributing to a more accurate picture of immigrant life in Germany</li>
-                <li>Potentially helping to shape a more inclusive environment for all of us</li>
-                <li>Inspiring others to stand up against unfair treatment</li>
+                <li><%= __('about.matters-1') %></li>
+                <li><%= __('about.matters-2') %></li>
+                <li><%= __('about.matters-3') %></li>
+                <li><%= __('about.matters-4') %></li>
             </ul>
 
-            <h3>Our Vision for the Future</h3>
-            <p>We dream of a Germany where all of us, regardless of where we or our parents came from, feel truly at home. We believe that by sharing our stories and experiences, we can help create a more understanding and inclusive society for everyone.</p>
+            <h3><%= __('about.visionForTheFuture') %></h3>
+            <p><%= __('about.vision-1') %></p>
 
-            <p>Join us in this important conversation. Whether you're sharing your own story, reading about others' experiences, or telling your friends about Voice Out, you're helping to build a stronger, more connected immigrant community in Germany.</p>
+            <p><%= __('about.vision-2') %></p>
 
-            <p>Together, we can make our voices heard and work towards a Germany that feels like home for all of us.</p>
+            <p><%= __('about.vision-3') %></p>
         </section>
     </main>
 
