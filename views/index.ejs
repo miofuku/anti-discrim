@@ -73,13 +73,14 @@
             </fieldset>
 
           <fieldset>
-            <legend><%= __('form.userTypeLabel') %> *</legend>
-            <select name="userType" required>
-              <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
-              <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
-              <option value="finnish"><%= __('form.userTypeLocal') %></option>
-            </select>
-          </fieldset>
+              <legend><%= __('form.userTypeLabel') %></legend>
+              <select name="userType" required>
+                <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
+                <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
+                <option value="firstGen"><%= __('form.userTypeFirstGen') %></option>
+                <option value="secondGen"><%= __('form.userTypeSecondGen') %></option>
+              </select>
+        </fieldset>
 
           <fieldset>
             <legend><%= __('form.backgroundLabel') %></legend>

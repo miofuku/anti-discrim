@@ -86,10 +86,11 @@
 				"label": "Uncategorized"
 			}
 		],
-		"userTypeLabel": "Are you",
+		"userTypeLabel": "Which best describes you?",
 		"userTypeSelect": "Choose an option",
-		"userTypeImmigrant": "Immigrant (born outside of Finland)",
-		"userTypeLocal": "Finnish",
+		"userTypeImmigrant": "Immigrant (born outside of Germany)",
+		"userTypeFirstGen": "First generation German (with immigrant parents)",
+		"userTypeSecondGen": "Second generation German (with parents born in Germany)",
 		"backgroundLabel": "What is your background? (select all the countries that apply)",
 		"backgroundDescription": "These tags are not public information nor displayed - only for background information.",
 		"backgroundNote": "These tags are not public information nor displayed - you can select more than one.",

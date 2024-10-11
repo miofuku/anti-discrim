@@ -24,8 +24,8 @@ const PostSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    enum: ['immigrant', 'finnish'],
-    default: 'finnish'  // Set a default value
+    enum: ['immigrant', 'firstGen', 'secondGen'],
+    require: true
   },
   background: {
     type: [String],

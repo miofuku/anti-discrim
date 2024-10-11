@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: formData.get('title'),
             content: formData.get('story'),
             tags: formData.getAll('tag'),
-            userType: formData.get('userType') || 'finnish',
+            userType: formData.get('userType'),
             background: JSON.parse(formData.get('background[]') || '[]')
         };
 

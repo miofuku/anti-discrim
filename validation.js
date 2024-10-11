@@ -10,16 +10,17 @@ const postSchema = Joi.object({
       'string.min': 'Title should have at least 3 characters',
       'string.max': 'Title should not exceed 100 characters'
     }),
-  content: Joi.string().min(10).max(1000).required()
+  content: Joi.string().min(10).max(1800).required()
     .messages({
       'string.empty': 'Content is required',
       'string.min': 'Content should have at least 10 characters',
-      'string.max': 'Content should not exceed 1000 characters'
+      'string.max': 'Content should not exceed 1800 characters'
     }),
   tags: Joi.array().items(Joi.string()).default([]),
-  userType: Joi.string().valid('immigrant', 'finnish').default('finnish')
+  userType: Joi.string().valid('immigrant', 'firstGen', 'secondGen').required()
     .messages({
-      'any.only': 'User type must be either immigrant or finnish'
+      'any.required': 'User type is required',
+      'any.only': 'User type must be either immigrant, firstGen, or secondGen'
     }),
   background: Joi.array().items(Joi.string()).default([])
 });

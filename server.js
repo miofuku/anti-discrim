@@ -91,7 +91,14 @@ app.get('/api/posts', catchAsync(async (req, res) => {
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
   const { name, title, content, tags, userType, background } = req.body;
-  const newPost = new Post({ name, title, content, tags, userType, background });
+  const newPost = new Post({
+      name,
+      title,
+      content,
+      tags,
+      userType,
+      background
+  });
   await newPost.save();
   res.status(201).json(newPost);
 }));

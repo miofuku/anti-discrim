@@ -1,108 +1,109 @@
 {
-	"nav": {
-		"home": "Home",
-		"allStories": "All Stories",
-		"helpSupport": "Help & Support",
-		"about": "About"
-	},
-	"intro": {
-		"title": "Voice Out",
-		"subtitle": "Speak Up Against Discrimination in Germany",
-		"welcome": "Welcome to Voice Out, a platform dedicated to amplifying the voices of those who have faced discrimination, with a special focus on the experiences of immigrants.",
-		"description": "Every day, people encounter discrimination in various forms - at work, in public spaces, or even in their own neighborhoods. These experiences often go unheard, but at Voice Out, we believe every story deserves to be shared and listened to.",
-		"encouragement": "Whether you're an immigrant who has faced prejudice, or anyone who has witnessed or experienced discrimination, we encourage you to voice out. By sharing our stories, we can raise awareness, foster understanding, and work towards a more inclusive society.",
-		"purpose": "Here, you can share your stories, connect with others who understand, and contribute to making Germany a more inclusive place for all of us.",
-		"readStories": "Read Stories",
-		"shareStory": "Share Your Story"
-	},
-	"form": {
-		"title": "Voice Out Your Experience",
-		"description": "Your voice matters. Use the form below to share your story of discrimination. You can remain anonymous if you prefer.",
-		"name": "Name",
-		"nameDescription": "If you don't feel comfortable leaving a name, please use 'anonymous'",
-		"storyTitle": "Title",
-		"storyContent": "Your Story",
-		"characterLimit": "Limit is 1800 characters. Characters remaining:",
-		"tagLabel": "Post tags refer to why and where this happened (select all that apply)",
-		"tags": [
-			{
-				"value": "gender",
-				"label": "Gender"
-			},
-			{
-				"value": "race",
-				"label": "Race"
-			},
-			{
-				"value": "work",
-				"label": "At Work"
-			},
-			{
-				"value": "sexual_identity",
-				"label": "Sexual Identity"
-			},
-			{
-				"value": "business",
-				"label": "In Business"
-			},
-			{
-				"value": "public",
-				"label": "In Public"
-			},
-			{
-				"value": "immigrant",
-				"label": "Immigrant"
-			},
-			{
-				"value": "school",
-				"label": "At School/Uni"
-			},
-			{
-				"value": "home",
-				"label": "Near Home"
-			},
-			{
-				"value": "age",
-				"label": "Age"
-			},
-			{
-				"value": "online",
-				"label": "Online"
-			},
-			{
-				"value": "transport",
-				"label": "On Public Transport"
-			},
-			{
-				"value": "language",
-				"label": "Language"
-			},
-			{
-				"value": "government",
-				"label": "Government Agency"
-			},
-			{
-				"value": "uncategorized",
-				"label": "Uncategorized"
-			}
-		],
-		"userTypeLabel": "Are you",
-		"userTypeSelect": "Choose an option",
-		"userTypeImmigrant": "Immigrant (born outside of Finland)",
-		"userTypeLocal": "Finnish",
-		"backgroundLabel": "What is your background? (select all the countries that apply)",
-		"backgroundDescription": "These tags are not public information nor displayed - only for background information.",
-		"backgroundNote": "These tags are not public information nor displayed - you can select more than one.",
-		"submit": "SUBMIT"
-	},
-	"footer": {
-		"disclaimer": "PLEASE NOTE: Stories provided via this website may be anonymously quoted in various forms of media.",
-		"contact": "Contact"
-	},
-	"cookies": {
-		"notice": "We are using cookies (mainly Google Analytics) to understand how many people are interested in reading/writing stories on InfoShare.",
-		"accept": "Accept",
-		"reject": "Reject",
-		"settings": "Settings"
-	}
+    "nav": {
+       "home": "首页",
+       "allStories": "所有故事",
+       "helpSupport": "帮助与支持",
+       "about": "关于我们"
+    },
+    "intro": {
+       "title": "Voice Out",
+       "subtitle": "在德国面对歧视，要勇敢发声",
+       "welcome": "欢迎来到Voice Out平台，这是一个致力于放大那些面临歧视者声音的平台，特别关注移民的经历。",
+       "description": "每天，人们在各种场合都会遇到歧视 - 在工作中，在公共场所，甚至在自己的社区里。这些经历常常得不到倾听，但在"勇敢发声"，我们相信每个故事都值得分享和倾听。",
+       "encouragement": "无论你是面临偏见的移民，还是目睹或经历过歧视的任何人，我们都鼓励你勇敢发声。通过分享我们的故事，我们可以提高认识，促进理解，共同努力建设一个更包容的社会。",
+       "purpose": "在这里，你可以分享你的故事，与理解你的人联系，为让德国成为我们所有人的包容之地贡献力量。",
+       "readStories": "阅读故事",
+       "shareStory": "分享你的故事"
+    },
+    "form": {
+       "title": "讲述你的经历",
+       "description": "你的声音很重要。使用下面的表格分享你遭受歧视的故事。如果你愿意，可以保持匿名。",
+       "name": "姓名",
+       "nameDescription": "如果你不想留下真实姓名，请使用匿名",
+       "storyTitle": "标题",
+       "storyContent": "你的故事",
+       "characterLimit": "字数限制为1000字。剩余字数：",
+       "tagLabel": "帖子标签用于说明这件事发生的原因和地点（可多选）",
+       "tags": [
+          {
+             "value": "gender",
+             "label": "性别"
+          },
+          {
+             "value": "race",
+             "label": "种族"
+          },
+          {
+             "value": "work",
+             "label": "工作场所"
+          },
+          {
+             "value": "sexual_identity",
+             "label": "性取向"
+          },
+          {
+             "value": "business",
+             "label": "商业活动中"
+          },
+          {
+             "value": "public",
+             "label": "公共场所"
+          },
+          {
+             "value": "immigrant",
+             "label": "移民"
+          },
+          {
+             "value": "school",
+             "label": "学校/大学"
+          },
+          {
+             "value": "home",
+             "label": "家附近"
+          },
+          {
+             "value": "age",
+             "label": "年龄"
+          },
+          {
+             "value": "online",
+             "label": "网上"
+          },
+          {
+             "value": "transport",
+             "label": "公共交通工具上"
+          },
+          {
+             "value": "language",
+             "label": "语言"
+          },
+          {
+             "value": "government",
+             "label": "政府机构"
+          },
+          {
+             "value": "uncategorized",
+             "label": "其他"
+          }
+       ],
+       "userTypeLabel": "哪一项最符合你的情况？",
+       "userTypeSelect": "请选择一个选项",
+       "userTypeImmigrant": "移民（在德国境外出生）",
+       "userTypeFirstGen": "第一代德国人（父母是移民）",
+       "userTypeSecondGen": "第二代德国人（父母在德国出生）",
+       "backgroundLabel": "你的背景是什么？（选择所有适用的国家）",
+       "backgroundDescription": "这些标签不会公开显示 - 仅用于背景信息。",
+       "backgroundNote": "这些标签不会公开显示 - 你可以选择多个。",
+       "submit": "提交"
+    },
+    "footer": {
+       "disclaimer": "请注意：通过本网站提供的故事可能会在各种媒体中被匿名引用。",
+       "contact": "联系我们"
+    },
+    "cookies": {
+       "notice": "我们使用cookie（主要是Google Analytics）来了解有多少人对在InfoShare上阅读/写作故事感兴趣。",
+       "accept": "接受",
+       "reject": "拒绝",
+       "settings": "设置"
+    }
 }

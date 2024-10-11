@@ -6,42 +6,43 @@ const connectDB = require('./db');
 const samplePosts = [
   {
     name: 'Alice',
-    title: 'My First Post',
-    content: 'This is a sample post content. It\'s not very long, but it\'s just for testing purposes.',
-    tags: ['Gender', 'At Work'],
-    userType: 'finnish',
-    background: ['Finland']
+    title: 'My First Experience in Germany',
+    content: 'As an immigrant, my first few months in Germany were both exciting and challenging. The language barrier was initially difficult, but I found people to be generally helpful.',
+    tags: ['Immigrant', 'Language'],
+    userType: 'immigrant',
+    background: ['United States']
   },
   {
     name: 'Bob',
-    title: 'Question about JavaScript',
-    content: 'Can someone explain the difference between let and const in JavaScript? I\'m a bit confused about when to use each one.',
-    tags: ['At School/Uni', 'Online'],
-    userType: 'immigrant',
-    background: ['United States', 'Germany']
+    title: 'Navigating Cultural Differences at Work',
+    content: 'Being a first-generation German, I often find myself bridging cultural gaps at my workplace. It\'s a unique position that comes with its own set of challenges and rewards.',
+    tags: ['At Work', 'Culture'],
+    userType: 'firstGen',
+    background: ['Germany', 'Turkey']
   },
   {
     name: 'Charlie',
-    title: 'Idea for a New App',
-    content: 'I had an idea for a new app that helps people track their daily water intake. What do you all think about this?',
-    tags: ['In Business', 'Online'],
-    userType: 'finnish'
+    title: 'Reflections on Identity',
+    content: 'As a second-generation German, I\'ve always felt a mix of cultures. Sometimes it\'s confusing, but mostly it\'s enriching. I\'m proud of my heritage and my German identity.',
+    tags: ['Identity', 'Culture'],
+    userType: 'secondGen',
+    background: ['Germany']
   },
   {
     name: 'Diana',
-    title: 'Favorite Programming Languages',
-    content: 'I\'m curious to know what everyone\'s favorite programming language is and why. Mine is Python because of its simplicity and versatility.',
-    tags: ['At School/Uni', 'Online', 'Language'],
+    title: 'Overcoming Language Barriers',
+    content: 'Learning German was one of the biggest challenges I faced when I moved here. But with persistence and the help of patient locals, I\'m making progress every day.',
+    tags: ['Language', 'Immigrant'],
     userType: 'immigrant',
-    background: ['India', 'UK']
+    background: ['Spain']
   },
   {
     name: 'Evan',
-    title: 'Help with MongoDB',
-    content: 'I\'m trying to set up MongoDB with my Node.js application, but I\'m running into some issues. Has anyone experienced problems with connection timeouts?',
-    tags: ['Online', 'At Work'],
-    userType: 'finnish',
-    background: ['Finland', 'Sweden']
+    title: 'Embracing Diversity in Education',
+    content: 'As a teacher and a first-generation German, I strive to create an inclusive classroom environment that celebrates our diverse backgrounds.',
+    tags: ['At School/Uni', 'Diversity'],
+    userType: 'firstGen',
+    background: ['Germany', 'Iran']
   }
 ];
 
@@ -60,6 +61,7 @@ const generateSamplePosts = async () => {
     // Log inserted posts
     insertedPosts.forEach(post => {
       console.log(`Created post: ${post.title} by ${post.name}`);
+      console.log(`  User Type: ${post.userType}`);
       console.log(`  Tags: ${post.tags.join(', ')}`);
     });
 
