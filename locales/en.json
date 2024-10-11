@@ -1,10 +1,4 @@
 {
-	"nav": {
-		"home": "Home",
-		"allStories": "All Stories",
-		"helpSupport": "Help & Support",
-		"about": "About"
-	},
 	"intro": {
 		"title": "Voice Out",
 		"subtitle": "Speak Up Against Discrimination in Germany",
@@ -14,6 +8,13 @@
 		"purpose": "Here, you can share your stories, connect with others who understand, and contribute to making Germany a more inclusive place for all of us.",
 		"readStories": "Read Stories",
 		"shareStory": "Share Your Story"
+	},
+	"test": "Test",
+	"nav": {
+		"home": "Home",
+		"allStories": "All Stories",
+		"helpSupport": "Help & Support",
+		"about": "About"
 	},
 	"form": {
 		"title": "Voice Out Your Experience",
@@ -105,59 +106,5 @@
 		"accept": "Accept",
 		"reject": "Reject",
 		"settings": "Settings"
-	},
-	"A Test Story": "A Test Story",
-	"Share your story below and tag it with all the relevant tags you wish. Share your story below and tag it with all the relevant tags you wish.": "Share your story below and tag it with all the relevant tags you wish. Share your story below and tag it with all the relevant tags you wish.",
-	"Question about JavaScript": "Question about JavaScript",
-	"Can someone explain the difference between let and const in JavaScript? I'm a bit confused about when to use each one.": "Can someone explain the difference between let and const in JavaScript? I'm a bit confused about when to use each one.",
-	"Idea for a New App": "Idea for a New App",
-	"I had an idea for a new app that helps people track their daily water intake": {
-		" What do you all think about this?": "I had an idea for a new app that helps people track their daily water intake. What do you all think about this?"
-	},
-	"Favorite Programming Languages": "Favorite Programming Languages",
-	"I'm curious to know what everyone's favorite programming language is and why. Mine is Python because of its simplicity and versatility.": "I'm curious to know what everyone's favorite programming language is and why. Mine is Python because of its simplicity and versatility.",
-	"Help with MongoDB": "Help with MongoDB",
-	"I'm trying to set up MongoDB with my Node": {
-		"js application, but I'm running into some issues": {
-			" Has anyone experienced problems with connection timeouts?": "I'm trying to set up MongoDB with my Node.js application, but I'm running into some issues. Has anyone experienced problems with connection timeouts?"
-		}
-	},
-	"My First Post": "My First Post",
-	"This is a sample post content. It's not very long, but it's just for testing purposes.": "This is a sample post content. It's not very long, but it's just for testing purposes.",
-	"intro.title": "intro.title",
-	"nav.home": "nav.home",
-	"nav.allStories": "nav.allStories",
-	"nav.helpSupport": "nav.helpSupport",
-	"nav.about": "nav.about",
-	"intro.subtitle": "intro.subtitle",
-	"intro.welcome": "intro.welcome",
-	"intro.description": "intro.description",
-	"intro.encouragement": "intro.encouragement",
-	"intro.purpose": "intro.purpose",
-	"intro.readStories": "intro.readStories",
-	"intro.shareStory": "intro.shareStory",
-	"form.title": "form.title",
-	"form.description": "form.description",
-	"form.name": "form.name",
-	"form.nameDescription": "form.nameDescription",
-	"form.storyTitle": "form.storyTitle",
-	"form.storyContent": "form.storyContent",
-	"form.characterLimit": "form.characterLimit",
-	"form.tagLabel": "form.tagLabel",
-	"form.tags": "form.tags",
-	"form.userTypeLabel": "form.userTypeLabel",
-	"form.userTypeSelect": "form.userTypeSelect",
-	"form.userTypeImmigrant": "form.userTypeImmigrant",
-	"form.userTypeFirstGen": "form.userTypeFirstGen",
-	"form.userTypeSecondGen": "form.userTypeSecondGen",
-	"form.backgroundLabel": "form.backgroundLabel",
-	"form.backgroundDescription": "form.backgroundDescription",
-	"form.backgroundNote": "form.backgroundNote",
-	"form.submit": "form.submit",
-	"footer.disclaimer": "footer.disclaimer",
-	"footer.contact": "footer.contact",
-	"cookies.notice": "cookies.notice",
-	"cookies.accept": "cookies.accept",
-	"cookies.reject": "cookies.reject",
-	"cookies.settings": "cookies.settings"
+	}
 }

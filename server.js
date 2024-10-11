@@ -20,11 +20,14 @@ app.use(cookieParser());
 // Configure i18n
 i18n.configure({
     locales: ['en', 'zh'],
-    directory: path.join(__dirname, 'locales'),
     defaultLocale: 'en',
+    directory: path.join(__dirname, 'locales'),
+    objectNotation: true,
     cookie: 'lang',
     queryParameter: 'lang',
-    objectNotation: true
+    register: global,
+    updateFiles: false, // Prevent overwriting of translation files
+    syncFiles: false // Prevent syncing of translation files
 });
 
 // Custom middleware to handle language setting
@@ -34,10 +37,8 @@ app.use((req, res, next) => {
         lang = 'en';
     }
     res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
-    i18n.setLocale(req, lang);
+    i18n.setLocale(lang);  // Set the locale globally
     res.locals.language = lang;
-    console.log('Language set to:', lang);
-    console.log('i18n.getLocale():', i18n.getLocale(req));
     next();
 });
 
@@ -70,24 +71,23 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    console.log('Rendering index page with locale:', i18n.getLocale(req));
+    const currentLang = i18n.getLocale();
     res.render('index', {
         path: req.path,
-        language: i18n.getLocale(req),
+        language: currentLang,
         debugInfo: {
-            language: i18n.getLocale(req),
-            locale: i18n.getLocale(req),
-            introTitle: req.__('intro.title'),
+            language: currentLang,
+            locale: currentLang,
+            introTitle: res.__('intro.title'),
             availableLocales: i18n.getLocales(),
             translations: {
-                'intro.title': req.__('intro.title'),
-                'intro.subtitle': req.__('intro.subtitle'),
-                'intro.welcome': req.__('intro.welcome')
+                'intro.title': res.__('intro.title'),
+                'intro.subtitle': res.__('intro.subtitle'),
+                'intro.welcome': res.__('intro.welcome')
             }
         }
     });
 });
-
 app.get('/posts', (req, res) => {
   res.render('posts', {
     path: req.path,
