@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= getLocale() %>">
+<html lang="<%= currentLocale %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
 <%- include('partials/navigation', { currentPath: path }) %>
 
     <select id="langSelect">
-      <option value="en" <%= (getLocale() === 'en') ? 'selected' : '' %>>English</option>
-      <option value="zh" <%= (getLocale() === 'zh') ? 'selected' : '' %>>中文</option>
+        <option value="en" <%= (currentLocale === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (currentLocale === 'zh') ? 'selected' : '' %>>中文</option>
     </select>
 
     <main role="main">
@@ -108,7 +108,8 @@
   </div>
 </div>
 
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
+    <script src="/js/main.js"></script>
 
 </body>
 </html>

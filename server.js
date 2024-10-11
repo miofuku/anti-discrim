@@ -6,6 +6,7 @@ const Post = require('./models/Post');
 const AppError = require('./errors');
 const { postSchema } = require('./validation');
 const i18n = require('i18n');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,11 +16,11 @@ connectDB();
 
 // Configure i18n
 i18n.configure({
-  locales: ['en', 'zh'],
-  directory: path.join(__dirname, 'locales'),
-  defaultLocale: 'en',
-  cookie: 'lang',
-  objectNotation: true
+    locales: ['en', 'zh'],
+    directory: path.join(__dirname, 'locales'),
+    defaultLocale: 'en',
+    cookie: 'lang',
+    objectNotation: true
 });
 
 // Set up EJS
@@ -28,6 +29,17 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Use i18n middleware
 app.use(i18n.init);
+
+// Use cookie-parser middleware
+app.use(cookieParser());
+
+// Add a middleware to set the language based on the cookie
+app.use((req, res, next) => {
+    const lang = req.cookies.lang || 'en';
+    req.setLocale(lang);
+    res.locals.currentLocale = lang;
+    next();
+});
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -52,7 +64,8 @@ const validatePost = (req, res, next) => {
 // Routes
 app.get('/', (req, res) => {
   res.render('index', {
-    path: req.path
+    path: req.path,
+    currentLocale: res.locals.currentLocale
   });
 });
 

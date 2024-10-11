@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedTags = new Set();
 
     if (langSelect) {
-        langSelect.addEventListener('change', (event) => {
-          var lang = this.value;
-          document.cookie = 'lang=' + lang + ';path=/';
-          window.location.reload();
+        langSelect.addEventListener('change', function(event) {
+            var lang = this.value;
+            document.cookie = 'lang=' + lang + ';path=/';
+            window.location.reload();
         });
     }
 
