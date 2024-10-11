@@ -1,18 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
 
-    // Character count functionality
+    // Common elements
+    const langSelect = document.getElementById('langSelect');
     const storyTextarea = document.getElementById('story');
     const charCountSpan = document.getElementById('charCount');
     const form = document.querySelector('#share-form form');
+
+    // Posts page elements
     const postsContainer = document.getElementById('postsContainer');
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
     const clearFiltersButton = document.getElementById('clearFilters');
-    const langSelect = document.getElementById('langSelect');
 
     const selectedTags = new Set();
 
+    // Language selection
     if (langSelect) {
         langSelect.addEventListener('change', function(event) {
             var lang = this.value;
@@ -21,44 +24,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Set up event listeners
+    // Character count functionality
     if (storyTextarea && charCountSpan) {
         console.log('Setting up character count');
         updateCharCount();
         storyTextarea.addEventListener('input', updateCharCount);
     }
 
+    // Form submission
     if (form) {
         console.log('Setting up form submission');
         form.addEventListener('submit', createPost);
     }
 
-    if (availableTagsContainer) {
-        availableTagsContainer.addEventListener('click', (event) => {
-          if (event.target.classList.contains('filter-btn')) {
-            toggleTag(event.target.dataset.tag);
-          }
-        });
-    }
+    // Posts page functionality
+    if (document.body.getAttribute('data-page') === 'posts') {
+        console.log('Initializing posts page functionality');
 
-    if (clearFiltersButton) {
-        clearFiltersButton.addEventListener('click', clearFilters);
-    }
+        if (availableTagsContainer) {
+            availableTagsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('filter-btn')) {
+                    toggleTag(event.target.dataset.tag);
+                }
+            });
+        }
 
-    if (selectedTagsContainer) {
-        selectedTagsContainer.addEventListener('click', (event) => {
-          if (event.target.classList.contains('remove-tag')) {
-            toggleTag(event.target.dataset.tag);
-          }
-        });
-    }
+        if (clearFiltersButton) {
+            clearFiltersButton.addEventListener('click', clearFilters);
+        }
 
-    applyFilters();
+        if (selectedTagsContainer) {
+            selectedTagsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('remove-tag')) {
+                    toggleTag(event.target.dataset.tag);
+                }
+            });
+        }
 
-    // If we're on the posts page, fetch posts immediately
-    if (postsContainer) {
-        console.log('Setting up posts listing');
-        fetchPosts();
+        if (postsContainer) {
+            applyFilters();
+        }
     }
 
     function updateCharCount() {
@@ -101,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Post created successfully');
             alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
             form.reset();
-            // Optionally, scroll back to the top of the page or to the intro section
             window.scrollTo(0, 0);
         } catch (error) {
             console.error('Error:', error);
@@ -110,29 +114,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleTag(tag) {
-      if (selectedTags.has(tag)) {
-        selectedTags.delete(tag);
-      } else {
-        selectedTags.add(tag);
-      }
-      updateSelectedTags();
-      applyFilters();
+        if (selectedTags.has(tag)) {
+            selectedTags.delete(tag);
+        } else {
+            selectedTags.add(tag);
+        }
+        updateSelectedTags();
+        applyFilters();
     }
 
     async function applyFilters() {
-      try {
-        const posts = await fetchPosts(Array.from(selectedTags));
-        displayPosts(posts);
-      } catch (error) {
-        console.error('Error applying filters:', error);
-      }
+        try {
+            const posts = await fetchPosts(Array.from(selectedTags));
+            if (postsContainer) {
+                displayPosts(posts);
+            } else {
+                console.warn('Posts container not found. Unable to display posts.');
+            }
+        } catch (error) {
+            console.error('Error applying filters:', error);
+        }
     }
 
     function updateSelectedTags() {
-      const selectedTagsContainer = document.getElementById('selectedTags');
-      selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
-        `<span class="selected-tag">${tag} <button class="remove-tag" data-tag="${tag}">×</button></span>`
-      ).join('');
+        if (selectedTagsContainer) {
+            selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
+                `<span class="selected-tag">${tag} <button class="remove-tag" data-tag="${tag}">×</button></span>`
+            ).join('');
+        }
     }
 
     function clearFilters() {
@@ -142,15 +151,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function fetchPosts(tags = []) {
-      const queryString = tags.length > 0 ? `?tags=${tags.join(',')}` : '';
-      const response = await fetch(`/api/posts${queryString}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts');
-      }
-      return response.json();
+        const queryString = tags.length > 0 ? `?tags=${tags.join(',')}` : '';
+        const response = await fetch(`/api/posts${queryString}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch posts');
+        }
+        return response.json();
     }
 
     function displayPosts(posts) {
+        if (!postsContainer) {
+            console.warn('Posts container not found. Unable to display posts.');
+            return;
+        }
+
         postsContainer.innerHTML = '';
         if (!Array.isArray(posts) || posts.length === 0) {
             postsContainer.innerHTML = '<p>No posts found matching the selected tags.</p>';
@@ -164,10 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const tagsHTML = post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
 
                 postElement.innerHTML = `
-                  <div class="post-tags">${tagsHTML}</div>
-                  <h2 class="post-title">${escapeHTML(post.title)}</h2>
-                  <p class="post-author">${escapeHTML(post.name || 'Anonymous')}</p>
-                  <div class="post-content">${escapeHTML(post.content)}</div>
+                    <div class="post-tags">${tagsHTML}</div>
+                    <h2 class="post-title">${escapeHTML(post.title)}</h2>
+                    <p class="post-author">${escapeHTML(post.name || 'Anonymous')}</p>
+                    <div class="post-content">${escapeHTML(post.content)}</div>
                 `;
                 postsContainer.appendChild(postElement);
             } else {
