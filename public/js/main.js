@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         langSelect.addEventListener('change', function(event) {
             var lang = this.value;
             console.log('Language changed to:', lang);
-            document.cookie = 'lang=' + lang + ';path=/';
+            document.cookie = 'lang=' + lang + ';path=/;max-age=31536000';  // Set cookie for 1 year
             console.log('Language cookie set:', document.cookie);
             // Reload the page with the new language
             window.location.href = window.location.pathname + '?lang=' + lang;

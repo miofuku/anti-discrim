@@ -23,29 +23,32 @@ i18n.configure({
     directory: path.join(__dirname, 'locales'),
     defaultLocale: 'en',
     cookie: 'lang',
+    queryParameter: 'lang',
     objectNotation: true
 });
 
-// Set up EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Use i18n middleware
-app.use(i18n.init);
-
-// Add a middleware to set the language based on the cookie or query parameter
+// Custom middleware to handle language setting
 app.use((req, res, next) => {
     let lang = req.query.lang || req.cookies.lang || 'en';
     if (!['en', 'zh'].includes(lang)) {
         lang = 'en';
     }
     res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
-    req.lang = lang;
-    res.locals.lang = lang;
+    i18n.setLocale(req, lang);
+    res.locals.language = lang;
+    console.log('Language set to:', lang);
+    console.log('i18n.getLocale():', i18n.getLocale(req));
     next();
 });
 
-// Middleware
+// Use i18n middleware
+app.use(i18n.init);
+
+// Set up EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Helper function to catch async errors
@@ -67,10 +70,21 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    console.log('Rendering index page with locale:', req.lang);
+    console.log('Rendering index page with locale:', i18n.getLocale(req));
     res.render('index', {
         path: req.path,
-        lang: req.lang
+        language: i18n.getLocale(req),
+        debugInfo: {
+            language: i18n.getLocale(req),
+            locale: i18n.getLocale(req),
+            introTitle: req.__('intro.title'),
+            availableLocales: i18n.getLocales(),
+            translations: {
+                'intro.title': req.__('intro.title'),
+                'intro.subtitle': req.__('intro.subtitle'),
+                'intro.welcome': req.__('intro.welcome')
+            }
+        }
     });
 });
 

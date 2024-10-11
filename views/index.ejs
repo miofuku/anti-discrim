@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= lang %>">
+<html lang="<%= language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <div style="background-color: #ffff00; padding: 10px;">
+        Debug Info:
+        <br>Current Language: <%= language %>
+        <br>i18n Locale: <%= debugInfo.locale %>
+        <br>Intro Title: <%= __('intro.title') %>
+        <br>Raw 'intro.title': <%= JSON.stringify(__('intro.title')) %>
+        <br>Server-side Intro Title: <%= debugInfo.introTitle %>
+        <br>Available Locales: <%= JSON.stringify(debugInfo.availableLocales) %>
+        <br>Translations: <%= JSON.stringify(debugInfo.translations) %>
+    </div>
+
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <select id="langSelect">
-        <option value="en" <%= (lang === 'en') ? 'selected' : '' %>>English</option>
-        <option value="zh" <%= (lang === 'zh') ? 'selected' : '' %>>中文</option>
+        <option value="en" <%= (language === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (language === 'zh') ? 'selected' : '' %>>中文</option>
     </select>
 
-     <main role="main">
+    <main role="main">
       <section id="intro" class="section">
         <h1><%= __('intro.title') %></h1>
         <h2><%= __('intro.subtitle') %></h2>
@@ -110,9 +121,9 @@
     <%- include('partials/footer') %>
 
     <script>
-        console.log('Current language:', '<%= lang %>');
+        console.log('Current language:', '<%= language %>');
+        console.log('Debug info:', JSON.stringify(<%- JSON.stringify(debugInfo) %>));
     </script>
     <script src="/js/main.js"></script>
-
 </body>
 </html>
