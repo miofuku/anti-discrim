@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= currentLocale %>">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-
-<%- include('partials/navigation', { currentPath: path }) %>
+    <%- include('partials/navigation', { currentPath: path }) %>
 
     <select id="langSelect">
-        <option value="en" <%= (currentLocale === 'en') ? 'selected' : '' %>>English</option>
-        <option value="zh" <%= (currentLocale === 'zh') ? 'selected' : '' %>>中文</option>
+        <option value="en" <%= (lang === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (lang === 'zh') ? 'selected' : '' %>>中文</option>
     </select>
 
-    <main role="main">
+     <main role="main">
       <section id="intro" class="section">
         <h1><%= __('intro.title') %></h1>
         <h2><%= __('intro.subtitle') %></h2>
@@ -97,18 +96,22 @@
 
     <p><%= __('footer.disclaimer') %></p>
 
-<p><%= __('footer.contact') %>: hello@voiceout.org</p>
+    <p><%= __('footer.contact') %>: hello@voiceout.org</p>
 
-<div class="cookie-notice">
-  <p><%= __('cookies.notice') %></p>
-  <div>
-    <button id="acceptCookies"><%= __('cookies.accept') %></button>
-    <button id="rejectCookies"><%= __('cookies.reject') %></button>
-    <button id="cookieSettings"><%= __('cookies.settings') %></button>
-  </div>
-</div>
+    <div class="cookie-notice">
+      <p><%= __('cookies.notice') %></p>
+      <div>
+        <button id="acceptCookies"><%= __('cookies.accept') %></button>
+        <button id="rejectCookies"><%= __('cookies.reject') %></button>
+        <button id="cookieSettings"><%= __('cookies.settings') %></button>
+      </div>
+    </div>
 
     <%- include('partials/footer') %>
+
+    <script>
+        console.log('Current language:', '<%= lang %>');
+    </script>
     <script src="/js/main.js"></script>
 
 </body>

@@ -17,10 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Language selection
     if (langSelect) {
+        console.log('Current language:', langSelect.value);
         langSelect.addEventListener('change', function(event) {
             var lang = this.value;
+            console.log('Language changed to:', lang);
             document.cookie = 'lang=' + lang + ';path=/';
-            window.location.reload();
+            console.log('Language cookie set:', document.cookie);
+            // Reload the page with the new language
+            window.location.href = window.location.pathname + '?lang=' + lang;
         });
     }
 

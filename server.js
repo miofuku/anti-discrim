@@ -14,6 +14,9 @@ const PORT = process.env.PORT || 3000;
 // Connect to MongoDB
 connectDB();
 
+// Use cookie-parser middleware
+app.use(cookieParser());
+
 // Configure i18n
 i18n.configure({
     locales: ['en', 'zh'],
@@ -30,14 +33,15 @@ app.set('views', path.join(__dirname, 'views'));
 // Use i18n middleware
 app.use(i18n.init);
 
-// Use cookie-parser middleware
-app.use(cookieParser());
-
-// Add a middleware to set the language based on the cookie
+// Add a middleware to set the language based on the cookie or query parameter
 app.use((req, res, next) => {
-    const lang = req.cookies.lang || 'en';
-    req.setLocale(lang);
-    res.locals.currentLocale = lang;
+    let lang = req.query.lang || req.cookies.lang || 'en';
+    if (!['en', 'zh'].includes(lang)) {
+        lang = 'en';
+    }
+    res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
+    req.lang = lang;
+    res.locals.lang = lang;
     next();
 });
 
@@ -63,10 +67,11 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('index', {
-    path: req.path,
-    currentLocale: res.locals.currentLocale
-  });
+    console.log('Rendering index page with locale:', req.lang);
+    res.render('index', {
+        path: req.path,
+        lang: req.lang
+    });
 });
 
 app.get('/posts', (req, res) => {
