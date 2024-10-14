@@ -3,92 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help & Support - Resources for Immigrants in Germany</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/posts">All Stories</a>
-            <a href="/help-support" class="active">Help & Support</a>
-            <a href="/about">About</a>
-        </nav>
-    </header>
+    <%- include('partials/navigation', { currentPath: path }) %>
+
+    <select id="langSelect">
+        <option value="en" <%= (language === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= (language === 'zh') ? 'selected' : '' %>>中文</option>
+    </select>
 
     <main>
         <section id="help-support">
-            <h1>Help & Support</h1>
-            <p>If you've experienced discrimination in Germany, you're not alone. Here are some resources that can provide support and assistance:</p>
+            <h1><%= __('helpSupport.title') %></h1>
+            <p><%= __('helpSupport.intro') %></p>
 
-            <h2>National Anti-Discrimination Bodies</h2>
+            <h2><%= __('helpSupport.nationalBodies') %></h2>
 
-            <h3>Federal Anti-Discrimination Agency (Antidiskriminierungsstelle des Bundes)</h3>
-            <p>This is the main government body responsible for enforcing anti-discrimination laws in Germany.</p>
+            <h3><%= __('helpSupport.antidiscriminationAgency.title') %></h3>
+            <p><%= __('helpSupport.antidiscriminationAgency.description') %></p>
             <ul>
-                <li>Website: <a href="https://www.antidiskriminierungsstelle.de/EN/home/home_node.html" target="_blank">www.antidiskriminierungsstelle.de</a></li>
-                <li>Phone: +49 (0) 30 18555-1855</li>
-                <li>Email: beratung@ads.bund.de</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://www.antidiskriminierungsstelle.de/EN/home/home_node.html" target="_blank">www.antidiskriminierungsstelle.de</a></li>
+                <li><%= __('helpSupport.phone') %>: +49 (0) 30 18555-1855</li>
+                <li><%= __('helpSupport.email') %>: beratung@ads.bund.de</li>
             </ul>
 
-            <h3>German Institute for Human Rights (Deutsches Institut für Menschenrechte)</h3>
-            <p>An independent institution that promotes and protects human rights in Germany.</p>
+            <h3><%= __('helpSupport.humanRightsInstitute.title') %></h3>
+            <p><%= __('helpSupport.humanRightsInstitute.description') %></p>
             <ul>
-                <li>Website: <a href="https://www.institut-fuer-menschenrechte.de/en/homepage" target="_blank">www.institut-fuer-menschenrechte.de</a></li>
-                <li>Phone: +49 (0)30 259 359-0</li>
-                <li>Email: info@institut-fuer-menschenrechte.de</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://www.institut-fuer-menschenrechte.de/en/homepage" target="_blank">www.institut-fuer-menschenrechte.de</a></li>
+                <li><%= __('helpSupport.phone') %>: +49 (0)30 259 359-0</li>
+                <li><%= __('helpSupport.email') %>: info@institut-fuer-menschenrechte.de</li>
             </ul>
 
-            <h2>Non-Governmental Organizations</h2>
+            <h2><%= __('helpSupport.ngos') %></h2>
 
-            <h3>PRO ASYL</h3>
-            <p>An independent organization advocating for refugee rights and against racism.</p>
+            <h3><%= __('helpSupport.proAsyl.title') %></h3>
+            <p><%= __('helpSupport.proAsyl.description') %></p>
             <ul>
-                <li>Website: <a href="https://www.proasyl.de/en/" target="_blank">www.proasyl.de</a></li>
-                <li>Phone: +49 (0)69 242 314 20</li>
-                <li>Email: proasyl@proasyl.de</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://www.proasyl.de/en/" target="_blank">www.proasyl.de</a></li>
+                <li><%= __('helpSupport.phone') %>: +49 (0)69 242 314 20</li>
+                <li><%= __('helpSupport.email') %>: proasyl@proasyl.de</li>
             </ul>
 
-            <h3>Amadeu Antonio Foundation</h3>
-            <p>A foundation working to strengthen democratic civic society and eliminate neo-Nazism, right-wing extremism, and antisemitism.</p>
+            <h3><%= __('helpSupport.amadeuAntonioFoundation.title') %></h3>
+            <p><%= __('helpSupport.amadeuAntonioFoundation.description') %></p>
             <ul>
-                <li>Website: <a href="https://www.amadeu-antonio-stiftung.de/en/" target="_blank">www.amadeu-antonio-stiftung.de</a></li>
-                <li>Phone: +49 (0)30 240 886 10</li>
-                <li>Email: info@amadeu-antonio-stiftung.de</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://www.amadeu-antonio-stiftung.de/en/" target="_blank">www.amadeu-antonio-stiftung.de</a></li>
+                <li><%= __('helpSupport.phone') %>: +49 (0)30 240 886 10</li>
+                <li><%= __('helpSupport.email') %>: info@amadeu-antonio-stiftung.de</li>
             </ul>
 
-            <h2>Legal Aid</h2>
+            <h2><%= __('helpSupport.legalAid') %></h2>
 
-            <h3>German Bar Association (Deutscher Anwaltverein)</h3>
-            <p>Can help you find a lawyer specializing in anti-discrimination cases.</p>
+            <h3><%= __('helpSupport.germanBarAssociation.title') %></h3>
+            <p><%= __('helpSupport.germanBarAssociation.description') %></p>
             <ul>
-                <li>Website: <a href="https://anwaltauskunft.de/en" target="_blank">anwaltauskunft.de</a></li>
-                <li>Phone: +49 (0)30 726 152 0</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://anwaltauskunft.de/en" target="_blank">anwaltauskunft.de</a></li>
+                <li><%= __('helpSupport.phone') %>: +49 (0)30 726 152 0</li>
             </ul>
 
-            <h2>Counseling Services</h2>
+            <h2><%= __('helpSupport.counselingServices') %></h2>
 
-            <h3>Counseling Network for Victims of Right-wing, Racist and Antisemitic Violence (VBRG)</h3>
-            <p>Provides support and counseling for victims of hate crimes and discrimination.</p>
+            <h3><%= __('helpSupport.vbrg.title') %></h3>
+            <p><%= __('helpSupport.vbrg.description') %></p>
             <ul>
-                <li>Website: <a href="https://www.verband-brg.de/english/" target="_blank">www.verband-brg.de</a></li>
-                <li>Email: info@verband-brg.de</li>
+                <li><%= __('helpSupport.website') %>: <a href="https://www.verband-brg.de/english/" target="_blank">www.verband-brg.de</a></li>
+                <li><%= __('helpSupport.email') %>: info@verband-brg.de</li>
             </ul>
 
-            <h2>Emergency Contacts</h2>
-            <p>In case of immediate danger or emergency situations:</p>
+            <h2><%= __('helpSupport.emergencyContacts') %></h2>
+            <p><%= __('helpSupport.emergencyDescription') %></p>
             <ul>
-                <li>Police: 110</li>
-                <li>Emergency Services: 112</li>
+                <li><%= __('helpSupport.police') %>: 110</li>
+                <li><%= __('helpSupport.emergencyServices') %>: 112</li>
             </ul>
 
-            <p>Remember, you have rights in Germany, regardless of your immigration status. Don't hesitate to seek help if you've experienced discrimination or unfair treatment.</p>
+            <p><%= __('helpSupport.rights') %></p>
         </section>
     </main>
 
-    <footer>
-        <p>Contact: hello@voiceout.de</p>
-    </footer>
+    <%- include('partials/footer') %>
 
     <script src="/js/main.js"></script>
 </body>

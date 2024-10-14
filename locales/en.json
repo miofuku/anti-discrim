@@ -1,4 +1,44 @@
 {
+	"helpSupport": {
+		"title": "Help & Support - Resources for Immigrants in Germany",
+		"intro": "If you've experienced discrimination in Germany, you're not alone. Here are some resources that can provide support and assistance:",
+		"nationalBodies": "National Anti-Discrimination Bodies",
+		"antidiscriminationAgency": {
+		  "title": "Federal Anti-Discrimination Agency (Antidiskriminierungsstelle des Bundes)",
+		  "description": "This is the main government body responsible for enforcing anti-discrimination laws in Germany."
+		},
+		"humanRightsInstitute": {
+		  "title": "German Institute for Human Rights (Deutsches Institut für Menschenrechte)",
+		  "description": "An independent institution that promotes and protects human rights in Germany."
+		},
+		"ngos": "Non-Governmental Organizations",
+		"proAsyl": {
+		  "title": "PRO ASYL",
+		  "description": "An independent organization advocating for refugee rights and against racism."
+		},
+		"amadeuAntonioFoundation": {
+		  "title": "Amadeu Antonio Foundation",
+		  "description": "A foundation working to strengthen democratic civic society and eliminate neo-Nazism, right-wing extremism, and antisemitism."
+		},
+		"legalAid": "Legal Aid",
+		"germanBarAssociation": {
+		  "title": "German Bar Association (Deutscher Anwaltverein)",
+		  "description": "Can help you find a lawyer specializing in anti-discrimination cases."
+		},
+		"counselingServices": "Counseling Services",
+		"vbrg": {
+		  "title": "Counseling Network for Victims of Right-wing, Racist and Antisemitic Violence (VBRG)",
+		  "description": "Provides support and counseling for victims of hate crimes and discrimination."
+		},
+		"emergencyContacts": "Emergency Contacts",
+		"emergencyDescription": "In case of immediate danger or emergency situations:",
+		"police": "Police",
+		"emergencyServices": "Emergency Services",
+		"rights": "Remember, you have rights in Germany, regardless of your immigration status. Don't hesitate to seek help if you've experienced discrimination or unfair treatment.",
+		"website": "Website",
+		"phone": "Phone",
+		"email": "Email"
+	  },
 	"about": {
 		"title": "About Voice Out",
 		"subtitle": "Why We Created This Platform for You",

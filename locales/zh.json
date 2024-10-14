@@ -1,4 +1,44 @@
 {
+	"helpSupport": {
+		"title": "帮助与支持",
+		"intro": "如果你在德国遭遇过歧视，你并不孤单。以下是一些可以提供支持和帮助的资源：",
+		"nationalBodies": "国家反歧视机构",
+		"antidiscriminationAgency": {
+		  "title": "联邦反歧视机构 (Antidiskriminierungsstelle des Bundes)",
+		  "description": "这是德国负责执行反歧视法律的主要政府机构。"
+		},
+		"humanRightsInstitute": {
+		  "title": "德国人权研究所 (Deutsches Institut für Menschenrechte)",
+		  "description": "一个在德国促进和保护人权的独立机构。"
+		},
+		"ngos": "非政府组织",
+		"proAsyl": {
+		  "title": "PRO ASYL",
+		  "description": "一个独立组织，倡导难民权利并反对种族主义。"
+		},
+		"amadeuAntonioFoundation": {
+		  "title": "Amadeu Antonio 基金会",
+		  "description": "致力于加强民主公民社会，消除新纳粹主义、右翼极端主义和反犹太主义的基金会。"
+		},
+		"legalAid": "法律援助",
+		"germanBarAssociation": {
+		  "title": "德国律师协会 (Deutscher Anwaltverein)",
+		  "description": "可以帮助你找到专门处理反歧视案件的律师。"
+		},
+		"counselingServices": "咨询服务",
+		"vbrg": {
+		  "title": "右翼、种族主义和反犹太主义暴力受害者咨询网络 (VBRG)",
+		  "description": "为仇恨犯罪和歧视的受害者提供支持和咨询。"
+		},
+		"emergencyContacts": "紧急联系方式",
+		"emergencyDescription": "在紧急情况或直接危险的情况下：",
+		"police": "警察",
+		"emergencyServices": "紧急服务",
+		"rights": "请记住，无论你的移民身份如何，你在德国都有权利。如果你遭遇歧视或不公平对待，请不要犹豫寻求帮助。",
+		"website": "网站",
+		"phone": "电话",
+		"email": "电子邮件"
+	  },
 	"about": {
 		"title": "关于Voice Out",
 		"subtitle": "为什么我们创建这个平台",

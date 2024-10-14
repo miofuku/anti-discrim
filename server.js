@@ -91,19 +91,22 @@ app.get('/', (req, res) => {
 app.get('/posts', (req, res) => {
   res.render('posts', {
     path: req.path,
+    language: i18n.getLocale(req)
   });
 });
 
 app.get('/about', (req, res) => {
   res.render('about', {
     path: req.path,
+    language: i18n.getLocale(req)
   });
 });
 
 app.get('/help-support', (req, res) => {
-  res.render('help-support', {
-    path: req.path,
-  });
+    res.render('help-support', {
+        path: req.path,
+        language: i18n.getLocale(req)
+    });
 });
 
 // API routes
