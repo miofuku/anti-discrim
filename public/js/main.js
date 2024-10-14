@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const postsContainer = document.getElementById('postsContainer');
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
-    const clearFiltersButton = document.getElementById('clearFilters');
 
     const selectedTags = new Set();
 
@@ -51,10 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     toggleTag(event.target.dataset.tag);
                 }
             });
-        }
-
-        if (clearFiltersButton) {
-            clearFiltersButton.addEventListener('click', clearFilters);
         }
 
         if (selectedTagsContainer) {
@@ -146,12 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `<span class="selected-tag">${tag} <button class="remove-tag" data-tag="${tag}">×</button></span>`
             ).join('');
         }
-    }
-
-    function clearFilters() {
-        selectedTags.clear();
-        updateSelectedTags();
-        fetchPosts();
     }
 
     async function fetchPosts(tags = []) {
