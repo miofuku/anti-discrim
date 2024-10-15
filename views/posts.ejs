@@ -19,21 +19,18 @@
         <div id="filterContainer">
           <div id="selectedTags"></div>
           <div id="availableTags">
-            <button class="filter-btn" data-tag="Gender">Gender</button>
-            <button class="filter-btn" data-tag="Race">Race</button>
-            <button class="filter-btn" data-tag="At Work">At Work</button>
-            <button class="filter-btn" data-tag="Sexual Identity">Sexual Identity</button>
-            <button class="filter-btn" data-tag="In Business">In Business</button>
-            <button class="filter-btn" data-tag="In Public">In Public</button>
-            <button class="filter-btn" data-tag="Immigrant">Immigrant</button>
-            <button class="filter-btn" data-tag="At School/Uni">At School/Uni</button>
-            <button class="filter-btn" data-tag="Near Home">Near Home</button>
-            <button class="filter-btn" data-tag="Age">Age</button>
-            <button class="filter-btn" data-tag="Online">Online</button>
-            <button class="filter-btn" data-tag="On Public Transport">On Public Transport</button>
-            <button class="filter-btn" data-tag="Language">Language</button>
-            <button class="filter-btn" data-tag="Government Agency">Government Agency</button>
-            <button class="filter-btn" data-tag="Uncategorized">Uncategorized</button>
+            <% const tags = __('form.tags'); %>
+            <% if (Array.isArray(tags)) { %>
+              <% tags.forEach(tag => { %>
+                <button class="filter-btn" data-tag="<%= typeof tag === 'object' ? tag.value : tag %>">
+                  <%= typeof tag === 'object' ? tag.label : tag %>
+                </button>
+              <% }); %>
+            <% } else if (typeof tags === 'object') { %>
+              <% Object.entries(tags).forEach(([value, label]) => { %>
+                <button class="filter-btn" data-tag="<%= value %>"><%= label %></button>
+              <% }); %>
+            <% } %>
           </div>
         </div>
 
