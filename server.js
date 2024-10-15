@@ -20,7 +20,7 @@ app.use(cookieParser());
 // Configure i18n
 i18n.configure({
     locales: ['en', 'zh'],
-    defaultLocale: 'en',
+    defaultLocale: 'zh',
     directory: path.join(__dirname, 'locales'),
     objectNotation: true,
     cookie: 'lang',
