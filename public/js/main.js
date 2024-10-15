@@ -25,6 +25,23 @@ document.addEventListener('DOMContentLoaded', function() {
             // Reload the page with the new language
             window.location.href = window.location.pathname + '?lang=' + lang;
         });
+
+        // Check if the language cookie exists
+        let langCookie = document.cookie.split(';').find(row => row.trim().startsWith('lang='));
+        if (!langCookie) {
+            // If the cookie doesn't exist, set it to the default language (zh)
+            document.cookie = 'lang=zh;path=/;max-age=31536000';
+            // Only reload if the current page language doesn't match the default
+            if (langSelect.value !== 'zh') {
+                window.location.href = window.location.pathname + '?lang=zh';
+            }
+        } else {
+            // If the cookie exists, ensure the select element matches the cookie value
+            let savedLang = langCookie.split('=')[1];
+            if (langSelect.value !== savedLang) {
+                langSelect.value = savedLang;
+            }
+        }
     }
 
     // Character count functionality
