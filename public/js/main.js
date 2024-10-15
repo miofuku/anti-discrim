@@ -137,9 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateSelectedTags() {
         if (selectedTagsContainer) {
-            selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag =>
-                `<span class="selected-tag">${tag} <button class="remove-tag" data-tag="${tag}">×</button></span>`
-            ).join('');
+            selectedTagsContainer.innerHTML = Array.from(selectedTags).map(tag => {
+                const tagLabel = getTagLabel(tag);
+                return `<span class="selected-tag">${escapeHTML(tagLabel)} <button class="remove-tag" data-tag="${tag}">×</button></span>`;
+            }).join('');
         }
     }
 
@@ -168,7 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
 
-                const tagsHTML = post.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
+                const tagsHTML = post.tags.map(tag => {
+                    const tagLabel = getTagLabel(tag);
+                    return `<span class="tag">${escapeHTML(tagLabel)}</span>`;
+                }).join('');
 
                 postElement.innerHTML = `
                     <div class="post-tags">${tagsHTML}</div>
@@ -181,6 +185,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Invalid post data:', post);
             }
         });
+    }
+
+    function getTagLabel(tagValue) {
+        if (window.tagTranslations) {
+            const tagObject = window.tagTranslations.find(tag => tag.value === tagValue);
+            return tagObject ? tagObject.label : tagValue;
+        }
+        return tagValue;
     }
 
     function escapeHTML(str) {

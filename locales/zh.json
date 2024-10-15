@@ -94,64 +94,60 @@
         "tagLabel": "帖子标签用于说明这件事发生的原因和地点（可多选）",
         "tags": [
 		  {
-			 "value": "gender",
-		     "label": "性别"
+			"value": "language_barrier",
+			"label": "语言障碍"
 		  },
 		  {
-			 "value": "race",
-			 "label": "种族"
+			"value": "bureaucracy",
+			"label": "官僚主义"
 		  },
 		  {
-			 "value": "work",
-			 "label": "工作场所"
+			"value": "housing_discrimination",
+			"label": "住房歧视"
 		  },
 		  {
-			 "value": "sexual_identity",
-			 "label": "性取向"
+			"value": "workplace_discrimination",
+			"label": "工作场所歧视"
 		  },
 		  {
-			 "value": "business",
-			 "label": "商业活动中"
+			"value": "education_challenges",
+			"label": "教育系统歧视"
 		  },
 		  {
-			 "value": "public",
-			 "label": "公共场所"
+			"value": "healthcare_access",
+			"label": "医疗歧视"
 		  },
 		  {
-			 "value": "immigrant",
-			 "label": "移民"
+			"value": "cultural_misunderstandings",
+			"label": "文化误解"
 		  },
 		  {
-			 "value": "school",
-			 "label": "学校/大学"
+			"value": "social_isolation",
+			"label": "社交孤立"
 		  },
 		  {
-			 "value": "home",
-			 "label": "家附近"
+			"value": "public_transport",
+			"label": "公共交通问题"
 		  },
 		  {
-			 "value": "age",
-			 "label": "年龄"
+			"value": "visa_residence",
+			"label": "签证和居留许可问题"
 		  },
 		  {
-			 "value": "online",
-			 "label": "网上"
+			"value": "racism_xenophobia",
+			"label": "种族主义或仇外心理"
 		  },
 		  {
-			 "value": "transport",
-			 "label": "公共交通工具上"
+			"value": "religious_discrimination",
+			"label": "宗教歧视"
 		  },
 		  {
-			 "value": "language",
-			 "label": "语言"
+			"value": "gender_discrimination",
+			"label": "性别歧视"
 		  },
 		  {
-			 "value": "government",
-			 "label": "政府机构"
-		  },
-		  {
-			 "value": "uncategorized",
-			 "label": "其他"
+			"value": "other",
+			"label": "其他"
 		  }
 		],
        "userTypeLabel": "哪一项最符合你的情况？",

@@ -93,66 +93,62 @@
 		"characterLimit": "Limit is 1800 characters. Characters remaining:",
 		"tagLabel": "Post tags refer to why and where this happened (select all that apply)",
 		"tags": [
-			{
-				"value": "gender",
-				"label": "Gender"
-			},
-			{
-				"value": "race",
-				"label": "Race"
-			},
-			{
-				"value": "work",
-				"label": "At Work"
-			},
-			{
-				"value": "sexual_identity",
-				"label": "Sexual Identity"
-			},
-			{
-				"value": "business",
-				"label": "In Business"
-			},
-			{
-				"value": "public",
-				"label": "In Public"
-			},
-			{
-				"value": "immigrant",
-				"label": "Immigrant"
-			},
-			{
-				"value": "school",
-				"label": "At School/Uni"
-			},
-			{
-				"value": "home",
-				"label": "Near Home"
-			},
-			{
-				"value": "age",
-				"label": "Age"
-			},
-			{
-				"value": "online",
-				"label": "Online"
-			},
-			{
-				"value": "transport",
-				"label": "On Public Transport"
-			},
-			{
-				"value": "language",
-				"label": "Language"
-			},
-			{
-				"value": "government",
-				"label": "Government Agency"
-			},
-			{
-				"value": "uncategorized",
-				"label": "Uncategorized"
-			}
+		  {
+			"value": "language_barrier",
+			"label": "Language Barrier"
+		  },
+		  {
+			"value": "bureaucracy",
+			"label": "Bureaucracy"
+		  },
+		  {
+			"value": "housing_discrimination",
+			"label": "Housing Discrimination"
+		  },
+		  {
+			"value": "workplace_discrimination",
+			"label": "Workplace Discrimination"
+		  },
+		  {
+			"value": "education_challenges",
+			"label": "Education System Challenges"
+		  },
+		  {
+			"value": "healthcare_access",
+			"label": "Healthcare Access Issues"
+		  },
+		  {
+			"value": "cultural_misunderstandings",
+			"label": "Cultural Misunderstandings"
+		  },
+		  {
+			"value": "social_isolation",
+			"label": "Social Isolation"
+		  },
+		  {
+			"value": "public_transport",
+			"label": "Public Transport Issues"
+		  },
+		  {
+			"value": "visa_residence",
+			"label": "Visa and Residence Permit Problems"
+		  },
+		  {
+			"value": "racism_xenophobia",
+			"label": "Racism or Xenophobia"
+		  },
+		  {
+			"value": "religious_discrimination",
+			"label": "Religious Discrimination"
+		  },
+		  {
+			"value": "gender_discrimination",
+			"label": "Gender-based Discrimination"
+		  },
+		  {
+			"value": "other",
+			"label": "Other"
+		  }
 		],
 		"userTypeLabel": "Which best describes you?",
 		"userTypeSelect": "Choose an option",

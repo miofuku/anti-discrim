@@ -37,6 +37,10 @@
         <div id="postsContainer"></div>
     </main>
 
+    <script>
+        // Pass the tags to the client-side JavaScript
+        window.tagTranslations = <%- JSON.stringify(__('form.tags')) %>;
+    </script>
     <script src="/js/main.js"></script>
 </body>
 </html>
