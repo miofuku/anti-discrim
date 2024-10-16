@@ -8,12 +8,42 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    margin: 0;
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
     color: var(--main-text-color);
     background-color: #fff;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-top: 25px;
+    font-size: 3.5em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.4em;
+    color: #007bff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p, ul {
+    margin-bottom: 15px;
 }
 
 .container {
@@ -46,10 +76,6 @@ nav a:hover {
 
 nav a.active {
     font-weight: bold;
-}
-
-h1, h2 {
-    color: var(--main-text-color);
 }
 
 label {
@@ -238,6 +264,12 @@ footer {
   background-color: #e0e0e0;
 }
 
+#posts-section h1 {
+    font-size: 3.5em;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
 .post {
   margin-bottom: 20px;
   padding: 15px;
@@ -366,7 +398,7 @@ html {
 }
 
 #about h1 {
-    font-size: 2.5em;
+    font-size: 3.5em;
     color: #007bff;
     margin-bottom: 10px;
 }
@@ -410,7 +442,7 @@ html {
 }
 
 #help-support h1 {
-    font-size: 2.5em;
+    font-size: 3.5em;
     color: #007bff;
     margin-bottom: 20px;
 }
