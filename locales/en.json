@@ -87,7 +87,7 @@
 		"storyTitle": "Title",
 		"storyContent": "Your Story",
 		"characterLimit": "Limit is 1800 characters. Characters remaining:",
-		"tagLabel": "Post tags refer to why and where this happened (select all that apply)",
+		"tagLabel": "Post tags (select all that apply)",
 		"tags": [
 		  {
 			"value": "language_barrier",
@@ -151,9 +151,9 @@
 		"userTypeImmigrant": "Immigrant (born outside of Germany)",
 		"userTypeFirstGen": "First generation German (with immigrant parents)",
 		"userTypeSecondGen": "Second generation German (with parents born in Germany)",
-		"backgroundLabel": "What is your background? (select all the countries that apply)",
-		"backgroundDescription": "These tags are not public information nor displayed - only for background information.",
-		"backgroundNote": "These tags are not public information nor displayed - you can select more than one.",
+		"backgroundLabel": "What is your background?",
+    	"backgroundDescription": "Select all countries that apply. This information is for background only and will not be displayed publicly.",
+    	"backgroundNote": "You can select multiple countries. This information will not be publicly displayed.",
 		"submit": "SUBMIT"
 	},
 	"footer": {

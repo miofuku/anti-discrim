@@ -87,7 +87,7 @@
         "storyTitle": "标题",
         "storyContent": "你的故事",
         "characterLimit": "字数限制为1800字。剩余字数：",
-        "tagLabel": "帖子标签用于说明这件事发生的原因和地点（可多选）",
+        "tagLabel": "标签（可多选）",
         "tags": [
 		  {
 			"value": "language_barrier",
@@ -151,9 +151,9 @@
        "userTypeImmigrant": "移民（在德国境外出生）",
        "userTypeFirstGen": "第一代德国人（父母是移民）",
        "userTypeSecondGen": "第二代德国人（父母在德国出生）",
-       "backgroundLabel": "你的背景是什么？（选择所有适用的国家）",
-       "backgroundDescription": "这些标签不会公开显示 - 仅用于背景信息。",
-       "backgroundNote": "这些标签不会公开显示 - 你可以选择多个。",
+       "backgroundLabel": "你的背景？",
+       "backgroundDescription": "\"选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
+       "backgroundNote": "你可以选择多个国家。这些信息不会公开显示。",
        "submit": "提交"
     },
     "footer": {

@@ -84,12 +84,18 @@ label {
     font-weight: bold;
 }
 
-input[type="text"], textarea, select {
+input[type="text"], textarea {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 textarea {
@@ -110,12 +116,18 @@ textarea {
     margin-bottom: 5px;
 }
 
+form label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
 .checkbox-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 #selectedTags {
@@ -488,3 +500,14 @@ html {
 #help-support a:hover {
     text-decoration: underline;
 }
+
+#background {
+  margin-bottom: 5px;
+}
+
+small {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+}
+

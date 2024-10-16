@@ -50,8 +50,7 @@
             <span id="charCount">1800</span>
           </div>
 
-          <fieldset>
-              <legend><%= __('form.tagLabel') %></legend>
+           <label for="tags"><%= __('form.tagLabel') %> *</label>
               <div class="checkbox-grid">
                 <% const tags = __('form.tags'); %>
                 <% if (Array.isArray(tags)) { %>
@@ -61,34 +60,22 @@
                       <%= typeof tag === 'object' ? tag.label : tag %>
                     </label>
                   <% }); %>
-                <% } else if (typeof tags === 'object') { %>
-                  <% Object.entries(tags).forEach(([value, label]) => { %>
-                    <label>
-                      <input type="checkbox" name="tag" value="<%= value %>">
-                      <%= label %>
-                    </label>
-                  <% }); %>
                 <% } %>
               </div>
-            </fieldset>
 
-          <fieldset>
-              <legend><%= __('form.userTypeLabel') %></legend>
-              <select name="userType" required>
+          <label for="userType"><%= __('form.userTypeLabel') %> *</label>
+              <select id="userType" name="userType" required>
                 <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
                 <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
                 <option value="firstGen"><%= __('form.userTypeFirstGen') %></option>
                 <option value="secondGen"><%= __('form.userTypeSecondGen') %></option>
               </select>
-        </fieldset>
 
-          <fieldset>
-            <legend><%= __('form.backgroundLabel') %></legend>
-            <p><%= __('form.backgroundDescription') %></p>
-            <div id="countryOptions" class="tag-options"></div>
-            <div id="selectedTags" class="selected-tags"></div>
-            <small><%= __('form.backgroundNote') %></small>
-          </fieldset>
+          <label for="background"><%= __('form.backgroundLabel') %></label>
+              <p><%= __('form.backgroundDescription') %></p>
+              <div id="countryOptions" class="tag-options"></div>
+              <div id="selectedTags" class="selected-tags"></div>
+              <small><%= __('form.backgroundNote') %></small>
 
         <div class="submit-button-container">
           <button type="submit" class="btn submit-btn"><%= __('form.submit') %></button>
