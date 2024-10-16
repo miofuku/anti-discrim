@@ -12,6 +12,65 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
 
+    const countrySearch = document.getElementById('countrySearch');
+    const countryOptions = document.getElementById('countryOptions');
+    const selectedCountries = document.getElementById('selectedCountries');
+    const backgroundCountriesInput = document.getElementById('backgroundCountries');
+
+    // List of countries (you may want to load this from a separate file or API)
+    const countries = [
+        "Germany", "China", "Turkey", "Syria", "Poland", "Romania", "Italy", "Greece", "Croatia", "Russia",
+        "Ukraine", "France", "Spain", "United Kingdom", "United States", "Canada", "Australia", "Japan",
+        "South Korea", "India", "Pakistan", "Iran", "Iraq", "Afghanistan", "Vietnam", "Philippines",
+        "Thailand", "Indonesia", "Brazil", "Mexico", "Nigeria", "Egypt", "Morocco", "Tunisia", "Algeria"
+    ];
+
+    let selectedCountriesList = [];
+
+    function updateCountryOptions() {
+        const searchTerm = countrySearch.value.toLowerCase();
+        const filteredCountries = countries.filter(country =>
+          country.toLowerCase().includes(searchTerm) && !selectedCountriesList.includes(country)
+    );
+
+    countryOptions.innerHTML = filteredCountries.map(country =>
+          `<div class="tag-option">${country}</div>`
+        ).join('');
+    }
+
+    function updateSelectedCountries() {
+        selectedCountries.innerHTML = selectedCountriesList.map(country =>
+          `<span class="selected-tag">${country}<button class="remove-tag" data-country="${country}">×</button></span>`
+        ).join('');
+        backgroundCountriesInput.value = JSON.stringify(selectedCountriesList);
+    }
+
+    countrySearch.addEventListener('input', updateCountryOptions);
+
+    countryOptions.addEventListener('click', function(e) {
+        if (e.target.classList.contains('tag-option')) {
+          const country = e.target.textContent;
+          if (!selectedCountriesList.includes(country)) {
+            selectedCountriesList.push(country);
+            updateSelectedCountries();
+            updateCountryOptions();
+            countrySearch.value = '';
+          }
+        }
+    });
+
+    selectedCountries.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-tag')) {
+          const country = e.target.dataset.country;
+          selectedCountriesList = selectedCountriesList.filter(c => c !== country);
+          updateSelectedCountries();
+          updateCountryOptions();
+        }
+    });
+
+    // Initial update
+    updateCountryOptions();
+
     const selectedTags = new Set();
 
     // Function to get the current language from the cookie

@@ -71,11 +71,15 @@
                 <option value="secondGen"><%= __('form.userTypeSecondGen') %></option>
               </select>
 
-          <label for="background"><%= __('form.backgroundLabel') %></label>
-              <p><%= __('form.backgroundDescription') %></p>
+          <label for="background"><%= __('form.backgroundLabel') %> (optional)</label>
+            <p><%= __('form.backgroundDescription') %></p>
+            <div class="tag-select">
+              <input type="text" id="countrySearch" placeholder="<%= __('form.backgroundSearchPlaceholder') %>">
               <div id="countryOptions" class="tag-options"></div>
-              <div id="selectedTags" class="selected-tags"></div>
-              <small><%= __('form.backgroundNote') %></small>
+            </div>
+            <div id="selectedCountries" class="selected-tags"></div>
+            <input type="hidden" id="backgroundCountries" name="background[]" value="">
+            <small><%= __('form.backgroundNote') %></small>
 
         <div class="submit-button-container">
           <button type="submit" class="btn submit-btn"><%= __('form.submit') %></button>

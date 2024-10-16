@@ -176,44 +176,42 @@ footer {
 }
 
 .tag-select {
-    position: relative;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .tag-select input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .tag-options {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .tag-option {
-    padding: 5px 10px;
-    cursor: pointer;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .tag-option:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .selected-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .selected-tag {
@@ -234,7 +232,6 @@ footer {
   font-weight: bold;
   margin-left: 5px;
 }
-
 
 #availableTags {
   display: flex;

@@ -152,6 +152,7 @@
 		"userTypeFirstGen": "First generation German (with immigrant parents)",
 		"userTypeSecondGen": "Second generation German (with parents born in Germany)",
 		"backgroundLabel": "What is your background?",
+		"backgroundSearchPlaceholder": "Type to search countries",
     	"backgroundDescription": "Select all countries that apply. This information is for background only and will not be displayed publicly.",
     	"backgroundNote": "You can select multiple countries. This information will not be publicly displayed.",
 		"submit": "SUBMIT"
