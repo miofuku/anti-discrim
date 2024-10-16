@@ -20,25 +20,32 @@ app.use(cookieParser());
 // Configure i18n
 i18n.configure({
     locales: ['en', 'zh'],
-    defaultLocale: 'zh', // Set default locale to Chinese
+    defaultLocale: 'zh',
     directory: path.join(__dirname, 'locales'),
     objectNotation: true,
     cookie: 'lang',
-    queryParameter: 'lang',
-    register: global,
-    updateFiles: false,
-    syncFiles: false
+    queryParameter: 'lang'
 });
 
 // Custom middleware to handle language setting
 app.use((req, res, next) => {
-    let lang = req.query.lang || req.cookies.lang || 'zh'; // Default to 'zh' if not specified
+    let lang = req.query.lang || req.cookies.lang || 'zh';
     if (!['en', 'zh'].includes(lang)) {
         lang = 'zh';
     }
-    res.cookie('lang', lang, { maxAge: 31536000000, httpOnly: true }); // Set for 1 year to match client-side
-    i18n.setLocale(lang);
+    console.log(`Setting language to: ${lang}`); // Debug log
+    res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
     res.locals.language = lang;
+    i18n.setLocale(req, lang);
+    next();
+});
+
+// Add this middleware to log request details
+app.use((req, res, next) => {
+    console.log(`Request URL: ${req.url}`);
+    console.log(`Cookie Language: ${req.cookies.lang}`);
+    console.log(`Query Language: ${req.query.lang}`);
+    console.log(`Current Language: ${i18n.getLocale(req)}`);
     next();
 });
 

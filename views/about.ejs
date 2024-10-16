@@ -9,8 +9,8 @@
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <select id="langSelect">
-        <option value="zh" <%= (language === 'zh') ? 'selected' : '' %>>中文</option>
-        <option value="en" <%= (language === 'en') ? 'selected' : '' %>>English</option>
+        <option value="zh" <%= language === 'zh' ? 'selected' : '' %>>中文</option>
+        <option value="en" <%= language === 'en' ? 'selected' : '' %>>English</option>
     </select>
 
     <main>
@@ -55,6 +55,9 @@
         <p>Contact: hello@voiceout.de</p>
     </footer>
 
+    <script>
+        console.log('Current language:', '<%= language %>');
+    </script>
     <script src="/js/main.js"></script>
 </body>
 </html>
