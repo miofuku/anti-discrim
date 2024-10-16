@@ -1,47 +1,83 @@
-# Simple Post Website
+# Voice Out - Platform for Immigrant Experiences in Germany
 
-This is a simple website that allows users to create and view anonymous posts without any user management.
+## Project Overview
+
+Voice Out is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
 
 ## Features
 
-- Create anonymous posts with a title, content, and type
-- View all posts
-- Filter posts by type
-- No user management required
-- Client-side storage using localStorage
+- Multi-language support (English and Chinese)
+- Anonymous post creation with categorization
+- Viewing and filtering of posts
+- Information on support resources for immigrants
+- Responsive design for various devices
 
-## Project Structure
+## Tech Stack
 
-- `index.html`: Main page with post creation form
-- `posts.html`: Page to view all posts
-- `css/styles.css`: CSS styles for both pages
-- `js/main.js`: JavaScript functions for post creation and management
-- `README.md`: This file
+- Backend: Node.js with Express.js
+- Database: MongoDB with Mongoose ODM
+- Frontend: EJS templates with vanilla JavaScript
+- Styling: Custom CSS
+- Localization: i18n library
 
-## How to Use
 
-1. Clone this repository
-2. Open `index.html` in your web browser to create posts
-3. Click on "All Posts" to view and filter existing posts
+## Setup and Installation
 
-## Limitations
+1. Clone the repository:
+   ```
+   git clone https://github.com/miofuku/anti-discrim.git
+   cd anti-discrim
+   ```
 
-- Posts are stored in the browser's localStorage and are not shared across devices or users
-- No server-side processing or database
-- No edit or delete functionality for posts
-- No protection against spam or inappropriate content
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-## Future Improvements
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```
+   MONGODB_URI=your_mongodb_connection_string
+   PORT=3000
+   ```
 
-- Implement server-side storage
-- Add post editing and deletion features
-- Implement basic spam protection and content moderation
-- Improve responsive design for mobile devices
+4. Start the server:
+   ```
+   npm start
+   ```
+
+   For development with auto-restart:
+   ```
+   npm run dev
+   ```
+
+5. Generate sample posts (optional):
+   ```
+   npm run generate-posts
+   ```
+
+## Usage
+
+- Visit `http://localhost:3000` in your web browser
+- Use the language selector to switch between English and Chinese
+- Navigate through different sections using the top menu
+- Create a new post on the homepage
+- View all posts and apply filters on the "All Stories" page
 
 ## Contributing
 
-Feel free to fork this project and submit pull requests with improvements!
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Contact
+
+For any queries or support, please contact: hello@voiceout.org
