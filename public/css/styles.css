@@ -196,6 +196,7 @@ footer {
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
+  display: none;
 }
 
 .tag-option {
@@ -215,19 +216,17 @@ footer {
 }
 
 .selected-tag {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
+  background-color: #e0e0e0;
   padding: 5px 10px;
-  margin-right: 5px;
-  margin-bottom: 5px;
   border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .remove-tag {
   background: none;
   border: none;
-  color: white;
+  color: #666;
   cursor: pointer;
   font-weight: bold;
   margin-left: 5px;

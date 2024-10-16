@@ -153,7 +153,7 @@
        "userTypeSecondGen": "第二代德国人（父母在德国出生）",
        "backgroundLabel": "你的背景？",
        "backgroundSearchPlaceholder": "输入以搜索国家",
-       "backgroundDescription": "\"选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
+       "backgroundDescription": "选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
        "backgroundNote": "你可以选择多个国家。这些信息不会公开显示。",
        "submit": "提交"
     },

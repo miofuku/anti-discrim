@@ -12,64 +12,126 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedTagsContainer = document.getElementById('selectedTags');
     const availableTagsContainer = document.getElementById('availableTags');
 
-    const countrySearch = document.getElementById('countrySearch');
-    const countryOptions = document.getElementById('countryOptions');
-    const selectedCountries = document.getElementById('selectedCountries');
-    const backgroundCountriesInput = document.getElementById('backgroundCountries');
+    function initializeCountrySelection() {
+        // Background in post
+        const countrySearch = document.getElementById('countrySearch');
+        const countryOptions = document.getElementById('countryOptions');
+        const selectedCountries = document.getElementById('selectedCountries');
+        const backgroundCountriesInput = document.getElementById('backgroundCountries');
 
-    // List of countries (you may want to load this from a separate file or API)
-    const countries = [
-        "Germany", "China", "Turkey", "Syria", "Poland", "Romania", "Italy", "Greece", "Croatia", "Russia",
-        "Ukraine", "France", "Spain", "United Kingdom", "United States", "Canada", "Australia", "Japan",
-        "South Korea", "India", "Pakistan", "Iran", "Iraq", "Afghanistan", "Vietnam", "Philippines",
-        "Thailand", "Indonesia", "Brazil", "Mexico", "Nigeria", "Egypt", "Morocco", "Tunisia", "Algeria"
-    ];
+        // List of countries (you may want to load this from a separate file or API)
+        const countries = [
+            { en: "Germany", zh: "德国" },
+            { en: "China", zh: "中国" },
+            { en: "Turkey", zh: "土耳其" },
+            { en: "Syria", zh: "叙利亚" },
+            { en: "Poland", zh: "波兰" },
+            { en: "Romania", zh: "罗马尼亚" },
+            { en: "Italy", zh: "意大利" },
+            { en: "Greece", zh: "希腊" },
+            { en: "Croatia", zh: "克罗地亚" },
+            { en: "Russia", zh: "俄罗斯" },
+            { en: "Ukraine", zh: "乌克兰" },
+            { en: "France", zh: "法国" },
+            { en: "Spain", zh: "西班牙" },
+            { en: "United Kingdom", zh: "英国" },
+            { en: "United States", zh: "美国" },
+            { en: "Canada", zh: "加拿大" },
+            { en: "Australia", zh: "澳大利亚" },
+            { en: "Japan", zh: "日本" },
+            { en: "South Korea", zh: "韩国" },
+            { en: "India", zh: "印度" },
+            { en: "Pakistan", zh: "巴基斯坦" },
+            { en: "Iran", zh: "伊朗" },
+            { en: "Iraq", zh: "伊拉克" },
+            { en: "Afghanistan", zh: "阿富汗" },
+            { en: "Vietnam", zh: "越南" },
+            { en: "Philippines", zh: "菲律宾" },
+            { en: "Thailand", zh: "泰国" },
+            { en: "Indonesia", zh: "印度尼西亚" },
+            { en: "Brazil", zh: "巴西" },
+            { en: "Mexico", zh: "墨西哥" },
+            { en: "Nigeria", zh: "尼日利亚" },
+            { en: "Egypt", zh: "埃及" },
+            { en: "Morocco", zh: "摩洛哥" },
+            { en: "Tunisia", zh: "突尼斯" },
+            { en: "Algeria", zh: "阿尔及利亚" }
+        ];
 
-    let selectedCountriesList = [];
+        let selectedCountriesList = [];
 
-    function updateCountryOptions() {
-        const searchTerm = countrySearch.value.toLowerCase();
-        const filteredCountries = countries.filter(country =>
-          country.toLowerCase().includes(searchTerm) && !selectedCountriesList.includes(country)
-    );
+        function updateCountryOptions() {
+            const searchTerm = countrySearch.value.toLowerCase();
+            if (searchTerm.length === 0) {
+              countryOptions.style.display = 'none';
+              return;
+            }
 
-    countryOptions.innerHTML = filteredCountries.map(country =>
-          `<div class="tag-option">${country}</div>`
-        ).join('');
-    }
+            const filteredCountries = countries.filter(country =>
+              (country.en.toLowerCase().includes(searchTerm) ||
+               country.zh.includes(searchTerm)) &&
+              !selectedCountriesList.includes(country.en)
+            );
 
-    function updateSelectedCountries() {
-        selectedCountries.innerHTML = selectedCountriesList.map(country =>
-          `<span class="selected-tag">${country}<button class="remove-tag" data-country="${country}">×</button></span>`
-        ).join('');
-        backgroundCountriesInput.value = JSON.stringify(selectedCountriesList);
-    }
+            countryOptions.innerHTML = filteredCountries.map(country =>
+              `<div class="tag-option" data-en="${country.en}" data-zh="${country.zh}">${country.en} (${country.zh})</div>`
+            ).join('');
 
-    countrySearch.addEventListener('input', updateCountryOptions);
-
-    countryOptions.addEventListener('click', function(e) {
-        if (e.target.classList.contains('tag-option')) {
-          const country = e.target.textContent;
-          if (!selectedCountriesList.includes(country)) {
-            selectedCountriesList.push(country);
-            updateSelectedCountries();
-            updateCountryOptions();
-            countrySearch.value = '';
-          }
+            countryOptions.style.display = filteredCountries.length > 0 ? 'block' : 'none';
         }
-    });
 
-    selectedCountries.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-tag')) {
-          const country = e.target.dataset.country;
-          selectedCountriesList = selectedCountriesList.filter(c => c !== country);
-          updateSelectedCountries();
-          updateCountryOptions();
+        function updateSelectedCountries() {
+            selectedCountries.innerHTML = selectedCountriesList.map(country => {
+              const countryObj = countries.find(c => c.en === country);
+              return `<span class="selected-tag">${country} (${countryObj.zh})<button class="remove-tag" data-country="${country}">×</button></span>`;
+            }).join('');
+            backgroundCountriesInput.value = JSON.stringify(selectedCountriesList);
         }
-    });
 
-    // Initial update
-    updateCountryOptions();
+        if (countrySearch) {
+            countrySearch.addEventListener('input', updateCountryOptions);
+            countrySearch.addEventListener('focus', updateCountryOptions);
+            countrySearch.addEventListener('blur', function() {
+                // Delay hiding to allow for option selection
+                setTimeout(() => countryOptions.style.display = 'none', 200);
+            });
+        } else {
+            console.error('countrySearch not found');
+        }
+
+        if (countryOptions) {
+            countryOptions.addEventListener('click', function(e) {
+                if (e.target.classList.contains('tag-option')) {
+                  const country = e.target.dataset.en;
+                  if (!selectedCountriesList.includes(country)) {
+                    selectedCountriesList.push(country);
+                    updateSelectedCountries();
+                    countrySearch.value = '';
+                    updateCountryOptions();
+                  }
+                }
+            });
+        } else {
+            console.error('countryOptions not found');
+        }
+
+        if (selectedCountries) {
+            selectedCountries.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-tag')) {
+                  const country = e.target.dataset.country;
+                  selectedCountriesList = selectedCountriesList.filter(c => c !== country);
+                  updateSelectedCountries();
+                  updateCountryOptions();
+                }
+            });
+        } else {
+            console.error('selectedCountries not found');
+        }
+
+
+        // Initial update
+        updateCountryOptions();
+    }
 
     const selectedTags = new Set();
 
@@ -218,6 +280,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 return `<span class="selected-tag">${escapeHTML(tagLabel)} <button class="remove-tag" data-tag="${tag}">×</button></span>`;
             }).join('');
         }
+    }
+
+    // Check if we're on the page with the country selection form
+    if (document.getElementById('countrySearch')) {
+        initializeCountrySelection();
+    }
+
+    // Code for the All Posts page
+    if (postsContainer) {
+        // Fetch and display posts
+        fetchPosts();
     }
 
     async function fetchPosts(tags = []) {
