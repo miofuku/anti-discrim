@@ -34,7 +34,7 @@ app.use((req, res, next) => {
         lang = 'zh';
     }
     console.log(`Setting language to: ${lang}`); // Debug log
-    res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
+    res.cookie('lang', lang, { maxAge: 31536000000, httpOnly: false }); // 1 year, accessible by JavaScript
     res.locals.language = lang;
     i18n.setLocale(req, lang);
     next();

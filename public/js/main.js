@@ -14,9 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const selectedTags = new Set();
 
+    // Function to get the current language from the cookie
+    function getCurrentLanguage() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === 'lang') {
+                return value;
+            }
+        }
+        return 'zh'; // Default to Chinese if no language cookie is found
+    }
+
     // Language selection
     if (langSelect) {
-        console.log('Current language:', langSelect.value);
+        const currentLang = getCurrentLanguage();
+        console.log('Current language from cookie:', currentLang);
+
+        // Update the language selector to match the current language
+        langSelect.value = currentLang;
+
         langSelect.addEventListener('change', function(event) {
             var lang = this.value;
             console.log('Language changed to:', lang);
