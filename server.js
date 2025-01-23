@@ -8,18 +8,31 @@ const AppError = require('./errors');
 const { postSchema } = require('./validation');
 const i18n = require('i18n');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Set up rate limiter: maximum of 100 requests per 15 minutes
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+// Create two different rate limiters
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // each IP can submit 5 times in 15 minutes
+    message: { error: '提交太频繁，请稍后再试' }
 });
 
-// Apply rate limiter to all requests
-app.use(limiter);
+const generalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15分钟
+    max: 100, // 每个IP限制100次请求
+    message: { error: '请求太频繁，请稍后再试' }
+});
+
+// Apply rate limiter to the submission API
+app.use('/api/posts', apiLimiter);
+
+// Apply a more lenient limiter to other routes
+app.use('/', generalLimiter);
 
 // Connect to MongoDB
 connectDB();
@@ -73,6 +86,11 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Current security middleware
+app.use(helmet());
+app.use(mongoSanitize());
+app.use(xss());
+
 // Helper function to catch async errors
 const catchAsync = fn => {
   return (req, res, next) => {
@@ -82,12 +100,13 @@ const catchAsync = fn => {
 
 // Validation middleware
 const validatePost = (req, res, next) => {
-  const { error } = postSchema.validate(req.body);
-  if (error) {
-    const errorMessage = error.details.map(detail => detail.message).join(', ');
-    throw new AppError(errorMessage, 400);
-  }
-  next();
+    const { error } = postSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({
+            message: error.details[0].message
+        });
+    }
+    next();
 };
 
 // Routes
@@ -164,14 +183,24 @@ app.use((req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+// Global error handling middleware
 app.use((err, req, res, next) => {
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
-
-  res.status(err.statusCode).json({
-    status: err.status,
-    message: err.message
-  });
+    console.error('Error:', err);
+    
+    // 处理验证错误
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({
+            message: err.message
+        });
+    }
+    
+    // 处理其他错误
+    const statusCode = err.status || 500;
+    const message = process.env.NODE_ENV === 'production' 
+        ? '服务器错误，请稍后再试' 
+        : err.message;
+        
+    res.status(statusCode).json({ message });
 });
 
 // Server

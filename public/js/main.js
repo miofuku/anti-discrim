@@ -219,12 +219,10 @@ document.addEventListener('DOMContentLoaded', function() {
     async function createPost(event) {
         event.preventDefault();
         
-        // Tag validation
         if (!validateTags()) {
             return;
         }
         
-        // Disable submit button
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
 
@@ -239,28 +237,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: JSON.parse(formData.get('background[]') || '[]')
             };
 
-            console.log('Post data:', post);
-
             const response = await fetch('/api/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(post),
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to create post');
+            let data;
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                throw new Error('服务器返回格式错误');
             }
 
-            const data = await response.json();
-            console.log('Post created successfully');
+            if (!response.ok) {
+                throw new Error(data.message || '提交失败，请重试');
+            }
+
             showSuccessMessage('提交成功！感谢分享你的故事。');
             form.reset();
         } catch (error) {
             console.error('Error:', error);
-            alert(error.message || 'Failed to submit post. Please try again.');
+            alert(error.message || '提交失败，请重试');
         } finally {
             submitButton.disabled = false;
         }
