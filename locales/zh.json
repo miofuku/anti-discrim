@@ -4,27 +4,27 @@
 		"intro": "如果你在德国遇到歧视，这里有一些可以帮助你的组织和资源：",
 		"nationalBodies": "国家反歧视机构",
 		"antidiscriminationAgency": {
-		  "title": "德国联邦反歧视署 (Antidiskriminierungsstelle des Bundes)",
-		  "description": "德国官方设立的反歧视执法机构。"
+			"title": "德国联邦反歧视署 (Antidiskriminierungsstelle des Bundes)",
+			"description": "德国官方设立的反歧视执法机构。"
 		},
 		"humanRightsInstitute": {
-		  "title": "德国人权研究所 (Deutsches Institut für Menschenrechte)",
-		  "description": "致力于促进和保护德国人权的独立机构。"
+			"title": "德国人权研究所 (Deutsches Institut für Menschenrechte)",
+			"description": "致力于促进和保护德国人权的独立机构。"
 		},
 		"ngos": "民间组织",
 		"amadeuAntonioFoundation": {
-		  "title": "安东尼奥基金会 (Amadeu Antonio Stiftung)",
-		  "description": "致力于打击极右翼思想、新纳粹主义和反犹太主义，推动民主社会发展的基金会。"
+			"title": "安东尼奥基金会 (Amadeu Antonio Stiftung)",
+			"description": "致力于打击极右翼思想、新纳粹主义和反犹太主义，推动民主社会发展的基金会。"
 		},
 		"legalAid": "法律援助",
 		"germanBarAssociation": {
-		  "title": "德国律师协会 (Deutscher Anwaltverein)",
-		  "description": "可以为你推荐专门处理歧视案件的律师。"
+			"title": "德国律师协会 (Deutscher Anwaltverein)",
+			"description": "可以为你推荐专门处理歧视案件的律师。"
 		},
 		"counselingServices": "心理咨询",
 		"vbrg": {
-		  "title": "反极右翼暴力受害者援助网络 (VBRG)",
-		  "description": "为遭受仇恨犯罪和歧视的受害者提供援助和咨询。"
+			"title": "反极右翼暴力受害者援助网络 (VBRG)",
+			"description": "为遭受仇恨犯罪和歧视的受害者提供援助和咨询。"
 		},
 		"emergencyContacts": "紧急联系方式",
 		"emergencyDescription": "遇到紧急情况或人身安全受到威胁时：",
@@ -34,13 +34,10 @@
 		"website": "官网",
 		"phone": "电话",
 		"email": "邮箱"
-	  },
+	},
 	"about": {
-		"title": "关于我们",
-		"subtitle": "为什么要创建这个平台",
-		"description": "“逆风”的创立初衷，是为在德国的移民群体提供一个自由表达经历和感受的空间。",
-		"ourMotivation": "创立初衷",
-		"motivation": "在德国生活既有收获也有挑战。作为移民或移民后代，我们深知有时会遭遇不公平对待或误解。我们创建这个平台，因为我们相信每个人的故事都值得被倾听。",
+		"title": "我们的初衷",
+		"intro": "在德国生活既有收获也有挑战。作为移民或移民后代，我们深知有时会遭遇不公平对待或误解。我们创建这个平台，因为我们相信每个人的故事都值得被倾听。",
 		"hopeToAchieve": "我们的目标",
 		"achieve": "通过这个平台，我们希望：",
 		"achieve-1": "为分享在德国生活经历提供一个安全的空间",
@@ -64,95 +61,96 @@
 		"description": "在这里，每一个故事都是一束光，照亮前行的道路。"
 	},
 	"intro": {
-		"title": "逆风",
-		"subtitle": "面对歧视，迎风而上",
-		"welcome": "”逆风“致力于关注移民群体的经历。",
-		"description": "就像逆风飞翔的鸟儿，移民在异国他乡的生活往往充满挑战。这些经历也许艰难，但正是这些经历让我们更加坚强。",
+		"title": "面对歧视，迎风而上",
+		"intro": "”逆风“致力于关注移民群体的经历。",
+		"content": "就像逆风飞翔的鸟儿，移民在异国他乡的生活往往充满挑战。这些经历也许艰难，但正是这些经历让我们更加坚强。",
 		"encouragement": "无论你是经历过偏见的移民，还是目睹或遭遇过歧视的任何人，你都不是一个人在战斗。分享你的故事，让我们互相支持，共同成长。",
 		"purpose": "在这里，每个故事都是一股暖流，每个声音都值得被倾听。让我们一起，在逆风中寻找同行者。",
-       "readStories": "分享经历",
-       "shareStory": "浏览故事"
+		"readStories": "分享经历",
+		"shareStory": "浏览故事",
+		"subtitle": "",
+		"welcome": ""
 	},
 	"form": {
 		"title": "分享你的经历",
-        "description": "你的声音很重要。使用下面的表格分享你遭受歧视的故事。如果你愿意，可以保持匿名。",
-        "name": "姓名",
-        "nameDescription": "如果你不想留下真实姓名，请使用匿名",
-        "storyTitle": "标题",
-        "storyContent": "你的经历",
-        "characterLimit": "字数限制为1800字。剩余字数：",
-        "tagLabel": "标签（可多选）",
-        "tags": [
-		  {
-			"value": "language_barrier",
-			"label": "语言障碍"
-		  },
-		  {
-			"value": "bureaucracy",
-			"label": "官僚主义"
-		  },
-		  {
-			"value": "housing_discrimination",
-			"label": "住房歧视"
-		  },
-		  {
-			"value": "workplace_discrimination",
-			"label": "工作场所歧视"
-		  },
-		  {
-			"value": "education_challenges",
-			"label": "教育系统歧视"
-		  },
-		  {
-			"value": "healthcare_access",
-			"label": "医疗歧视"
-		  },
-		  {
-			"value": "cultural_misunderstandings",
-			"label": "文化误解"
-		  },
-		  {
-			"value": "social_isolation",
-			"label": "社交孤立"
-		  },
-		  {
-			"value": "public_transport",
-			"label": "公共交通问题"
-		  },
-		  {
-			"value": "visa_residence",
-			"label": "签证和居留许可问题"
-		  },
-		  {
-			"value": "racism_xenophobia",
-			"label": "种族主义或仇外心理"
-		  },
-		  {
-			"value": "religious_discrimination",
-			"label": "宗教歧视"
-		  },
-		  {
-			"value": "gender_discrimination",
-			"label": "性别歧视"
-		  },
-		  {
-			"value": "other",
-			"label": "其他"
-		  }
+		"description": "你的声音很重要。使用下面的表格分享你遭受歧视的故事。如果你愿意，可以保持匿名。",
+		"name": "姓名",
+		"nameDescription": "如果你不想留下真实姓名，请使用匿名",
+		"storyTitle": "标题",
+		"storyContent": "你的经历",
+		"characterLimit": "字数限制为1800字。剩余字数：",
+		"tagLabel": "标签（可多选）",
+		"tags": [
+			{
+				"value": "language_barrier",
+				"label": "语言障碍"
+			},
+			{
+				"value": "bureaucracy",
+				"label": "官僚主义"
+			},
+			{
+				"value": "housing_discrimination",
+				"label": "住房歧视"
+			},
+			{
+				"value": "workplace_discrimination",
+				"label": "工作场所歧视"
+			},
+			{
+				"value": "education_challenges",
+				"label": "教育系统歧视"
+			},
+			{
+				"value": "healthcare_access",
+				"label": "医疗歧视"
+			},
+			{
+				"value": "cultural_misunderstandings",
+				"label": "文化误解"
+			},
+			{
+				"value": "social_isolation",
+				"label": "社交孤立"
+			},
+			{
+				"value": "public_transport",
+				"label": "公共交通问题"
+			},
+			{
+				"value": "visa_residence",
+				"label": "签证和居留许可问题"
+			},
+			{
+				"value": "racism_xenophobia",
+				"label": "种族主义或仇外心理"
+			},
+			{
+				"value": "religious_discrimination",
+				"label": "宗教歧视"
+			},
+			{
+				"value": "gender_discrimination",
+				"label": "性别歧视"
+			},
+			{
+				"value": "other",
+				"label": "其他"
+			}
 		],
-       "userTypeLabel": "哪一项最符合你的情况？",
-       "userTypeSelect": "请选择一个选项",
-       "userTypeImmigrant": "移民（在德国境外出生）",
-       "userTypeFirstGen": "第一代德国人（父母是移民）",
-       "userTypeSecondGen": "第二代德国人（父母在德国出生）",
-       "backgroundLabel": "你来自哪里？",
-       "backgroundSearchPlaceholder": "输入以搜索国家",
-       "backgroundDescription": "选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
-       "backgroundNote": "你可以选择多个国家。这些信息不会公开显示。",
-       "submit": "提交"
-    },
-    "footer": {
-        "disclaimer": "请注意：通过本网站提供的故事可能会在媒体中被匿名引用",
+		"userTypeLabel": "哪一项最符合你的情况？",
+		"userTypeSelect": "请选择一个选项",
+		"userTypeImmigrant": "移民（在德国境外出生）",
+		"userTypeFirstGen": "第一代德国人（父母是移民）",
+		"userTypeSecondGen": "第二代德国人（父母在德国出生）",
+		"backgroundLabel": "你来自哪里？",
+		"backgroundSearchPlaceholder": "输入以搜索国家",
+		"backgroundDescription": "选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
+		"backgroundNote": "你可以选择多个国家。这些信息不会公开显示。",
+		"submit": "提交"
+	},
+	"footer": {
+		"disclaimer": "请注意：通过本网站提供的故事可能会在媒体中被匿名引用",
 		"title": "@2025 逆风 | 德国反歧视分享平台"
-    }
+	}
 }

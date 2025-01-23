@@ -3,84 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= __('intro.title') %></title>
+    <title>逆风 - 德国反歧视分享平台</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <%- include('partials/navigation', { path: path }) %>
 
-    <main role="main">
-      <section id="intro" class="section">
-        <h1><%= __('intro.title') %></h1>
-        <h2><%= __('intro.subtitle') %></h2>
-        <p><%= __('intro.welcome') %></p>
-        <p><%= __('intro.description') %></p>
-        <p><%= __('intro.encouragement') %></p>
-        <p><%= __('intro.purpose') %></p>
+    <main>
+        <h1 class="page-title"><%= __('intro.title') %></h1>
+        <p class="page-intro"><%= __('intro.intro') %></p>
+        
+        <section id="intro" class="section">
+            <p><%= __('intro.content') %></p>
+            <p><%= __('intro.encouragement') %></p>
+            <p><%= __('intro.purpose') %></p>
 
-        <div class="button-container">
-          <a href="/posts" class="btn"><%= __('intro.readStories') %></a>
-          <a href="#share-form" class="btn"><%= __('intro.shareStory') %></a>
-        </div>
-      </section>
-
-      <section id="share-form" class="section">
-        <h2><%= __('form.title') %></h2>
-        <p><%= __('form.description') %></p>
-
-        <form>
-          <label for="name"><%= __('form.name') %> *</label>
-          <input type="text" id="name" name="name" required>
-          <small><%= __('form.nameDescription') %></small>
-
-          <label for="title"><%= __('form.storyTitle') %> *</label>
-          <input type="text" id="title" name="title" required>
-
-          <label for="story"><%= __('form.storyContent') %> *</label>
-          <textarea id="story" name="story" required></textarea>
-
-          <div class="char-count">
-            <span><%= __('form.characterLimit') %></span>
-            <span id="charCount">1800</span>
-          </div>
-
-           <label for="tags"><%= __('form.tagLabel') %> *</label>
-              <div class="checkbox-grid">
-                <% const tags = __('form.tags'); %>
-                <% if (Array.isArray(tags)) { %>
-                  <% tags.forEach(tag => { %>
-                    <label>
-                      <input type="checkbox" name="tag" value="<%= typeof tag === 'object' ? tag.value : tag %>">
-                      <%= typeof tag === 'object' ? tag.label : tag %>
-                    </label>
-                  <% }); %>
-                <% } %>
-              </div>
-
-          <label for="userType"><%= __('form.userTypeLabel') %> *</label>
-              <select id="userType" name="userType" required>
-                <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
-                <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
-                <option value="firstGen"><%= __('form.userTypeFirstGen') %></option>
-                <option value="secondGen"><%= __('form.userTypeSecondGen') %></option>
-              </select>
-
-          <label for="background"><%= __('form.backgroundLabel') %> (optional)</label>
-            <p><%= __('form.backgroundDescription') %></p>
-            <div class="tag-select">
-              <input type="text" id="countrySearch" placeholder="<%= __('form.backgroundSearchPlaceholder') %>">
-              <div id="countryOptions" class="tag-options"></div>
+            <div class="button-container">
+                <a href="/posts" class="btn"><%= __('intro.readStories') %></a>
+                <a href="#share-form" class="btn"><%= __('intro.shareStory') %></a>
             </div>
-            <div id="selectedCountries" class="selected-tags"></div>
-            <input type="hidden" id="backgroundCountries" name="background[]" value="">
-            <small><%= __('form.backgroundNote') %></small>
+        </section>
 
-        <div class="submit-button-container">
-          <button type="submit" class="btn submit-btn"><%= __('form.submit') %></button>
-        </div>
+        <section id="share-form" class="section">
+            <h2><%= __('form.title') %></h2>
 
-        </form>
-      </section>
+            <form>
+                <label for="name"><%= __('form.name') %> *</label>
+                <input type="text" id="name" name="name" required>
+                <small><%= __('form.nameDescription') %></small>
+
+                <label for="title"><%= __('form.storyTitle') %> *</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="story"><%= __('form.storyContent') %> *</label>
+                <textarea id="story" name="story" required></textarea>
+
+                <div class="char-count">
+                    <span><%= __('form.characterLimit') %></span>
+                    <span id="charCount">1800</span>
+                </div>
+
+                <label for="tags"><%= __('form.tagLabel') %> *</label>
+                <div class="checkbox-grid">
+                    <% const tags = __('form.tags'); %>
+                    <% if (Array.isArray(tags)) { %>
+                        <% tags.forEach(tag => { %>
+                            <label>
+                                <input type="checkbox" name="tag" value="<%= typeof tag === 'object' ? tag.value : tag %>">
+                                <%= typeof tag === 'object' ? tag.label : tag %>
+                            </label>
+                        <% }); %>
+                    <% } %>
+                </div>
+
+                <label for="userType"><%= __('form.userTypeLabel') %> *</label>
+                <select id="userType" name="userType" required>
+                    <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
+                    <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
+                    <option value="firstGen"><%= __('form.userTypeFirstGen') %></option>
+                    <option value="secondGen"><%= __('form.userTypeSecondGen') %></option>
+                </select>
+
+                <label for="background"><%= __('form.backgroundLabel') %>（可选）</label>
+                <p><%= __('form.backgroundDescription') %></p>
+                <div class="tag-select">
+                    <input type="text" id="countrySearch" placeholder="<%= __('form.backgroundSearchPlaceholder') %>">
+                    <div id="countryOptions" class="tag-options"></div>
+                </div>
+                <div id="selectedCountries" class="selected-tags"></div>
+                <input type="hidden" id="backgroundCountries" name="background[]" value="">
+                <small><%= __('form.backgroundNote') %></small>
+
+                <div class="submit-button-container">
+                    <button type="submit" class="btn submit-btn"><%= __('form.submit') %></button>
+                </div>
+
+            </form>
+        </section>
     </main>
 
     <%- include('partials/footer') %>

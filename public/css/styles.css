@@ -586,23 +586,25 @@ select {
 }
 
 .page-title {
-    font-size: 3.2em;
-    font-weight: 500;
-    color: var(--accent-color);
-    margin-bottom: 0.5em;
     text-align: center;
-    letter-spacing: -0.02em;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 1.5em;
 }
 
-.page-subtitle {
-    font-size: 1.2em;
+.page-intro {
+    font-size: 1.1em;
+    line-height: 1.6;
     color: var(--secondary-text-color);
     text-align: center;
-    margin-bottom: 2em;
-    font-weight: 400;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 3em;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--main-text-color);
+    margin: 2em 0 1em;
 }
 
