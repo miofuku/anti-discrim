@@ -13,6 +13,7 @@ body {
     margin: 0 auto;
     color: var(--main-text-color);
     background-color: #fff;
+    font-size: 16px;
 }
 
 main {
@@ -23,27 +24,29 @@ main {
 
 h1 {
     margin-top: 25px;
-    font-size: 3.5em;
+    font-size: 2.5em;
     color: #007bff;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 1.8em;
-    color: #333;
-    margin-top: 30px;
     margin-bottom: 15px;
 }
 
-h3 {
-    font-size: 1.4em;
-    color: #007bff;
+h2 {
+    font-size: 1.5em;
+    color: #333;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
+h3 {
+    font-size: 1.2em;
+    color: #007bff;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
 p, ul {
-    margin-bottom: 15px;
+    font-size: 1em;
+    margin-bottom: 12px;
+    line-height: 1.5;
 }
 
 .container {
@@ -61,13 +64,15 @@ p, ul {
 }
 
 nav {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 nav a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: var(--accent-color);
+    font-size: 0.95em;
+    padding: 5px 0;
 }
 
 nav a:hover {
@@ -80,8 +85,9 @@ nav a.active {
 
 label {
     display: block;
-    margin-top: 15px;
-    font-weight: bold;
+    margin-top: 10px;
+    font-weight: normal;
+    color: var(--secondary-text-color);
 }
 
 input[type="text"], textarea {
@@ -110,9 +116,9 @@ textarea {
 }
 
 .char-count, .info-text {
-    font-size: 12px;
+    font-size: 0.85em;
     color: #666;
-    margin-top: 5px;
+    margin-top: 3px;
     margin-bottom: 5px;
 }
 
@@ -126,8 +132,13 @@ form label {
 .checkbox-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.checkbox-grid label {
+    font-size: 0.9em;
+    margin-top: 0;
 }
 
 #selectedTags {
@@ -266,11 +277,11 @@ footer {
   display: inline-block;
   background-color: #f0f0f0;
   color: #333;
-  padding: 5px 15px;
+  padding: 4px 12px;
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 50px; /* This creates the ellipse shape */
-  font-size: 0.9em;
+  font-size: 0.85em;
   white-space: nowrap;
   transition: background-color 0.3s ease;
 }
@@ -319,7 +330,7 @@ footer {
 
 .btn, .submit-btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     text-decoration: none;
@@ -330,7 +341,7 @@ footer {
     letter-spacing: 1px;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 0.95em;
 }
 
 .btn:hover, .submit-btn:hover {
@@ -372,104 +383,6 @@ html {
     scroll-behavior: smooth;
 }
 
-#about {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#about h1 {
-    font-size: 3.5em;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-#about h2 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-#about h3 {
-    font-size: 1.4em;
-    color: #007bff;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-#about p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 15px;
-}
-
-#about ul {
-    margin-bottom: 15px;
-    padding-left: 20px;
-}
-
-#about li {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 10px;
-}
-
-#help-support {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#help-support h1 {
-    font-size: 3.5em;
-    color: #007bff;
-    margin-bottom: 20px;
-}
-
-#help-support h2 {
-    font-size: 1.8em;
-    color: #333;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-#help-support h3 {
-    font-size: 1.4em;
-    color: #007bff;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-#help-support p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 15px;
-}
-
-#help-support ul {
-    margin-bottom: 20px;
-    padding-left: 20px;
-}
-
-#help-support li {
-    font-size: 1.1em;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 10px;
-}
-
-#help-support a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-#help-support a:hover {
-    text-decoration: underline;
-}
-
 #background {
   margin-bottom: 5px;
 }
@@ -478,5 +391,44 @@ small {
   display: block;
   margin-top: 5px;
   color: #666;
+}
+
+/* Add smooth transitions */
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Optimize spacing */
+.section {
+    margin-bottom: 30px;
+}
+
+/* Improve form field spacing */
+input[type="text"], 
+textarea, 
+select {
+    margin-bottom: 8px;
+}
+
+/* Optimize mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* Optimize loading performance */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none;
+    }
 }
 
