@@ -59,6 +59,10 @@ app.use((req, res, next) => {
     next();
 });
 
+// Parse JSON and URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Use i18n middleware
 app.use(i18n.init);
 

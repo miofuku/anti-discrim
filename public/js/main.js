@@ -1,3 +1,5 @@
+let isFormInitialized = false;
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
 
@@ -5,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const langSelect = document.getElementById('langSelect');
     const storyTextarea = document.getElementById('story');
     const charCountSpan = document.getElementById('charCount');
-    const form = document.querySelector('#share-form form');
+    const form = document.getElementById('storyForm');
 
     // Posts page elements
     const postsContainer = document.getElementById('postsContainer');
@@ -166,9 +168,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Form submission
-    if (form) {
+    if (form && !isFormInitialized) {
         console.log('Setting up form submission');
         form.addEventListener('submit', createPost);
+        isFormInitialized = true;
     }
 
     // Posts page functionality
@@ -202,23 +205,42 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Updated char count:', remainingChars);
     }
 
+    function validateTags() {
+        const checkboxes = document.querySelectorAll('input[name="tag"]:checked');
+        const errorElement = document.getElementById('tagsError');
+        if (checkboxes.length === 0) {
+            errorElement.style.display = 'block';
+            return false;
+        }
+        errorElement.style.display = 'none';
+        return true;
+    }
+
     async function createPost(event) {
-        console.log('Create post function called');
         event.preventDefault();
-
-        const formData = new FormData(form);
-        const post = {
-            name: formData.get('name') || 'Anonymous',
-            title: formData.get('title'),
-            content: formData.get('story'),
-            tags: formData.getAll('tag'),
-            userType: formData.get('userType'),
-            background: JSON.parse(formData.get('background[]') || '[]')
-        };
-
-        console.log('Post data:', post);
+        
+        // Tag validation
+        if (!validateTags()) {
+            return;
+        }
+        
+        // Disable submit button
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
 
         try {
+            const formData = new FormData(form);
+            const post = {
+                name: formData.get('name') || 'Anonymous',
+                title: formData.get('title'),
+                content: formData.get('story'),
+                tags: formData.getAll('tag'),
+                userType: formData.get('userType'),
+                background: JSON.parse(formData.get('background[]') || '[]')
+            };
+
+            console.log('Post data:', post);
+
             const response = await fetch('/api/posts', {
                 method: 'POST',
                 headers: {
@@ -234,12 +256,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const data = await response.json();
             console.log('Post created successfully');
-            alert('Post Submitted Successfully!\nThank you for sharing your story with us.');
+            showSuccessMessage('提交成功！感谢分享你的故事。');
             form.reset();
-            window.scrollTo(0, 0);
         } catch (error) {
             console.error('Error:', error);
             alert(error.message || 'Failed to submit post. Please try again.');
+        } finally {
+            submitButton.disabled = false;
         }
     }
 
@@ -350,5 +373,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 '"': '&quot;'
             }[tag] || tag)
         );
+    }
+
+    // Success message
+    function showSuccessMessage(message) {
+        // Remove any existing success messages
+        const existingMessages = document.querySelectorAll('.success-message');
+        existingMessages.forEach(msg => msg.remove());
+        
+        // Create new success message element
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'success-message';
+        messageDiv.textContent = message;
+        
+        // Insert message after the form title
+        const formTitle = document.querySelector('#share-form h2');
+        if (formTitle) {
+            formTitle.insertAdjacentElement('afterend', messageDiv);
+            // Scroll to message position
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 3000);
     }
 });

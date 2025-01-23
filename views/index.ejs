@@ -27,16 +27,22 @@
         <section id="share-form" class="section">
             <h2><%= __('form.title') %></h2>
 
-            <form>
+            <form id="storyForm">
                 <label for="name"><%= __('form.name') %> *</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" required 
+                       oninvalid="this.setCustomValidity('请填写姓名')"
+                       oninput="this.setCustomValidity('')">
                 <small><%= __('form.nameDescription') %></small>
 
                 <label for="title"><%= __('form.storyTitle') %> *</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" id="title" name="title" required
+                       oninvalid="this.setCustomValidity('请填写标题')"
+                       oninput="this.setCustomValidity('')">
 
                 <label for="story"><%= __('form.storyContent') %> *</label>
-                <textarea id="story" name="story" required></textarea>
+                <textarea id="story" name="story" required
+                          oninvalid="this.setCustomValidity('请填写你的经历')"
+                          oninput="this.setCustomValidity('')"></textarea>
 
                 <div class="char-count">
                     <span><%= __('form.characterLimit') %></span>
@@ -44,20 +50,25 @@
                 </div>
 
                 <label for="tags"><%= __('form.tagLabel') %> *</label>
-                <div class="checkbox-grid">
+                <div class="checkbox-grid" id="tagsContainer">
                     <% const tags = __('form.tags'); %>
                     <% if (Array.isArray(tags)) { %>
                         <% tags.forEach(tag => { %>
-                            <label>
-                                <input type="checkbox" name="tag" value="<%= typeof tag === 'object' ? tag.value : tag %>">
-                                <%= typeof tag === 'object' ? tag.label : tag %>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="tag" value="<%= tag.value %>" 
+                                       class="tag-checkbox" 
+                                       onchange="validateTags()">
+                                <%= tag.label %>
                             </label>
                         <% }); %>
                     <% } %>
                 </div>
+                <small class="error-message" id="tagsError" style="display: none; color: #dc3545;">请至少选择一个标签</small>
 
                 <label for="userType"><%= __('form.userTypeLabel') %> *</label>
-                <select id="userType" name="userType" required>
+                <select id="userType" name="userType" required
+                        oninvalid="this.setCustomValidity('请选择你的身份类型')"
+                        oninput="this.setCustomValidity('')">
                     <option value="" disabled selected><%= __('form.userTypeSelect') %></option>
                     <option value="immigrant"><%= __('form.userTypeImmigrant') %></option>
                     <option value="firstGen"><%= __('form.userTypeFirstGen') %></option>

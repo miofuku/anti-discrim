@@ -2,25 +2,25 @@ const Joi = require('joi');
 
 const postSchema = Joi.object({
   name: Joi.string().allow('').max(50).messages({
-    'string.max': 'Name should not exceed 50 characters'
+    'string.max': '名字不能超过50个字'
   }),
   title: Joi.string().min(3).max(100).required()
     .messages({
-      'string.empty': 'Title is required',
-      'string.min': 'Title should have at least 3 characters',
-      'string.max': 'Title should not exceed 100 characters'
+      'string.empty': '标题是必填的',
+      'string.min': '标题至少3个字',
+      'string.max': '标题不能超过100个字'
     }),
   content: Joi.string().min(10).max(1800).required()
     .messages({
-      'string.empty': 'Content is required',
-      'string.min': 'Content should have at least 10 characters',
-      'string.max': 'Content should not exceed 1800 characters'
+      'string.empty': '内容是必填的',
+      'string.min': '内容至少10个字',
+      'string.max': '内容不能超过1800个字'
     }),
   tags: Joi.array().items(Joi.string()).default([]),
   userType: Joi.string().valid('immigrant', 'firstGen', 'secondGen').required()
     .messages({
-      'any.required': 'User type is required',
-      'any.only': 'User type must be either immigrant, firstGen, or secondGen'
+      'any.required': '用户类型是必填的',
+      'any.only': '用户类型必须是移民、第一代或第二代'
     }),
   background: Joi.array().items(Joi.string()).default([])
 });
