@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
         langSelect.value = currentLang;
 
         langSelect.addEventListener('change', function(event) {
-            var lang = this.value;
+            var lang = encodeURIComponent(this.value);
             console.log('Language changed to:', lang);
             document.cookie = 'lang=' + lang + ';path=/;max-age=31536000';  // Set cookie for 1 year
             console.log('Language cookie set:', document.cookie);
