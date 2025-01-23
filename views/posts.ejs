@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body data-page="posts">
+<body data-page="posts" data-tags='<%- JSON.stringify(__('form.tags')) %>'>
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <main>
@@ -35,7 +35,7 @@
 
     <script>
         // Pass the tags to the client-side JavaScript
-        window.tagTranslations = <%- JSON.stringify(__('form.tags')) %>;
+        window.tagTranslations = JSON.parse(document.querySelector('body').dataset.tags);
     </script>
     <script>
         console.log('Current language:', '<%= language %>');

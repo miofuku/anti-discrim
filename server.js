@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     if (!['en', 'zh'].includes(lang)) {
         lang = 'zh';
     }
-    console.log(`Setting language to: ${lang}`); // Debug log
+    // console.log(`Setting language to: ${lang}`); // Debug log
     res.cookie('lang', lang, { maxAge: 31536000000, httpOnly: false }); // 1 year, accessible by JavaScript
     res.locals.language = lang;
     i18n.setLocale(req, lang);
@@ -52,10 +52,10 @@ app.use((req, res, next) => {
 
 // Add this middleware to log request details
 app.use((req, res, next) => {
-    console.log(`Request URL: ${req.url}`);
-    console.log(`Cookie Language: ${req.cookies.lang}`);
-    console.log(`Query Language: ${req.query.lang}`);
-    console.log(`Current Language: ${i18n.getLocale(req)}`);
+    // console.log(`Request URL: ${req.url}`);
+    // console.log(`Cookie Language: ${req.cookies.lang}`);
+    // console.log(`Query Language: ${req.query.lang}`);
+    // console.log(`Current Language: ${i18n.getLocale(req)}`);
     next();
 });
 
