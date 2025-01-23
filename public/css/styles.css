@@ -17,7 +17,7 @@ body {
 }
 
 main {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -66,13 +66,43 @@ p, ul {
 /* Add header container */
 .header-container {
     display: flex;
-    justify-content: flex-end;
-    padding: 15px 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
     background-color: #fff;
     border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.logo {
+    margin-right: auto;
+}
+
+.site-title {
+    text-decoration: none;
+    font-size: 2.8em;
+    font-weight: 500;
+    transition: color 0.3s;
+    letter-spacing: 0.02em;
+    color: var(--accent-color);
+}
+
+.zh-title {
+    display: inline-block;
+}
+
+.site-title.en-mode {
+    color: #0066ff;
+}
+
+.site-title:hover {
+    opacity: 0.8;
+}
+
+.zh-title, .en-title {
+    display: inline-block;
 }
 
 /* Update navigation styles */
@@ -107,35 +137,38 @@ nav a.active {
     margin-left: 20px;
 }
 
-.lang-switch a {
+.lang-switch .lang-btn {
     text-decoration: none;
     color: #666;
     padding: 2px 4px;
-    font-size: 0.9em;
+    transition: all 0.3s ease;
 }
 
-.lang-switch a.active {
-    color: var(--accent-color);
-    font-weight: 500;
+.lang-switch .lang-btn.active {
+    color: #0066ff;
+    font-weight: 600;
 }
 
 .lang-switch .divider {
     color: #ccc;
+    margin: 0 5px;
+}
+
+/* Override any hover effects */
+.lang-switch .lang-btn:hover {
+    background: none;
+    color: #0066ff;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .site-title {
+        font-size: 2em;
+    }
+    
     .header-container {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px;
+        padding: 15px 20px;
     }
-
-    nav {
-        font-size: 0.9em;
-        gap: 10px;
-    }
-
 }
 
 label {
@@ -380,7 +413,7 @@ footer {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 .btn, .submit-btn {
@@ -410,27 +443,28 @@ footer {
 }
 
 #intro h1 {
-    font-size: 3.5em;
-    color: #007bff;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    display: none;
 }
 
 #intro h2 {
     font-size: 1.8em;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 #intro {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+}
+
+#intro p {
+    margin-bottom: 15px;
+    line-height: 1.5;
 }
 
 #share-form {
-    margin-top: 60px;
+    margin-top: 40px;
     border-top: 1px solid #ccc;
-    padding-top: 40px;
+    padding-top: 30px;
 }
 
 /* Smooth scrolling for anchor links */
@@ -455,7 +489,7 @@ small {
 
 /* Optimize spacing */
 .section {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 /* Improve form field spacing */

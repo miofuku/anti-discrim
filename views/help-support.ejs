@@ -8,11 +8,6 @@
 <body>
     <%- include('partials/navigation', { currentPath: path }) %>
 
-    <select id="langSelect">
-        <option value="zh" <%= language === 'zh' ? 'selected' : '' %>>中文</option>
-        <option value="en" <%= language === 'en' ? 'selected' : '' %>>English</option>
-    </select>
-
     <main>
         <h1><%= __('helpSupport.title') %></h1>
         <p><%= __('helpSupport.intro') %></p>

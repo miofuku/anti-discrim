@@ -8,11 +8,6 @@
 <body data-page="posts">
     <%- include('partials/navigation', { currentPath: path }) %>
 
-    <select id="langSelect">
-        <option value="zh" <%= language === 'zh' ? 'selected' : '' %>>中文</option>
-        <option value="en" <%= language === 'en' ? 'selected' : '' %>>English</option>
-    </select>
-
     <main>
         <section id="posts-section">
             <h1><%= __('posts.title') %></h1>

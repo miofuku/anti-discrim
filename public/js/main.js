@@ -137,14 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to get the current language from the cookie
     function getCurrentLanguage() {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-            const [name, value] = cookie.trim().split('=');
-            if (name === 'lang') {
-                return value;
-            }
-        }
-        return 'zh'; // Default to Chinese if no language cookie is found
+        return 'zh'; // Always return Chinese
     }
 
     // Language selection
@@ -358,15 +351,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }[tag] || tag)
         );
     }
-
-    // Language switch handling
-    const langLinks = document.querySelectorAll('.lang-switch a');
-    langLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const lang = this.getAttribute('data-lang');
-            document.cookie = 'lang=' + lang + ';path=/;max-age=31536000';
-            window.location.href = window.location.pathname + '?lang=' + lang;
-        });
-    });
 });
