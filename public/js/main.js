@@ -358,4 +358,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }[tag] || tag)
         );
     }
+
+    // Language switch handling
+    const langLinks = document.querySelectorAll('.lang-switch a');
+    langLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            document.cookie = 'lang=' + lang + ';path=/;max-age=31536000';
+            window.location.href = window.location.pathname + '?lang=' + lang;
+        });
+    });
 });

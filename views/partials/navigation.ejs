@@ -1,7 +1,14 @@
 <!-- views/partials/navigation.ejs -->
-<nav>
-  <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>"><%= __('nav.home') %></a>
-  <a href="/posts" class="<%= currentPath === '/posts' ? 'active' : '' %>"><%= __('nav.allStories') %></a>
-  <a href="/help-support" class="<%= currentPath === '/help-support' ? 'active' : '' %>"><%= __('nav.helpSupport') %></a>
-  <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>"><%= __('nav.about') %></a>
-</nav>
+<div class="header-container">
+  <nav>
+    <a href="/" class="<%= path === '/' ? 'active' : '' %>"><%= __('nav.home') %></a>
+    <a href="/posts" class="<%= path === '/posts' ? 'active' : '' %>"><%= __('nav.allStories') %></a>
+    <a href="/help-support" class="<%= path === '/help-support' ? 'active' : '' %>"><%= __('nav.helpSupport') %></a>
+    <a href="/about" class="<%= path === '/about' ? 'active' : '' %>"><%= __('nav.about') %></a>
+    <div class="lang-switch">
+      <a href="#" data-lang="zh" class="<%= language === 'zh' ? 'active' : '' %>">中文</a>
+      <span class="divider">|</span>
+      <a href="#" data-lang="en" class="<%= language === 'en' ? 'active' : '' %>">EN</a>
+    </div>
+  </nav>
+</div>
