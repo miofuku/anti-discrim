@@ -9,9 +9,9 @@
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <main>
+        <h1 class="page-title"><%= __('posts.title') %></h1>
+        <p class="page-subtitle"><%= __('posts.description') %></p>
         <section id="posts-section">
-            <h1><%= __('posts.title') %></h1>
-
             <div id="filterContainer">
               <div id="selectedTags"></div>
               <div id="availableTags">
@@ -32,6 +32,8 @@
         </section>
         <div id="postsContainer"></div>
     </main>
+
+    <%- include('partials/footer') %>
 
     <script>
         // Pass the tags to the client-side JavaScript
