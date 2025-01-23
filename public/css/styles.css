@@ -1,7 +1,7 @@
 :root {
-    --main-text-color: #2c3e50;
-    --secondary-text-color: #34495e;
-    --accent-color: #3498db;
+    --main-text-color: #1a1a1a;
+    --secondary-text-color: #4a4a4a;
+    --accent-color: #2c3e50;
     --background-color: #ffffff;
     --border-color: #ecf0f1;
     --max-width: 900px;
@@ -55,14 +55,14 @@ nav a {
     text-decoration: none;
     font-size: 1em;
     padding: 5px 0;
-    transition: color 0.2s;
+    transition: all 0.2s;
     border-bottom: 2px solid transparent;
 }
 
-nav a:hover, nav a.active {
-    color: var(--main-text-color);
-    border-bottom: 2px solid var(--main-text-color);
-    background: none;
+nav a:hover, 
+nav a.active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
 }
 
 main {
@@ -87,10 +87,10 @@ h2 {
 }
 
 p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: var(--secondary-text-color);
+    line-height: var(--line-height);
     margin-bottom: 1.5em;
-    max-width: 42em;
 }
 
 .button-container {
@@ -104,7 +104,7 @@ p {
 .btn {
     display: inline-block;
     padding: 15px 30px;
-    background: var(--main-text-color);
+    background: var(--accent-color);
     color: white;
     text-decoration: none;
     border-radius: 0;
@@ -113,7 +113,7 @@ p {
 }
 
 .btn:hover {
-    background: #2980b9;
+    opacity: 0.9;
     transform: translateY(-2px);
 }
 
@@ -586,10 +586,10 @@ select {
 }
 
 .page-title {
-    font-size: 3.5em;
+    font-size: 3.2em;
     font-weight: 500;
     color: var(--accent-color);
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
     text-align: center;
     letter-spacing: -0.02em;
 }
@@ -603,5 +603,6 @@ select {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
 }
 

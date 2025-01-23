@@ -1,7 +1,7 @@
 {
 	"helpSupport": {
 		"title": "求助",
-		"intro": "如果你在德国遇到歧视，请记住你并不孤单。这里有一些可以帮助你的组织和资源：",
+		"intro": "如果你在德国遇到歧视，这里有一些可以帮助你的组织和资源：",
 		"nationalBodies": "国家反歧视机构",
 		"antidiscriminationAgency": {
 		  "title": "德国联邦反歧视署 (Antidiskriminierungsstelle des Bundes)",
@@ -65,13 +65,13 @@
 	},
 	"intro": {
 		"title": "逆风",
-		"subtitle": "面对歧视，我们迎风而上",
-		"welcome": "欢迎来到逆风。这里致力于让遭遇歧视者的声音被听见，特别关注移民群体的经历。",
+		"subtitle": "面对歧视，迎风而上",
+		"welcome": "”逆风“致力于关注移民群体的经历。",
 		"description": "就像逆风飞翔的鸟儿，移民在异国他乡的生活往往充满挑战。这些经历也许艰难，但正是这些经历让我们更加坚强。",
 		"encouragement": "无论你是经历过偏见的移民，还是目睹或遭遇过歧视的任何人，你都不是一个人在战斗。分享你的故事，让我们互相支持，共同成长。",
-		"purpose": "在这里，每个故事都是一股暖流，每个声音都值得被倾听。让我们一起，在逆风中寻找同行者，为建设更包容的德国贡献一份力量。",
-       "readStories": "浏览故事",
-       "shareStory": "分享故事"
+		"purpose": "在这里，每个故事都是一股暖流，每个声音都值得被倾听。让我们一起，在逆风中寻找同行者。",
+       "readStories": "分享经历",
+       "shareStory": "浏览故事"
 	},
 	"form": {
 		"title": "分享你的经历",
@@ -79,7 +79,7 @@
         "name": "姓名",
         "nameDescription": "如果你不想留下真实姓名，请使用匿名",
         "storyTitle": "标题",
-        "storyContent": "你的故事",
+        "storyContent": "你的经历",
         "characterLimit": "字数限制为1800字。剩余字数：",
         "tagLabel": "标签（可多选）",
         "tags": [
@@ -145,7 +145,7 @@
        "userTypeImmigrant": "移民（在德国境外出生）",
        "userTypeFirstGen": "第一代德国人（父母是移民）",
        "userTypeSecondGen": "第二代德国人（父母在德国出生）",
-       "backgroundLabel": "你的背景？",
+       "backgroundLabel": "你来自哪里？",
        "backgroundSearchPlaceholder": "输入以搜索国家",
        "backgroundDescription": "选择所有适用的国家。此信息仅用于背景资料，不会公开显示。",
        "backgroundNote": "你可以选择多个国家。这些信息不会公开显示。",
@@ -154,11 +154,5 @@
     "footer": {
         "disclaimer": "请注意：通过本网站提供的故事可能会在媒体中被匿名引用",
 		"title": "@2025 逆风 | 德国反歧视分享平台"
-    },
-    "cookies": {
-       "notice": "我们使用cookie（主要是Google Analytics）来了解有多少人对在InfoShare上阅读/写作故事感兴趣。",
-       "accept": "接受",
-       "reject": "拒绝",
-       "settings": "设置"
     }
 }
