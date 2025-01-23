@@ -160,11 +160,5 @@
 	"footer": {
 		"disclaimer": "PLEASE NOTE: Stories provided via this website may be anonymously quoted in various forms of media.",
 		"contact": "Contact"
-	},
-	"cookies": {
-		"notice": "We are using cookies (mainly Google Analytics) to understand how many people are interested in reading/writing stories on InfoShare.",
-		"accept": "Accept",
-		"reject": "Reject",
-		"settings": "Settings"
 	}
 }
