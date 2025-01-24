@@ -104,7 +104,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// IP 地址中间件
+// IP address middleware
 app.use(requestIp.mw());
 
 // Helper function to catch async errors
@@ -222,47 +222,73 @@ app.get('/api/posts', catchAsync(async (req, res) => {
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
-  const { name, title, content, tags, userType, background } = req.body;
-  
-  // 获取客户端IP地址
-  const clientIp = req.clientIp;
-  
-  // 使用 geoip-lite 查找位置信息
-  const geo = geoip.lookup(clientIp);
-  
-  // 构建位置字符串
-  let location = '未知';
-  if (geo) {
-      const city = geo.city || '';
-      const region = geo.region || '';
-      const country = geo.country || '';
-      location = [city, region, country].filter(Boolean).join(', ');
-  }
-  
-  const newPost = new Post({
-      name,
-      title,
-      content,
-      tags,
-      userType,
-      background,
-      location,
-      ipAddress: clientIp
-  });
-  
-  await newPost.save();
-  
-  // Return only the fields we want to expose
-  res.status(201).json({
-      _id: newPost._id,
-      name: newPost.name,
-      title: newPost.title,
-      content: newPost.content,
-      tags: newPost.tags,
-      userType: newPost.userType,
-      background: newPost.background,
-      timestamp: newPost.timestamp
-  });
+    const { name, title, content, tags, userType, background } = req.body;
+    
+    // Device information collection
+    const userAgent = req.get('user-agent');
+    const device = {
+        userAgent,
+        platform: getPlatform(userAgent),
+        browser: getBrowser(userAgent)
+    };
+    
+    // Content analysis
+    const contentAnalysis = {
+        wordCount: content.length,
+        topicCategory: analyzeTopicCategory(content, tags),
+        sentiment: analyzeSentiment(content)
+    };
+    
+    // Get client IP address
+    const clientIp = req.clientIp;
+    
+    // Use geoip-lite to find location information
+    const geo = geoip.lookup(clientIp);
+    
+    // Build location string
+    let location = '未知';
+    if (geo) {
+        const city = geo.city || '';
+        const region = geo.region || '';
+        const country = geo.country || '';
+        location = [city, region, country].filter(Boolean).join(', ');
+    }
+    
+    const newPost = new Post({
+        name,
+        title,
+        content,
+        tags,
+        userType,
+        background,
+        location,
+        ipAddress: clientIp,
+        device,
+        referrer: req.get('referrer'),
+        compositionTime: req.body.compositionTime,
+        contentAnalysis
+    });
+    
+    await newPost.save();
+    
+    // Return only the fields we want to expose
+    res.status(201).json({
+        _id: newPost._id,
+        name: newPost.name,
+        title: newPost.title,
+        content: newPost.content,
+        tags: newPost.tags,
+        userType: newPost.userType,
+        background: newPost.background,
+        timestamp: newPost.timestamp
+    });
+}));
+
+// Add view count
+app.get('/api/posts/:id', catchAsync(async (req, res) => {
+    await Post.findByIdAndUpdate(req.params.id, {
+        $inc: { 'interactions.views': 1 }
+    });
 }));
 
 // Error handling middleware
@@ -328,7 +354,7 @@ if (process.env.NODE_ENV === 'production') {
             });
         }
 
-        // 通用错误响应
+        // General error response
         res.status(500).json({
             message: '服务器出错了，请稍后再试'
         });

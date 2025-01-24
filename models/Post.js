@@ -49,7 +49,41 @@ const postSchema = new mongoose.Schema({
     timestamp: {
         type: Date,
         default: Date.now
+    },
+    // Device information
+    device: {
+        type: {
+            userAgent: String,     // User device information
+            platform: String,      // Operating system
+            browser: String,       // Browser type
+        },
+        select: false
+    },
+    // Interaction data
+    interactions: {
+        views: { type: Number, default: 0 },      // Views
+        shares: { type: Number, default: 0 },     // Shares
+        reports: { type: Number, default: 0 }     // Reports
+    },
+    // Content analysis
+    contentAnalysis: {
+        wordCount: Number,         // Word count
+        topicCategory: String,     // Topic category
+        sentiment: String,         // Sentiment
+        select: false
+    },
+    // Access resource
+    referrer: {
+        type: String,
+        select: false
+    },
+    // Time to post
+    compositionTime: {
+        type: Number,  // Unit: seconds
+        select: false
     }
+}, {
+    timestamps: true  // Add createdAt and updatedAt
 });
 
 module.exports = mongoose.model('Post', postSchema);
