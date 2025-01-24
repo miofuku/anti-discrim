@@ -49,13 +49,19 @@ function initializeForm() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     
+    // Initialize language selection
+    initializeLanguageSelection();
+    
     // Initialize different functionalities based on page type
     if (document.getElementById('storyForm')) {
         initializeForm();
     }
     
     if (document.body.getAttribute('data-page') === 'posts') {
-        initializePostsPage();
+        // Add delay to avoid initial loading error
+        setTimeout(() => {
+            initializePostsPage();
+        }, 100);
     }
 });
 
@@ -113,48 +119,6 @@ async function handleTagClick(event) {
     }
 }
 
-async function loadPosts(page = 1) {
-    const postsContainer = document.getElementById('posts-container');
-    if (!postsContainer) return;
-
-    try {
-        const queryParams = new URLSearchParams();
-        queryParams.append('page', page);
-        
-        // Convert Set to Array for query params
-        const selectedTagsArray = Array.from(window.selectedTags);
-        if (selectedTagsArray.length > 0) {
-            queryParams.append('tags', selectedTagsArray.join(','));
-        }
-
-        const response = await fetch(`/api/posts?${queryParams}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch posts');
-        }
-
-        const data = await response.json();
-        postsContainer.innerHTML = '';
-        
-        if (!data.posts || data.posts.length === 0) {
-            postsContainer.innerHTML = '<div class="no-posts-message"><p>暂时没有相关故事</p></div>';
-            document.querySelector('.pagination').innerHTML = '';
-            return;
-        }
-
-        data.posts.forEach(post => {
-            const postElement = createPostElement(post);
-            postsContainer.appendChild(postElement);
-        });
-
-        updatePagination(data.currentPage, data.pages);
-        window.currentPage = page;
-    } catch (error) {
-        console.error('Error loading posts:', error);
-        postsContainer.innerHTML = '<div class="error-message">加载故事时出错，请稍后再试</div>';
-    }
-}
-
-// Add updatePagination function
 function updatePagination(currentPage, totalPages) {
     const paginationContainer = document.querySelector('.pagination');
     if (!paginationContainer) return;
@@ -162,33 +126,85 @@ function updatePagination(currentPage, totalPages) {
     let paginationHTML = '';
     
     if (currentPage > 1) {
-        paginationHTML += `<button onclick="loadPosts(${currentPage - 1})" class="page-btn">上一页</button>`;
+        paginationHTML += `<button class="page-btn prev-btn" data-page="${currentPage - 1}">上一页</button>`;
     }
     
     for (let i = 1; i <= totalPages; i++) {
-        paginationHTML += `<button onclick="loadPosts(${i})" class="page-btn ${i === currentPage ? 'active' : ''}">${i}</button>`;
+        paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
     }
     
     if (currentPage < totalPages) {
-        paginationHTML += `<button onclick="loadPosts(${currentPage + 1})" class="page-btn">下一页</button>`;
+        paginationHTML += `<button class="page-btn next-btn" data-page="${currentPage + 1}">下一页</button>`;
     }
     
     paginationContainer.innerHTML = paginationHTML;
+
+    // Add event listeners to pagination buttons
+    paginationContainer.querySelectorAll('.page-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const pageNum = parseInt(btn.dataset.page);
+            if (!isNaN(pageNum)) {
+                loadPosts(pageNum);
+            }
+        });
+    });
+}
+
+async function loadPosts(page = 1) {
+    const postsContainer = document.getElementById('posts-container');
+    if (!postsContainer) return;
+
+    // Show loading state
+    postsContainer.innerHTML = '<div class="loading">加载中...</div>';
+
+    // Add debounce/throttle to prevent too many requests
+    if (window.loadingTimeout) {
+        clearTimeout(window.loadingTimeout);
+    }
+
+    window.loadingTimeout = setTimeout(async () => {
+        try {
+            const queryParams = new URLSearchParams();
+            queryParams.append('page', page);
+            
+            const selectedTagsArray = Array.from(window.selectedTags);
+            if (selectedTagsArray.length > 0) {
+                queryParams.append('tags', selectedTagsArray.join(','));
+            }
+
+            const response = await fetch(`/api/posts?${queryParams}`);
+            if (!response.ok) {
+                if (response.status === 429) {
+                    throw new Error('请求过于频繁，请稍后再试');
+                }
+                throw new Error('Failed to fetch posts');
+            }
+
+            const data = await response.json();
+            postsContainer.innerHTML = '';
+            
+            if (!data.posts || data.posts.length === 0) {
+                postsContainer.innerHTML = '<div class="no-posts-message"><p>暂时没有相关故事</p></div>';
+                document.querySelector('.pagination').innerHTML = '';
+                return;
+            }
+
+            data.posts.forEach(post => {
+                const postElement = createPostElement(post);
+                postsContainer.appendChild(postElement);
+            });
+
+            updatePagination(data.currentPage, data.pages);
+            window.currentPage = page;
+        } catch (error) {
+            console.error('Error loading posts:', error);
+            postsContainer.innerHTML = `<div class="error-message">${error.message || '加载故事时出错，请稍后再试'}</div>`;
+        }
+    }, 300); 
 }
 
 // Move isFormInitialized declaration to top of form-related code
 window.isFormInitialized = false;
-
-// Common elements
-const langSelect = document.getElementById('langSelect');
-const storyTextarea = document.getElementById('story');
-const charCountSpan = document.getElementById('charCount');
-const form = document.getElementById('storyForm');
-
-// Posts page elements
-const postsContainer = document.getElementById('postsContainer');
-const selectedTagsContainer = document.getElementById('selectedTags');
-const availableTagsContainer = document.getElementById('availableTags');
 
 function initializeCountrySelection() {
     // Background in post
@@ -317,7 +333,10 @@ function getCurrentLanguage() {
 }
 
 // Language selection
-if (langSelect) {
+function initializeLanguageSelection() {
+    const langSelect = document.getElementById('langSelect');
+    if (!langSelect) return;
+
     const currentLang = getCurrentLanguage();
     console.log('Current language from cookie:', currentLang);
 
@@ -332,26 +351,6 @@ if (langSelect) {
         // Reload the page with the new language parameter
         window.location.href = window.location.pathname + '?lang=' + lang;
     });
-}
-
-// Character count functionality
-if (storyTextarea && charCountSpan) {
-    console.log('Setting up character count');
-    updateCharCount();
-    storyTextarea.addEventListener('input', updateCharCount);
-}
-
-// Form submission
-if (form && !window.isFormInitialized) {
-    console.log('Setting up form submission');
-    form.addEventListener('submit', createPost);
-    window.isFormInitialized = true;
-}
-
-function updateCharCount() {
-    const remainingChars = 1800 - storyTextarea.value.length;
-    charCountSpan.textContent = remainingChars;
-    console.log('Updated char count:', remainingChars);
 }
 
 function validateTags() {

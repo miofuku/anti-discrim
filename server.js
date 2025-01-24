@@ -15,24 +15,20 @@ const xss = require('xss-clean');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Create two different rate limiters
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // each IP can submit 5 times in 15 minutes
-    message: { error: '提交太频繁，请稍后再试' }
-});
-
-const generalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15分钟
-    max: 100, // 每个IP限制100次请求
-    message: { error: '请求太频繁，请稍后再试' }
+// Rate limiting configuration
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute window
+    max: 60, // Allow 60 requests per minute
+    message: { message: '请求过于频繁，请稍后再试' },
+    standardHeaders: true,
+    legacyHeaders: false
 });
 
 // Apply rate limiter to the submission API
-app.use('/api/posts', apiLimiter);
+app.use('/api/posts', limiter);
 
 // Apply a more lenient limiter to other routes
-app.use('/', generalLimiter);
+app.use('/', limiter);
 
 // Connect to MongoDB
 connectDB();
@@ -234,14 +230,14 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.error('Error:', err);
     
-    // 处理验证错误
+    // Handle validation errors
     if (err.name === 'ValidationError') {
         return res.status(400).json({
             message: err.message
         });
     }
     
-    // 处理其他错误
+    // Handle other errors
     const statusCode = err.status || 500;
     const message = process.env.NODE_ENV === 'production' 
         ? '服务器错误，请稍后再试' 
