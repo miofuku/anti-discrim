@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,9 +30,6 @@ app.use('/api/posts', limiter);
 
 // Apply a more lenient limiter to other routes
 app.use('/', limiter);
-
-// Connect to MongoDB
-connectDB();
 
 // Use cookie-parser middleware
 app.use(cookieParser());
@@ -247,6 +245,16 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json({ message });
 });
 
+// Add production error handling
+if (process.env.NODE_ENV === 'production') {
+    app.use((err, req, res, next) => {
+        console.error(err.stack);
+        res.status(500).json({
+            message: '服务器出错了，请稍后再试'
+        });
+    });
+}
+
 // Server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
@@ -264,4 +272,16 @@ process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
+});
+
+// Use environment variable for database connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/your_database';
+
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.error('Error connecting to MongoDB:', err);
 });

@@ -37,4 +37,9 @@ jspm_packages/
 
 .idea
 
+# local env
 .env
+
+# local dev files
+.DS_Store
+.vscode/

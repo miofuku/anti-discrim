@@ -1,8 +1,8 @@
-# Voice Out - Platform for Immigrant Experiences in Germany
+# Anti-Discrimination - Platform for Immigrant Experiences in Germany
 
 ## Project Overview
 
-Voice Out is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
+Anti-Discrimination is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
 
 ## Features
 
@@ -51,11 +51,6 @@ Voice Out is a web application designed to provide a platform for immigrants in 
    npm run dev
    ```
 
-5. Generate sample posts (optional):
-   ```
-   npm run generate-posts
-   ```
-
 ## Usage
 
 - Visit `http://localhost:3000` in your web browser
@@ -81,3 +76,31 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Contact
 
 For any queries or support, please contact: hello@voiceout.org
+
+## Deployment Guide
+
+1. Database Setup
+- Create a free account on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- Create a new cluster
+- Create a database user in "Database Access"
+- Add IP access permissions in "Network Access"
+- Get the connection string
+
+2. Render.com Deployment
+- Connect your GitHub repository
+- Create a new Web Service
+- Set environment variables:
+  - `MONGODB_URI`: MongoDB Atlas connection string
+  - `NODE_ENV`: production
+  - Other necessary environment variables
+
+3. Local Development
+- Copy `.env.example` to `.env`
+- Fill in your local environment variables
+- Run `npm install`
+- Run `npm start`
+
+## Security Notes
+- Never commit the .env file to Git
+- Use environment variables to store sensitive information
+- Update dependencies regularly
