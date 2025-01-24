@@ -16,9 +16,9 @@ function createPostElement(post) {
     ).join('');
     
     postElement.innerHTML = `
+        <div class="tags">${tagsList}</div>
         <h3>${escapeHtml(post.title)}</h3>
         <p>${escapeHtml(post.content)}</p>
-        <div class="tags">${tagsList}</div>
         <div class="post-meta">
             <span class="author">${escapeHtml(post.name || '匿名')}</span>
             <span class="date">${new Date(post.timestamp).toLocaleDateString()}</span>
@@ -129,8 +129,13 @@ function updatePagination(currentPage, totalPages) {
         paginationHTML += `<button class="page-btn prev-btn" data-page="${currentPage - 1}">上一页</button>`;
     }
     
+    // Add page numbers with emphasis on current page
     for (let i = 1; i <= totalPages; i++) {
-        paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        if (i === currentPage) {
+            paginationHTML += `<button class="page-btn current" data-page="${i}">${i}</button>`;
+        } else {
+            paginationHTML += `<button class="page-btn" data-page="${i}">${i}</button>`;
+        }
     }
     
     if (currentPage < totalPages) {

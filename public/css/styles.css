@@ -313,33 +313,50 @@ textarea {
 }
 
 .filter-btn.active {
-    background-color: #007bff;
+    background-color: #6c757d;
     color: white;
-    border-color: #0056b3;
+    border-color: #5a6268;
 }
 
 .pagination {
+    margin: 2rem 0;
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin: 2rem 0;
+    gap: 0.5rem;
 }
 
-.pagination-btn {
+.page-btn {
     padding: 0.5rem 1rem;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    background-color: #fff;
+    border: 1px solid #ddd;
+    background: white;
     cursor: pointer;
+    border-radius: 4px;
 }
 
-.pagination-btn:hover {
-    background-color: #e9ecef;
+.page-btn.current {
+    background: #6c757d;
+    color: white;
+    border-color: #5a6268;
+    font-weight: bold;
 }
 
-.page-info {
-    line-height: 2.2;
-    color: #6c757d;
+.page-btn:hover:not(.current) {
+    background: #e9ecef;
+}
+
+.post .tags {
+    margin-bottom: 1rem;
+}
+
+.post .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: #6c757d;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
 }
 
 .char-count, .info-text {
@@ -469,27 +486,6 @@ form label {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
-}
-
-.post-tags {
-  margin-bottom: 10px;
-}
-
-.tag {
-  display: inline-block;
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 4px 12px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  border-radius: 50px; /* This creates the ellipse shape */
-  font-size: 0.85em;
-  white-space: nowrap;
-  transition: background-color 0.3s ease;
-}
-
-.tag:hover {
-  background-color: #e0e0e0;
 }
 
 .post-title {
