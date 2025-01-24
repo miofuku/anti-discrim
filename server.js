@@ -18,8 +18,22 @@ const geoip = require('geoip-lite');
 const requestIp = require('request-ip');
 const useragent = require('express-useragent');
 
+// Use environment variable for database connection
+const dbUri = process.env.MONGODB_URI;
+
+mongoose.connect(dbUri)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err);
+    });
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Trust proxy settings for rate limiting behind reverse proxy
+app.set('trust proxy', 1);
 
 // Helper functions for user agent parsing
 function getPlatform(userAgent) {
@@ -30,6 +44,18 @@ function getPlatform(userAgent) {
 function getBrowser(userAgent) {
     const ua = useragent.parse(userAgent);
     return ua.browser || 'unknown';
+}
+
+// Simple content analysis functions
+function analyzeTopicCategory(content, tags) {
+    // For now, just use the first tag as category
+    return tags[0] || 'general';
+}
+
+function analyzeSentiment(content) {
+    // Simple sentiment analysis based on content length
+    // This is a placeholder - you might want to use a proper sentiment analysis library
+    return content.length > 500 ? 'detailed' : 'brief';
 }
 
 // Use express-useragent middleware
@@ -407,16 +433,4 @@ process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
-});
-
-// Use environment variable for database connection
-const dbUri = process.env.MONGODB_URI;
-
-mongoose.connect(dbUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch(err => {
-    console.error('Error connecting to MongoDB:', err);
 });

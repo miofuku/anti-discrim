@@ -38,7 +38,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: [true, '请选择你的身份类型'],
         enum: {
-            values: ['student', 'worker', 'family', 'refugee', 'other'],
+            values: ['immigrant', 'firstGen', 'secondGen'],
             message: '请选择有效的身份类型'
         }
     },
