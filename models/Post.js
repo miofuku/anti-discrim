@@ -52,12 +52,9 @@ const postSchema = new mongoose.Schema({
     },
     // Device information
     device: {
-        type: {
-            userAgent: String,     // User device information
-            platform: String,      // Operating system
-            browser: String,       // Browser type
-        },
-        select: false
+        userAgent: { type: String, select: false },     // User device information
+        platform: { type: String, select: false },      // Operating system
+        browser: { type: String, select: false }        // Browser type
     },
     // Interaction data
     interactions: {
@@ -67,10 +64,9 @@ const postSchema = new mongoose.Schema({
     },
     // Content analysis
     contentAnalysis: {
-        wordCount: Number,         // Word count
-        topicCategory: String,     // Topic category
-        sentiment: String,         // Sentiment
-        select: false
+        wordCount: { type: Number, select: false },         // Word count
+        topicCategory: { type: String, select: false },     // Topic category
+        sentiment: { type: String, select: false }          // Sentiment
     },
     // Access resource
     referrer: {
