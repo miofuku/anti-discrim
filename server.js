@@ -16,9 +16,24 @@ const cors = require('cors');
 const content = require('./config/content.json');
 const geoip = require('geoip-lite');
 const requestIp = require('request-ip');
+const useragent = require('express-useragent');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Helper functions for user agent parsing
+function getPlatform(userAgent) {
+    const ua = useragent.parse(userAgent);
+    return ua.platform || 'unknown';
+}
+
+function getBrowser(userAgent) {
+    const ua = useragent.parse(userAgent);
+    return ua.browser || 'unknown';
+}
+
+// Use express-useragent middleware
+app.use(useragent.express());
 
 // Rate limiting configurations
 const apiLimiter = rateLimit({
