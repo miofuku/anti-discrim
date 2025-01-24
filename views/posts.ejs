@@ -11,26 +11,29 @@
     <main>
         <h1 class="page-title"><%= __('posts.title') %></h1>
         <p class="page-intro"><%= __('posts.description') %></p>
-        <section id="posts-section">
-            <div id="filterContainer">
-              <div id="selectedTags"></div>
-              <div id="availableTags">
+        
+        <div id="filterContainer">
+            <div id="selectedTags"></div>
+            <div id="availableTags">
                 <% const tags = __('form.tags'); %>
                 <% if (Array.isArray(tags)) { %>
-                  <% tags.forEach(tag => { %>
-                    <button class="filter-btn" data-tag="<%= typeof tag === 'object' ? tag.value : tag %>">
-                      <%= typeof tag === 'object' ? tag.label : tag %>
-                    </button>
-                  <% }); %>
+                    <% tags.forEach(tag => { %>
+                        <button class="filter-btn" data-tag="<%= typeof tag === 'object' ? tag.value : tag %>" onclick="toggleTag('<%= typeof tag === 'object' ? tag.value : tag %>')">
+                            <%= typeof tag === 'object' ? tag.label : tag %>
+                        </button>
+                    <% }); %>
                 <% } else if (typeof tags === 'object') { %>
-                  <% Object.entries(tags).forEach(([value, label]) => { %>
-                    <button class="filter-btn" data-tag="<%= value %>"><%= label %></button>
-                  <% }); %>
+                    <% Object.entries(tags).forEach(([value, label]) => { %>
+                        <button class="filter-btn" data-tag="<%= value %>" onclick="toggleTag('<%= value %>')"><%= label %></button>
+                    <% }); %>
                 <% } %>
-              </div>
             </div>
+        </div>
+
+        <section id="posts-section">
+            <div id="posts-container" class="posts-grid"></div>
+            <div class="pagination"></div>
         </section>
-        <div id="postsContainer"></div>
     </main>
 
     <%- include('partials/footer') %>

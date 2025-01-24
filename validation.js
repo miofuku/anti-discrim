@@ -40,19 +40,20 @@ const postSchema = Joi.object({
     'religious_discrimination'
   )).min(1).required().messages({
     'array.min': '请至少选择一个标签',
-    'array.base': '标签格式不正确'
+    'array.base': '标签格式不正确',
+    'any.required': '请至少选择一个标签'
   }),
   userType: Joi.string()
     .valid('immigrant', 'firstGen', 'secondGen')
     .required()
     .messages({
-      'any.required': '用户类型是必填的',
-      'any.only': '用户类型必须是移民、第一代或第二代'
+      'any.required': '请选择你的身份类型',
+      'any.only': '请选择有效的身份类型'
     }),
   background: Joi.array()
     .items(Joi.string().pattern(/^[^<>{}]*$/))
     .default([])
-});
+}).options({ abortEarly: false });
 
 module.exports = {
   postSchema

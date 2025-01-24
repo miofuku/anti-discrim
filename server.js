@@ -87,7 +87,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Current security middleware
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            imgSrc: ["'self'", "data:", "https:"],
+        },
+    }
+}));
 app.use(mongoSanitize());
 app.use(xss());
 
@@ -151,17 +160,55 @@ app.get('/help-support', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
-  try {
-    let query = {};
-    if (req.query.tags) {
-      const tagArray = req.query.tags.split(',');
-      query.tags = { $all: tagArray };
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
+        const skip = (page - 1) * limit;
+        
+        let query = {};
+        if (req.query.tags) {
+            const tagArray = req.query.tags.split(',');
+            query.tags = { $all: tagArray };
+        }
+        
+        // Get total count for pagination
+        const total = await Post.countDocuments(query);
+        
+        if (total === 0) {
+            return res.json({
+                posts: [],
+                total: 0,
+                pages: 0,
+                currentPage: 1,
+                message: '没有找到符合条件的故事'
+            });
+        }
+        
+        // Get posts with pagination
+        const posts = await Post.find(query)
+            .sort({ timestamp: -1 })
+            .skip(skip)
+            .limit(limit);
+            
+        // Get tag translations from i18n
+        const translatedPosts = posts.map(post => {
+            const doc = post.toObject();
+            doc.tags = doc.tags.map(tag => ({
+                value: tag,
+                label: req.__(`form.tags.${Object.keys(req.__('form.tags')).findIndex(t => req.__(`form.tags.${t}.value`) === tag)}.label`)
+            }));
+            return doc;
+        });
+        
+        res.json({
+            posts: translatedPosts,
+            total,
+            pages: Math.ceil(total / limit),
+            currentPage: page
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    const posts = await Post.find(query).sort({ timestamp: -1 });
-    res.json(posts);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
