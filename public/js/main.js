@@ -372,6 +372,9 @@ function validateTags() {
 async function createPost(event) {
     event.preventDefault();
     
+    // 使用 event.target 而不是全局的 form 变量
+    const form = event.target;
+    
     // First validate user type
     const userType = form.querySelector('#userType').value;
     if (!userType) {
@@ -446,3 +449,31 @@ function toggleTag(tag) {
 
 // Make functions globally available
 window.loadPosts = loadPosts;
+
+// Add this function near the top of the file
+function showSuccessMessage(message) {
+    // Remove any existing success message
+    const existingMessage = document.querySelector('.success-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
+    // Create and show new success message
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'success-message';
+    messageDiv.textContent = message;
+
+    // Insert the message before the form
+    const form = document.getElementById('storyForm');
+    if (form) {
+        form.parentNode.insertBefore(messageDiv, form);
+    }
+
+    // Automatically remove the message after 5 seconds
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 5000);
+
+    // Scroll to the message
+    messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
