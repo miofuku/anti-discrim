@@ -41,7 +41,7 @@ body {
 .site-title {
     font-size: 2.8em;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--accent-color);
     text-decoration: none;
     letter-spacing: -0.02em;
     display: flex;
@@ -299,7 +299,7 @@ textarea {
 
 .filter-btn {
     background-color: #fff;
-    border: 1px solid #dee2e6;
+    border: 1px solid #c5c5c5;
     border-radius: 20px;
     padding: 0.5rem 1.2rem;
     cursor: pointer;
@@ -313,9 +313,9 @@ textarea {
 }
 
 .filter-btn.active {
-    background-color: #6c757d;
+    background-color: #5a6268;
     color: white;
-    border-color: #5a6268;
+    border-color: #4a545b;
 }
 
 .pagination {
@@ -353,10 +353,11 @@ textarea {
     padding: 0.25rem 0.75rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-    background: #6c757d;
+    background: #5a6268;
     color: white;
     border-radius: 20px;
     font-size: 0.9rem;
+    border: 1px solid #4a545b;
 }
 
 .char-count, .info-text {
@@ -482,10 +483,12 @@ form label {
 }
 
 .post {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    background: white;
+    transition: box-shadow 0.2s ease;
 }
 
 .post-title {
