@@ -6,6 +6,15 @@ const postSchema = new mongoose.Schema({
         type: String,
         default: '匿名'
     },
+    location: {
+        type: String,
+        default: '未知',
+        select: false  // Not returned in queries
+    },
+    ipAddress: {
+        type: String,
+        select: false  // Not returned in queries
+    },
     title: {
         type: String,
         required: [true, '请输入标题']

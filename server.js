@@ -14,6 +14,8 @@ const mongoose = require('mongoose');
 const hpp = require('hpp');
 const cors = require('cors');
 const content = require('./config/content.json');
+const geoip = require('geoip-lite');
+const requestIp = require('request-ip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -101,6 +103,9 @@ app.use((req, res, next) => {
     res.setHeader('X-XSS-Protection', '1; mode=block');
     next();
 });
+
+// IP 地址中间件
+app.use(requestIp.mw());
 
 // Helper function to catch async errors
 const catchAsync = fn => {
@@ -218,16 +223,46 @@ app.get('/api/posts', catchAsync(async (req, res) => {
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
   const { name, title, content, tags, userType, background } = req.body;
+  
+  // 获取客户端IP地址
+  const clientIp = req.clientIp;
+  
+  // 使用 geoip-lite 查找位置信息
+  const geo = geoip.lookup(clientIp);
+  
+  // 构建位置字符串
+  let location = '未知';
+  if (geo) {
+      const city = geo.city || '';
+      const region = geo.region || '';
+      const country = geo.country || '';
+      location = [city, region, country].filter(Boolean).join(', ');
+  }
+  
   const newPost = new Post({
       name,
       title,
       content,
       tags,
       userType,
-      background
+      background,
+      location,
+      ipAddress: clientIp
   });
+  
   await newPost.save();
-  res.status(201).json(newPost);
+  
+  // Return only the fields we want to expose
+  res.status(201).json({
+      _id: newPost._id,
+      name: newPost.name,
+      title: newPost.title,
+      content: newPost.content,
+      tags: newPost.tags,
+      userType: newPost.userType,
+      background: newPost.background,
+      timestamp: newPost.timestamp
+  });
 }));
 
 // Error handling middleware
