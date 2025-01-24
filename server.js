@@ -12,24 +12,30 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const mongoose = require('mongoose');
+const hpp = require('hpp');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Rate limiting configuration
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute window
-    max: 60, // Allow 60 requests per minute
+// Rate limiting configurations
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per 15 minutes
     message: { message: '请求过于频繁，请稍后再试' },
     standardHeaders: true,
     legacyHeaders: false
 });
 
-// Apply rate limiter to the submission API
-app.use('/api/posts', limiter);
+const createPostLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 5, // Limit each IP to 5 posts per hour
+    message: { message: '发布太频繁，请稍后再试' }
+});
 
-// Apply a more lenient limiter to other routes
-app.use('/', limiter);
+// Apply rate limiters
+app.use('/api/posts', apiLimiter);  // General API limit
+app.post('/api/posts', createPostLimiter);  // Post creation limit
 
 // Use cookie-parser middleware
 app.use(cookieParser());
@@ -67,8 +73,8 @@ app.use((req, res, next) => {
 });
 
 // Parse JSON and URL-encoded bodies
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Use i18n middleware
 app.use(i18n.init);
@@ -80,7 +86,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Current security middleware
+// Security middleware
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
@@ -88,12 +94,39 @@ app.use(helmet({
             scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https:"],
-            scriptSrcAttr: ["'unsafe-inline'"]
+            scriptSrcAttr: ["'unsafe-inline'"],
+            upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null
         },
-    }
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
-app.use(mongoSanitize());
-app.use(xss());
+
+// Prevent parameter pollution
+app.use(hpp());
+
+// CORS configuration
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://yourdomain.com'] // Production environment restricts sources
+        : true, // Development environment allows all
+    methods: ['GET', 'POST'],
+    credentials: true,
+    maxAge: 86400 // 24 hours
+};
+app.use(cors(corsOptions));
+
+// Data cleaning
+app.use(mongoSanitize());  // Avoid MongoDB injection
+app.use(xss());  // Avoid XSS attacks
+
+// Add security-related HTTP headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    next();
+});
 
 // Helper function to catch async errors
 const catchAsync = fn => {
@@ -248,12 +281,48 @@ app.use((err, req, res, next) => {
 // Add production error handling
 if (process.env.NODE_ENV === 'production') {
     app.use((err, req, res, next) => {
-        console.error(err.stack);
+        console.error('Error:', {
+            message: err.message,
+            stack: err.stack,
+            timestamp: new Date().toISOString(),
+            path: req.path,
+            method: req.method,
+            ip: req.ip
+        });
+
+        // Different types of errors
+        if (err.name === 'ValidationError') {
+            return res.status(400).json({
+                message: '输入数据无效'
+            });
+        }
+
+        if (err.code === 11000) {  // MongoDB duplicate key error
+            return res.status(400).json({
+                message: '数据已存在'
+            });
+        }
+
+        // 通用错误响应
         res.status(500).json({
             message: '服务器出错了，请稍后再试'
         });
     });
 }
+
+// Record all requests
+app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production') {
+        console.log({
+            timestamp: new Date().toISOString(),
+            method: req.method,
+            path: req.path,
+            ip: req.ip,
+            userAgent: req.get('user-agent')
+        });
+    }
+    next();
+});
 
 // Server
 app.listen(PORT, () => {
