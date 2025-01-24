@@ -15,15 +15,60 @@ function createPostElement(post) {
         `<span class="tag">${tag.label}</span>`
     ).join('');
     
+    // Create a temporary element to measure the content height
+    const tempDiv = document.createElement('div');
+    tempDiv.className = 'content-measure';
+    tempDiv.style.cssText = 'position: absolute; visibility: hidden; white-space: pre-wrap; line-height: 1.6;';
+    tempDiv.textContent = post.content;
+    document.body.appendChild(tempDiv);
+    
+    // Calculate the number of lines
+    const lineHeight = parseFloat(getComputedStyle(tempDiv).lineHeight);
+    const totalHeight = tempDiv.offsetHeight;
+    const lines = Math.floor(totalHeight / lineHeight);
+    document.body.removeChild(tempDiv);
+    
+    // If more than 5 lines, fold
+    const hasLongContent = lines > 5;
+    const previewContent = hasLongContent 
+        ? post.content.split('\n').slice(0, 5).join('\n') + '...'
+        : post.content;
+    
     postElement.innerHTML = `
         <div class="tags">${tagsList}</div>
         <h3>${escapeHtml(post.title)}</h3>
-        <p>${escapeHtml(post.content)}</p>
+        <div class="post-content">
+            <p class="content-preview">${escapeHtml(previewContent)}</p>
+            ${hasLongContent ? `
+                <p class="content-full hidden">${escapeHtml(post.content)}</p>
+                <button class="read-more-btn">展开阅读</button>
+            ` : ''}
+        </div>
         <div class="post-meta">
             <span class="author">${escapeHtml(post.name || '匿名')}</span>
             <span class="date">${new Date(post.timestamp).toLocaleDateString()}</span>
         </div>
     `;
+    
+    // Add expand/collapse feature
+    if (hasLongContent) {
+        const readMoreBtn = postElement.querySelector('.read-more-btn');
+        const preview = postElement.querySelector('.content-preview');
+        const fullContent = postElement.querySelector('.content-full');
+        
+        readMoreBtn.addEventListener('click', () => {
+            const isExpanded = preview.classList.contains('hidden');
+            if (isExpanded) {
+                preview.classList.remove('hidden');
+                fullContent.classList.add('hidden');
+                readMoreBtn.textContent = '展开阅读';
+            } else {
+                preview.classList.add('hidden');
+                fullContent.classList.remove('hidden');
+                readMoreBtn.textContent = '收起';
+            }
+        });
+    }
     
     return postElement;
 }
