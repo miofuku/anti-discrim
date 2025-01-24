@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= language %>">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,70 +9,67 @@
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <main>
-        <h1 class="page-title"><%= __('helpSupport.title') %></h1>
-        <p class="page-intro"><%= __('helpSupport.intro') %></p>
+        <h1 class="page-title"><%= content.helpSupport.title %></h1>
+        <p class="page-intro"><%= content.helpSupport.intro %></p>
 
-        <h2><%= __('helpSupport.nationalBodies') %></h2>
+        <h2><%= content.helpSupport.nationalBodies %></h2>
 
-        <h3><%= __('helpSupport.antidiscriminationAgency.title') %></h3>
-        <p><%= __('helpSupport.antidiscriminationAgency.description') %></p>
+        <h3><%= content.helpSupport.antidiscriminationAgency.title %></h3>
+        <p><%= content.helpSupport.antidiscriminationAgency.description %></p>
         <ul>
-            <li><%= __('helpSupport.website') %>: <a href="https://www.antidiskriminierungsstelle.de/EN/home/home_node.html" target="_blank">www.antidiskriminierungsstelle.de</a></li>
-            <li><%= __('helpSupport.phone') %>: +49 (0) 30 18555-1855</li>
-            <li><%= __('helpSupport.email') %>: beratung@ads.bund.de</li>
+            <li><%= content.helpSupport.website %>: <a href="https://www.antidiskriminierungsstelle.de/EN/home/home_node.html" target="_blank">www.antidiskriminierungsstelle.de</a></li>
+            <li><%= content.helpSupport.phone %>: +49 (0) 30 18555-1855</li>
+            <li><%= content.helpSupport.email %>: beratung@ads.bund.de</li>
         </ul>
 
-        <h3><%= __('helpSupport.humanRightsInstitute.title') %></h3>
-        <p><%= __('helpSupport.humanRightsInstitute.description') %></p>
+        <h3><%= content.helpSupport.humanRightsInstitute.title %></h3>
+        <p><%= content.helpSupport.humanRightsInstitute.description %></p>
         <ul>
-            <li><%= __('helpSupport.website') %>: <a href="https://www.institut-fuer-menschenrechte.de/en/homepage" target="_blank">www.institut-fuer-menschenrechte.de</a></li>
-            <li><%= __('helpSupport.phone') %>: +49 (0)30 259 359-0</li>
-            <li><%= __('helpSupport.email') %>: info@institut-fuer-menschenrechte.de</li>
+            <li><%= content.helpSupport.website %>: <a href="https://www.institut-fuer-menschenrechte.de/en/homepage" target="_blank">www.institut-fuer-menschenrechte.de</a></li>
+            <li><%= content.helpSupport.phone %>: +49 (0)30 259 359-0</li>
+            <li><%= content.helpSupport.email %>: info@institut-fuer-menschenrechte.de</li>
         </ul>
 
-        <h2><%= __('helpSupport.ngos') %></h2>
+        <h2><%= content.helpSupport.ngos %></h2>
 
-        <h3><%= __('helpSupport.amadeuAntonioFoundation.title') %></h3>
-        <p><%= __('helpSupport.amadeuAntonioFoundation.description') %></p>
+        <h3><%= content.helpSupport.amadeuAntonioFoundation.title %></h3>
+        <p><%= content.helpSupport.amadeuAntonioFoundation.description %></p>
         <ul>
-            <li><%= __('helpSupport.website') %>: <a href="https://www.amadeu-antonio-stiftung.de/en/" target="_blank">www.amadeu-antonio-stiftung.de</a></li>
-            <li><%= __('helpSupport.phone') %>: +49 (0)30 240 886 10</li>
-            <li><%= __('helpSupport.email') %>: info@amadeu-antonio-stiftung.de</li>
+            <li><%= content.helpSupport.website %>: <a href="https://www.amadeu-antonio-stiftung.de/en/" target="_blank">www.amadeu-antonio-stiftung.de</a></li>
+            <li><%= content.helpSupport.phone %>: +49 (0)30 240 886 10</li>
+            <li><%= content.helpSupport.email %>: info@amadeu-antonio-stiftung.de</li>
         </ul>
 
-        <h2><%= __('helpSupport.legalAid') %></h2>
+        <h2><%= content.helpSupport.legalAid %></h2>
 
-        <h3><%= __('helpSupport.germanBarAssociation.title') %></h3>
-        <p><%= __('helpSupport.germanBarAssociation.description') %></p>
+        <h3><%= content.helpSupport.germanBarAssociation.title %></h3>
+        <p><%= content.helpSupport.germanBarAssociation.description %></p>
         <ul>
-            <li><%= __('helpSupport.website') %>: <a href="https://anwaltauskunft.de/en" target="_blank">anwaltauskunft.de</a></li>
-            <li><%= __('helpSupport.phone') %>: +49 (0)30 726 152 0</li>
+            <li><%= content.helpSupport.website %>: <a href="https://anwaltauskunft.de/en" target="_blank">anwaltauskunft.de</a></li>
+            <li><%= content.helpSupport.phone %>: +49 (0)30 726 152 0</li>
         </ul>
 
-        <h2><%= __('helpSupport.counselingServices') %></h2>
+        <h2><%= content.helpSupport.counselingServices %></h2>
 
-        <h3><%= __('helpSupport.vbrg.title') %></h3>
-        <p><%= __('helpSupport.vbrg.description') %></p>
+        <h3><%= content.helpSupport.vbrg.title %></h3>
+        <p><%= content.helpSupport.vbrg.description %></p>
         <ul>
-            <li><%= __('helpSupport.website') %>: <a href="https://www.verband-brg.de/english/" target="_blank">www.verband-brg.de</a></li>
-            <li><%= __('helpSupport.email') %>: info@verband-brg.de</li>
+            <li><%= content.helpSupport.website %>: <a href="https://www.verband-brg.de/english/" target="_blank">www.verband-brg.de</a></li>
+            <li><%= content.helpSupport.email %>: info@verband-brg.de</li>
         </ul>
 
-        <h2><%= __('helpSupport.emergencyContacts') %></h2>
-        <p><%= __('helpSupport.emergencyDescription') %></p>
+        <h2><%= content.helpSupport.emergencyContacts %></h2>
+        <p><%= content.helpSupport.emergencyDescription %></p>
         <ul>
-            <li><%= __('helpSupport.police') %>: 110</li>
-            <li><%= __('helpSupport.emergencyServices') %>: 112</li>
+            <li><%= content.helpSupport.police %>: 110</li>
+            <li><%= content.helpSupport.emergencyServices %>: 112</li>
         </ul>
 
-        <p><%= __('helpSupport.rights') %></p>
+        <p><%= content.helpSupport.rights %></p>
     </main>
 
     <%- include('partials/footer') %>
 
-    <script>
-        console.log('Current language:', '<%= language %>');
-    </script>
     <script src="/js/main.js"></script>
 </body>
 </html>

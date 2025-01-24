@@ -6,7 +6,6 @@ const connectDB = require('./db');
 const Post = require('./models/Post');
 const AppError = require('./errors');
 const { postSchema } = require('./validation');
-const i18n = require('i18n');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -14,6 +13,7 @@ const xss = require('xss-clean');
 const mongoose = require('mongoose');
 const hpp = require('hpp');
 const cors = require('cors');
+const content = require('./config/content.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,29 +40,6 @@ app.post('/api/posts', createPostLimiter);  // Post creation limit
 // Use cookie-parser middleware
 app.use(cookieParser());
 
-// Configure i18n
-i18n.configure({
-    locales: ['en', 'zh'],
-    defaultLocale: 'zh',
-    directory: path.join(__dirname, 'locales'),
-    objectNotation: true,
-    cookie: 'lang',
-    queryParameter: 'lang'
-});
-
-// Custom middleware to handle language setting
-app.use((req, res, next) => {
-    let lang = req.query.lang || req.cookies.lang || 'zh';
-    if (!['en', 'zh'].includes(lang)) {
-        lang = 'zh';
-    }
-    // console.log(`Setting language to: ${lang}`); // Debug log
-    res.cookie('lang', lang, { maxAge: 31536000000, httpOnly: false }); // 1 year, accessible by JavaScript
-    res.locals.language = lang;
-    i18n.setLocale(req, lang);
-    next();
-});
-
 // Add this middleware to log request details
 app.use((req, res, next) => {
     // console.log(`Request URL: ${req.url}`);
@@ -75,9 +52,6 @@ app.use((req, res, next) => {
 // Parse JSON and URL-encoded bodies
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-
-// Use i18n middleware
-app.use(i18n.init);
 
 // Set up EJS
 app.set('view engine', 'ejs');
@@ -148,41 +122,30 @@ const validatePost = (req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => {
-    const currentLang = i18n.getLocale();
     res.render('index', {
         path: req.path,
-        language: currentLang,
-        debugInfo: {
-            language: currentLang,
-            locale: currentLang,
-            introTitle: res.__('intro.title'),
-            availableLocales: i18n.getLocales(),
-            translations: {
-                'intro.title': res.__('intro.title'),
-                'intro.subtitle': res.__('intro.subtitle'),
-                'intro.welcome': res.__('intro.welcome')
-            }
-        }
+        content: content
     });
 });
+
 app.get('/posts', (req, res) => {
-  res.render('posts', {
-    path: req.path,
-    language: i18n.getLocale(req)
-  });
+    res.render('posts', {
+        path: req.path,
+        content: content
+    });
 });
 
 app.get('/about', (req, res) => {
-  res.render('about', {
-    path: req.path,
-    language: i18n.getLocale(req)
-  });
+    res.render('about', {
+        path: req.path,
+        content: content
+    });
 });
 
 app.get('/help-support', (req, res) => {
     res.render('help-support', {
         path: req.path,
-        language: i18n.getLocale(req)
+        content: content
     });
 });
 
@@ -199,8 +162,11 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             query.tags = { $all: tagArray };
         }
         
-        // Get total count for pagination
+        // Add debug logging
+        console.log('Query:', query);
+        
         const total = await Post.countDocuments(query);
+        console.log('Total documents:', total);
         
         if (total === 0) {
             return res.json({
@@ -212,19 +178,26 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             });
         }
         
-        // Get posts with pagination
         const posts = await Post.find(query)
             .sort({ timestamp: -1 })
             .skip(skip)
             .limit(limit);
             
-        // Get tag translations from i18n
+        console.log('Found posts:', posts.length);
+            
+        // Simplify the tag translation logic
         const translatedPosts = posts.map(post => {
             const doc = post.toObject();
-            doc.tags = doc.tags.map(tag => ({
-                value: tag,
-                label: req.__(`form.tags.${Object.keys(req.__('form.tags')).findIndex(t => req.__(`form.tags.${t}.value`) === tag)}.label`)
-            }));
+            if (content && content.form && content.form.tags) {
+                doc.tags = doc.tags.map(tag => {
+                    const tagConfig = Object.values(content.form.tags)
+                        .find(t => t.value === tag);
+                    return {
+                        value: tag,
+                        label: tagConfig ? tagConfig.label : tag
+                    };
+                });
+            }
             return doc;
         });
         
@@ -235,7 +208,11 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             currentPage: page
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error in /api/posts:', error);
+        res.status(500).json({ 
+            message: '获取故事时出错',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 }));
 
@@ -260,22 +237,35 @@ app.use((req, res, next) => {
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    
-    // Handle validation errors
+    console.error('Error details:', {
+        message: err.message,
+        stack: err.stack,
+        path: req.path,
+        method: req.method,
+        query: req.query,
+        body: req.body
+    });
+
+    // Handle different types of errors
     if (err.name === 'ValidationError') {
         return res.status(400).json({
-            message: err.message
+            message: '输入数据无效',
+            details: process.env.NODE_ENV === 'development' ? err.message : undefined
         });
     }
-    
-    // Handle other errors
-    const statusCode = err.status || 500;
-    const message = process.env.NODE_ENV === 'production' 
-        ? '服务器错误，请稍后再试' 
-        : err.message;
-        
-    res.status(statusCode).json({ message });
+
+    if (err.code === 11000) {
+        return res.status(400).json({
+            message: '数据已存在'
+        });
+    }
+
+    // Default error response
+    res.status(err.status || 500).json({
+        message: process.env.NODE_ENV === 'production' 
+            ? '服务器出错了，请稍后再试'
+            : err.message
+    });
 });
 
 // Add production error handling

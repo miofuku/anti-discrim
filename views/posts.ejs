@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="<%= language %>">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body data-page="posts" data-tags='<%- JSON.stringify(__('form.tags')) %>'>
+<body data-page="posts" data-tags='<%- JSON.stringify(content.form.tags) %>'>
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <main>
-        <h1 class="page-title"><%= __('posts.title') %></h1>
-        <p class="page-intro"><%= __('posts.description') %></p>
+        <h1 class="page-title"><%= content.posts.title %></h1>
+        <p class="page-intro"><%= content.posts.description %></p>
         
         <div id="filterContainer">
             <div id="selectedTags"></div>
             <div id="availableTags">
-                <% const tags = __('form.tags'); %>
+                <% const tags = content.form.tags; %>
                 <% if (Array.isArray(tags)) { %>
                     <% tags.forEach(tag => { %>
                         <button class="filter-btn" data-tag="<%= typeof tag === 'object' ? tag.value : tag %>">
@@ -38,13 +38,6 @@
 
     <%- include('partials/footer') %>
 
-    <script>
-        // Pass the tags to the client-side JavaScript
-        window.tagTranslations = JSON.parse(document.querySelector('body').dataset.tags);
-    </script>
-    <script>
-        console.log('Current language:', '<%= language %>');
-    </script>
     <script src="/js/main.js"></script>
 </body>
 </html>

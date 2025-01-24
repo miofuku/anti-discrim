@@ -17,8 +17,6 @@ CounterWind is a web application designed to provide a platform for immigrants i
 - Database: MongoDB with Mongoose ODM
 - Frontend: EJS templates with vanilla JavaScript
 - Styling: Custom CSS
-- Localization: i18n library
-
 
 ## Setup and Installation
 

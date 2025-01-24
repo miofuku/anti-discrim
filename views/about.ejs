@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= language %>">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,45 +9,42 @@
     <%- include('partials/navigation', { currentPath: path }) %>
 
     <main>
-        <h1 class="page-title"><%= __('about.title') %></h1>
-        <p class="page-intro"><%= __('about.intro') %></p>
+        <h1 class="page-title"><%= content.about.title %></h1>
+        <p class="page-intro"><%= content.about.intro %></p>
 
-        <h2><%= __('about.motivation') %></h2>
-        <p><%= __('about.ourMotivation') %></p>
+        <h2><%= content.about.motivation %></h2>
+        <p><%= content.about.ourMotivation %></p>
 
-        <h2><%= __('about.hopeToAchieve') %></h3>
-        <p><%= __('about.achieve') %></p>
+        <h2><%= content.about.hopeToAchieve %></h2>
+        <p><%= content.about.achieve %></p>
         <ul>
-            <li><%= __('about.achieve-1') %></li>
-            <li><%= __('about.achieve-2') %></li>
-            <li><%= __('about.achieve-3') %></li>
-            <li><%= __('about.achieve-4') %></li>
-            <li><%= __('about.achieve-5') %></li>
+            <li><%= content.about['achieve-1'] %></li>
+            <li><%= content.about['achieve-2'] %></li>
+            <li><%= content.about['achieve-3'] %></li>
+            <li><%= content.about['achieve-4'] %></li>
+            <li><%= content.about['achieve-5'] %></li>
         </ul>
 
-        <h2><%= __('about.whyMatters') %></h3>
-        <p><%= __('about.matters') %></p>
+        <h2><%= content.about.whyMatters %></h3>
+        <p><%= content.about.matters %></p>
         <ul>
-            <li><%= __('about.matters-1') %></li>
-            <li><%= __('about.matters-2') %></li>
-            <li><%= __('about.matters-3') %></li>
-            <li><%= __('about.matters-4') %></li>
+            <li><%= content.about['matters-1'] %></li>
+            <li><%= content.about['matters-2'] %></li>
+            <li><%= content.about['matters-3'] %></li>
+            <li><%= content.about['matters-4'] %></li>
         </ul>
 
-        <h2><%= __('about.visionForTheFuture') %></h3>
-        <p><%= __('about.vision-1') %></p>
+        <h2><%= content.about.visionForTheFuture %></h3>
+        <p><%= content.about.vision-1 %></p>
 
-        <p><%= __('about.vision-2') %></p>
+        <p><%= content.about['vision-2'] %></p>
 
-        <h2><%= __('about.contactUs') %></h2>
-        <p><%= __('about.contactUsDescription') %></p>
+        <h2><%= content.about.contactUs %></h2>
+        <p><%= content.about.contactUsDescription %></p>
     </main>
 
     <%- include('partials/footer') %>
 
-    <script>
-        console.log('Current language:', '<%= language %>');
-    </script>
     <script src="/js/main.js"></script>
 </body>
 </html>
