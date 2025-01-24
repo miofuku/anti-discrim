@@ -108,11 +108,11 @@ app.use(hpp());
 // CORS configuration
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://yourdomain.com'] // Production environment restricts sources
-        : true, // Development environment allows all
+        ? ['https://counterwind.de', 'https://www.counterwind.de']
+        : true,
     methods: ['GET', 'POST'],
     credentials: true,
-    maxAge: 86400 // 24 hours
+    maxAge: 86400
 };
 app.use(cors(corsOptions));
 
@@ -344,9 +344,9 @@ process.on('uncaughtException', (err) => {
 });
 
 // Use environment variable for database connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/your_database';
+const dbUri = process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {

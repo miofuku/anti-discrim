@@ -1,12 +1,11 @@
-# Anti-Discrimination - Platform for Immigrant Experiences in Germany
+# CounterWind - Platform for Immigrant Experiences in Germany
 
 ## Project Overview
 
-Anti-Discrimination is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
+CounterWind is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
 
 ## Features
 
-- Multi-language support (English and Chinese)
 - Anonymous post creation with categorization
 - Viewing and filtering of posts
 - Information on support resources for immigrants
@@ -54,7 +53,6 @@ Anti-Discrimination is a web application designed to provide a platform for immi
 ## Usage
 
 - Visit `http://localhost:3000` in your web browser
-- Use the language selector to switch between English and Chinese
 - Navigate through different sections using the top menu
 - Create a new post on the homepage
 - View all posts and apply filters on the "All Stories" page
@@ -100,7 +98,19 @@ For any queries or support, please contact: hello@voiceout.org
 - Run `npm install`
 - Run `npm start`
 
-## Security Notes
-- Never commit the .env file to Git
-- Use environment variables to store sensitive information
-- Update dependencies regularly
+## Security Configuration
+
+This project uses environment variables for sensitive information. Never commit actual secrets to the repository.
+
+### Required Environment Variables
+- `NODE_ENV`: Set to 'production' in production environment
+- `MONGODB_URI`: MongoDB connection string
+- `PORT`: Server port number
+
+### Local Development
+1. Copy `.env.example` to `.env`
+2. Fill in your local development values
+3. Never commit `.env` file
+
+### Production Deployment
+All sensitive information should be set as environment variables in your deployment platform (e.g., Render.com).

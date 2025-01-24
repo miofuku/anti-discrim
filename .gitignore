@@ -43,3 +43,16 @@ jspm_packages/
 # local dev files
 .DS_Store
 .vscode/
+
+# Sensitive information
+.env.*
+!.env.example
+*.pem
+*.key
+config/secrets.js
+
+# Local development
+node_modules/
+.DS_Store
+.vscode/
+*.log
