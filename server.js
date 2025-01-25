@@ -21,13 +21,18 @@ const useragent = require('express-useragent');
 // Use environment variable for database connection
 const dbUri = process.env.MONGODB_URI;
 
-mongoose.connect(dbUri)
-    .then(() => {
-        console.log('Connected to MongoDB');
-    })
-    .catch(err => {
-        console.error('Error connecting to MongoDB:', err);
-    });
+mongoose.connect(dbUri, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+    retryWrites: true,
+    retryReads: true,
+    w: 'majority'
+}).then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch(err => {
+    console.error('Error connecting to MongoDB:', err);
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -108,9 +113,13 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://js.hcaptcha.com", "https://*.hcaptcha.com"],
             styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'", "data:", "https:"],
+            imgSrc: ["'self'", "data:", "https:", "https://*.hcaptcha.com"],
+            frameSrc: ["'self'", "https://*.hcaptcha.com"],
+            connectSrc: ["'self'", "https://*.hcaptcha.com"],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["'self'", "blob:"],
             scriptSrcAttr: ["'unsafe-inline'"],
             upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null
         },
@@ -263,6 +272,28 @@ app.get('/api/posts', catchAsync(async (req, res) => {
 }));
 
 app.post('/api/posts', validatePost, catchAsync(async (req, res) => {
+    // Verify hCaptcha
+    const hcaptchaResponse = req.body['h-captcha-response'];
+    if (!hcaptchaResponse) {
+        return res.status(400).json({ message: '请完成人机验证' });
+    }
+
+    const verifyUrl = 'https://hcaptcha.com/siteverify';
+    const verifyResult = await fetch(verifyUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            secret: process.env.HCAPTCHA_SECRET_KEY,
+            response: hcaptchaResponse
+        })
+    }).then(res => res.json());
+
+    if (!verifyResult.success) {
+        return res.status(400).json({ message: '人机验证失败，请重试' });
+    }
+
     const { name, title, content, tags, userType, background } = req.body;
     
     // Device information collection

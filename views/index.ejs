@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content.title %></title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body>
     <%- include('partials/navigation', { path: path }) %>
@@ -86,6 +87,7 @@
                 <small><%= content.form.backgroundNote %></small>
 
                 <div class="submit-button-container">
+                    <div class="h-captcha" data-sitekey="cfee6a10-8e26-41d2-8706-5d825cace24e"></div>
                     <button type="submit" class="btn"><%= content.form.submit %></button>
                 </div>
 

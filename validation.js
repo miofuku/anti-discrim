@@ -52,7 +52,11 @@ const postSchema = Joi.object({
     }),
   background: Joi.array()
     .items(Joi.string().pattern(/^[^<>{}]*$/))
-    .default([])
+    .default([]),
+  'h-captcha-response': Joi.string().required().messages({
+    'string.empty': '请完成人机验证',
+    'any.required': '请完成人机验证'
+  })
 }).options({ abortEarly: false });
 
 module.exports = {

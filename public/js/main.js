@@ -458,13 +458,21 @@ async function createPost(event) {
 
     try {
         const formData = new FormData(form);
+        // Get hCaptcha response
+        const hcaptchaResponse = formData.get('h-captcha-response');
+        if (!hcaptchaResponse) {
+            alert('请完成人机验证');
+            return;
+        }
+
         const post = {
             name: formData.get('name') || '匿名',
             title: formData.get('title'),
             content: formData.get('story'),
             tags: formData.getAll('tag'),
             userType: formData.get('userType'),
-            background: JSON.parse(formData.get('background[]') || '[]')
+            background: JSON.parse(formData.get('background[]') || '[]'),
+            'h-captcha-response': hcaptchaResponse
         };
 
         const response = await fetch('/api/posts', {
@@ -494,6 +502,10 @@ async function createPost(event) {
         console.error('Error:', error);
         alert(error.message || '提交失败，请重试');
     } finally {
+        // Reset hCaptcha after submission if it exists
+        if (window.hcaptcha) {
+            window.hcaptcha.reset();
+        }
         submitButton.disabled = false;
     }
 }
