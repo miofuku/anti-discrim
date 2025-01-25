@@ -37,11 +37,13 @@ const postSchema = Joi.object({
     'public_transport',
     'visa_residence',
     'racism_xenophobia',
-    'religious_discrimination'
+    'religious_discrimination',
+    'other'
   )).min(1).required().messages({
     'array.min': '请至少选择一个标签',
     'array.base': '标签格式不正确',
-    'any.required': '请至少选择一个标签'
+    'any.required': '请至少选择一个标签',
+    'any.only': '请选择有效的标签'
   }),
   userType: Joi.string()
     .valid('immigrant', 'firstGen', 'secondGen')
