@@ -38,6 +38,7 @@ const postSchema = Joi.object({
     'visa_residence',
     'racism_xenophobia',
     'religious_discrimination',
+    'service_discrimination',
     'other'
   )).min(1).required().messages({
     'array.min': '请至少选择一个标签',

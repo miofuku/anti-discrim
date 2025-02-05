@@ -420,60 +420,72 @@ form label {
 }
 
 .tag-select {
-  position: relative;
-  margin-bottom: 10px;
+    position: relative;
+    width: 100%;
 }
 
 .tag-select input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: none; 
 }
 
 .tag-options {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  display: none;
+    display: none; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
-.tag-option {
-  padding: 5px 10px;
-  cursor: pointer;
+.country-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.tag-option:hover {
-  background-color: #f0f0f0;
+.country-option:hover {
+    background-color: #f0f0f0;
+}
+
+#countrySearch {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 4px;
 }
 
 .selected-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
 .selected-tag {
-  background-color: #e0e0e0;
-  padding: 5px 10px;
-  border-radius: 15px;
-  display: inline-flex;
-  align-items: center;
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .remove-tag {
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: 5px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 5px;
 }
 
 #posts-section h1 {
@@ -492,14 +504,14 @@ form label {
 }
 
 .post-title {
-  font-size: 1.2em;
-  margin: 0 0 5px 0;
+    font-size: 1.2em;
+    margin: 0 0 5px 0;
 }
 
 .post-author {
-  color: #666;
-  font-size: 0.9em;
-  margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 10px;
 }
 
 .post-content {
@@ -527,29 +539,29 @@ form label {
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .read-more-btn {
-  display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.3rem 1rem;
-  background: none;
-  border: 1px solid #6c757d;
-  color: #6c757d;
-  border-radius: 15px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.3rem 1rem;
+    background: none;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .read-more-btn:hover {
-  background: #6c757d;
-  color: white;
+    background: #6c757d;
+    color: white;
 }
 
 .post:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .success-message {
@@ -618,13 +630,13 @@ html {
 }
 
 #background {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 small {
-  display: block;
-  margin-top: 5px;
-  color: #666;
+    display: block;
+    margin-top: 5px;
+    color: #666;
 }
 
 /* Add smooth transitions */
@@ -715,5 +727,27 @@ button.btn:hover {
         transform: scale(0.9);
         transform-origin: center;
     }
+}
+
+.country-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.country-option:hover {
+    background-color: #f0f0f0;
+}
+
+.tag-options {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 

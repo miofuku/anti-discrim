@@ -1,3 +1,42 @@
+const countries = [
+    { en: "Germany", zh: "德国" },
+    { en: "China", zh: "中国" },
+    { en: "Turkey", zh: "土耳其" },
+    { en: "Syria", zh: "叙利亚" },
+    { en: "Poland", zh: "波兰" },
+    { en: "Romania", zh: "罗马尼亚" },
+    { en: "Italy", zh: "意大利" },
+    { en: "Greece", zh: "希腊" },
+    { en: "Croatia", zh: "克罗地亚" },
+    { en: "Russia", zh: "俄罗斯" },
+    { en: "Ukraine", zh: "乌克兰" },
+    { en: "France", zh: "法国" },
+    { en: "Spain", zh: "西班牙" },
+    { en: "United Kingdom", zh: "英国" },
+    { en: "United States", zh: "美国" },
+    { en: "Canada", zh: "加拿大" },
+    { en: "Australia", zh: "澳大利亚" },
+    { en: "Japan", zh: "日本" },
+    { en: "South Korea", zh: "韩国" },
+    { en: "India", zh: "印度" },
+    { en: "Pakistan", zh: "巴基斯坦" },
+    { en: "Iran", zh: "伊朗" },
+    { en: "Iraq", zh: "伊拉克" },
+    { en: "Afghanistan", zh: "阿富汗" },
+    { en: "Vietnam", zh: "越南" },
+    { en: "Philippines", zh: "菲律宾" },
+    { en: "Thailand", zh: "泰国" },
+    { en: "Indonesia", zh: "印度尼西亚" },
+    { en: "Brazil", zh: "巴西" },
+    { en: "Mexico", zh: "墨西哥" },
+    { en: "Nigeria", zh: "尼日利亚" },
+    { en: "Egypt", zh: "埃及" },
+    { en: "Morocco", zh: "摩洛哥" },
+    { en: "Tunisia", zh: "突尼斯" },
+    { en: "Algeria", zh: "阿尔及利亚" }
+    
+];
+
 function escapeHtml(unsafe) {
     return unsafe
         .replace(/&/g, "&amp;")
@@ -100,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize different functionalities based on page type
     if (document.getElementById('storyForm')) {
         initializeForm();
+        initializeCountrySelection();
     }
     
     if (document.body.getAttribute('data-page') === 'posts') {
@@ -257,124 +297,87 @@ async function loadPosts(page = 1) {
 window.isFormInitialized = false;
 
 function initializeCountrySelection() {
-    // Background in post
     const countrySearch = document.getElementById('countrySearch');
     const countryOptions = document.getElementById('countryOptions');
     const selectedCountries = document.getElementById('selectedCountries');
     const backgroundCountriesInput = document.getElementById('backgroundCountries');
+    
+    if (!countrySearch || !countryOptions || !selectedCountries || !backgroundCountriesInput) return;
+    
+    let selectedCountriesSet = new Set();
 
-    // List of countries (you may want to load this from a separate file or API)
-    const countries = [
-        { en: "Germany", zh: "德国" },
-        { en: "China", zh: "中国" },
-        { en: "Turkey", zh: "土耳其" },
-        { en: "Syria", zh: "叙利亚" },
-        { en: "Poland", zh: "波兰" },
-        { en: "Romania", zh: "罗马尼亚" },
-        { en: "Italy", zh: "意大利" },
-        { en: "Greece", zh: "希腊" },
-        { en: "Croatia", zh: "克罗地亚" },
-        { en: "Russia", zh: "俄罗斯" },
-        { en: "Ukraine", zh: "乌克兰" },
-        { en: "France", zh: "法国" },
-        { en: "Spain", zh: "西班牙" },
-        { en: "United Kingdom", zh: "英国" },
-        { en: "United States", zh: "美国" },
-        { en: "Canada", zh: "加拿大" },
-        { en: "Australia", zh: "澳大利亚" },
-        { en: "Japan", zh: "日本" },
-        { en: "South Korea", zh: "韩国" },
-        { en: "India", zh: "印度" },
-        { en: "Pakistan", zh: "巴基斯坦" },
-        { en: "Iran", zh: "伊朗" },
-        { en: "Iraq", zh: "伊拉克" },
-        { en: "Afghanistan", zh: "阿富汗" },
-        { en: "Vietnam", zh: "越南" },
-        { en: "Philippines", zh: "菲律宾" },
-        { en: "Thailand", zh: "泰国" },
-        { en: "Indonesia", zh: "印度尼西亚" },
-        { en: "Brazil", zh: "巴西" },
-        { en: "Mexico", zh: "墨西哥" },
-        { en: "Nigeria", zh: "尼日利亚" },
-        { en: "Egypt", zh: "埃及" },
-        { en: "Morocco", zh: "摩洛哥" },
-        { en: "Tunisia", zh: "突尼斯" },
-        { en: "Algeria", zh: "阿尔及利亚" }
-    ];
-
-    let selectedCountriesList = [];
-
-    function updateCountryOptions() {
-        const searchTerm = countrySearch.value.toLowerCase();
-        if (searchTerm.length === 0) {
-          countryOptions.style.display = 'none';
-          return;
+    // Handle click outside
+    document.addEventListener('click', (e) => {
+        if (!countrySearch.contains(e.target) && !countryOptions.contains(e.target)) {
+            countryOptions.style.display = 'none';
         }
+    });
 
-        const filteredCountries = countries.filter(country =>
-          (country.en.toLowerCase().includes(searchTerm) ||
-           country.zh.includes(searchTerm)) &&
-          !selectedCountriesList.includes(country.en)
+    // Show options when clicking the search input
+    countrySearch.addEventListener('click', () => {
+        const searchTerm = countrySearch.value.toLowerCase().trim();
+        const filteredCountries = searchTerm === '' ? countries : countries.filter(country => 
+            country.zh.toLowerCase().includes(searchTerm) || 
+            country.en.toLowerCase().includes(searchTerm)
+        );
+        
+        if (filteredCountries.length > 0) {
+            countryOptions.style.display = 'block';
+        }
+    });
+
+    countrySearch.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        const filteredCountries = searchTerm === '' ? countries : countries.filter(country => 
+            country.zh.toLowerCase().includes(searchTerm) || 
+            country.en.toLowerCase().includes(searchTerm)
         );
 
-        countryOptions.innerHTML = filteredCountries.map(country =>
-          `<div class="tag-option" data-en="${country.en}" data-zh="${country.zh}">${country.en} (${country.zh})</div>`
-        ).join('');
-
         countryOptions.style.display = filteredCountries.length > 0 ? 'block' : 'none';
+        countryOptions.innerHTML = filteredCountries
+            .map(country => `
+                <div class="country-option" data-en="${country.en}" data-zh="${country.zh}">
+                    ${country.zh} (${country.en})
+                </div>
+            `).join('');
+    });
+
+    countryOptions.addEventListener('click', (e) => {
+        const option = e.target.closest('.country-option');
+        if (!option) return;
+
+        const en = option.dataset.en;
+        const zh = option.dataset.zh;
+        
+        if (!selectedCountriesSet.has(en)) {
+            selectedCountriesSet.add(en);
+            updateSelectedCountriesDisplay();
+        }
+        
+        countrySearch.value = '';
+        countryOptions.innerHTML = '';
+    });
+
+    function updateSelectedCountriesDisplay() {
+        selectedCountries.innerHTML = Array.from(selectedCountriesSet)
+            .map(en => {
+                const country = countries.find(c => c.en === en);
+                return `<span class="selected-tag">
+                    ${country.zh} (${country.en})
+                    <button type="button" class="remove-tag" data-country="${en}">×</button>
+                </span>`;
+            }).join('');
+        
+        backgroundCountriesInput.value = JSON.stringify(Array.from(selectedCountriesSet));
     }
 
-    function updateSelectedCountries() {
-        selectedCountries.innerHTML = selectedCountriesList.map(country => {
-          const countryObj = countries.find(c => c.en === country);
-          return `<span class="selected-tag">${country} (${countryObj.zh})<button class="remove-tag" data-country="${country}">×</button></span>`;
-        }).join('');
-        backgroundCountriesInput.value = JSON.stringify(selectedCountriesList);
-    }
-
-    if (countrySearch) {
-        countrySearch.addEventListener('input', updateCountryOptions);
-        countrySearch.addEventListener('focus', updateCountryOptions);
-        countrySearch.addEventListener('blur', function() {
-            // Delay hiding to allow for option selection
-            setTimeout(() => countryOptions.style.display = 'none', 200);
-        });
-    } else {
-        console.error('countrySearch not found');
-    }
-
-    if (countryOptions) {
-        countryOptions.addEventListener('click', function(e) {
-            if (e.target.classList.contains('tag-option')) {
-              const country = e.target.dataset.en;
-              if (!selectedCountriesList.includes(country)) {
-                selectedCountriesList.push(country);
-                updateSelectedCountries();
-                countrySearch.value = '';
-                updateCountryOptions();
-              }
-            }
-        });
-    } else {
-        console.error('countryOptions not found');
-    }
-
-    if (selectedCountries) {
-        selectedCountries.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-tag')) {
-              const country = e.target.dataset.country;
-              selectedCountriesList = selectedCountriesList.filter(c => c !== country);
-              updateSelectedCountries();
-              updateCountryOptions();
-            }
-        });
-    } else {
-        console.error('selectedCountries not found');
-    }
-
-
-    // Initial update
-    updateCountryOptions();
+    selectedCountries.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-tag')) {
+            const country = e.target.dataset.country;
+            selectedCountriesSet.delete(country);
+            updateSelectedCountriesDisplay();
+        }
+    });
 }
 
 // Function to get the current language from the cookie
@@ -484,28 +487,17 @@ async function createPost(event) {
             body: JSON.stringify(post),
         });
 
-        let data;
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-            data = await response.json();
-        } else {
-            throw new Error('服务器返回格式错误');
-        }
-
         if (!response.ok) {
-            throw new Error(data.message || '提交失败，请重试');
+            const errorData = await response.json();
+            throw new Error(errorData.message || '服务器出错了，请稍后再试');
         }
 
-        showSuccessMessage('提交成功！感谢分享你的故事。');
-        form.reset();
+        // Success handling
+        window.location.href = '/posts';
     } catch (error) {
-        console.error('Error:', error);
-        alert(error.message || '提交失败，请重试');
+        console.error('Error creating post:', error);
+        alert(error.message || '提交失败，请稍后重试');
     } finally {
-        // Reset hCaptcha after submission if it exists
-        if (window.hcaptcha) {
-            window.hcaptcha.reset();
-        }
         submitButton.disabled = false;
     }
 }
