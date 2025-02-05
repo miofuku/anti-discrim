@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content.title %></title>
+    <meta name="description" content="分享德国反歧视故事和经历，关注德国华人生活，面对歧视勇敢发声，为华人争取权益。提供有效信息和途径，帮助华人解决在德国遇到的问题。">
+    <meta name="keywords" content="德国反歧视,海外生活,文化差异,生活经历,异国他乡">
+    <meta name="author" content="CounterWind">
+    <meta name="publisher" content="CounterWind">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="德国反歧视分享平台">
+    <meta property="og:description" content="分享德国反歧视故事和经历，关注德国华人生活，面对歧视勇敢发声，为华人争取权益。">
+    <meta property="og:url" content="https://www.counterwind.de/">
+    <link rel="canonical" href="https://www.counterwind.de/">
+    <title>德国反歧视分享平台 | CounterWind</title>
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
@@ -20,8 +29,8 @@
             <p><%= content.intro.purpose %></p>
 
             <div class="button-container">
-                <a href="/posts" class="btn"><%= content.intro.readStories %></a>
-                <a href="#share-form" class="btn"><%= content.intro.shareStory %></a>
+                <a href="/posts" class="btn" title="浏览故事"><%= content.intro.readStories %></a>
+                <a href="#share-form" class="btn" title="分享经历"><%= content.intro.shareStory %></a>
             </div>
         </section>
 
