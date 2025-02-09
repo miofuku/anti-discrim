@@ -1,8 +1,10 @@
-# CounterWind - Platform for Immigrant Experiences in Germany
+# CounterWind 逆风
 
 ## Project Overview
 
-CounterWind is a web application designed to provide a platform for immigrants in Germany to share their experiences, challenges, and stories. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
+CounterWind is a web application designed to provide a platform for Chinese immigrants in Germany to share their experiences related to discrimination and challenges. It aims to create awareness about the issues faced by immigrants and foster a supportive community.
+
+逆风为在德国的中国移民提供一个平台，来分享他们关于歧视和挑战的经历。它旨在提高对移民面临的问题的认识，并建立一个支持性的社区。
 
 ## Features
 
@@ -11,49 +13,10 @@ CounterWind is a web application designed to provide a platform for immigrants i
 - Information on support resources for immigrants
 - Responsive design for various devices
 
-## Tech Stack
-
-- Backend: Node.js with Express.js
-- Database: MongoDB with Mongoose ODM
-- Frontend: EJS templates with vanilla JavaScript
-- Styling: Custom CSS
-
-## Setup and Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/miofuku/anti-discrim.git
-   cd anti-discrim
-   ```
-
-2. Install dependencies:
-   ```
-   npm install
-   ```
-
-3. Set up environment variables:
-   Create a `.env` file in the root directory and add the following:
-   ```
-   MONGODB_URI=your_mongodb_connection_string
-   PORT=3000
-   ```
-
-4. Start the server:
-   ```
-   npm start
-   ```
-
-   For development with auto-restart:
-   ```
-   npm run dev
-   ```
-
-## Usage
-
-- Visit `http://localhost:3000` in your web browser
-- Navigate through different sections using the top menu
-- Create a new post on the homepage
-- View all posts and apply filters on the "All Stories" page
+- 匿名发布
+- 查看帖子
+- 移民支持资源信息
+- 响应式设计，适用于各种设备
 
 ## Contributing
 
@@ -71,44 +34,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Contact
 
-For any queries or support, please contact: hello@voiceout.org
+For any queries or support, please contact: contact@counterwind.org
 
-## Deployment Guide
-
-1. Database Setup
-- Create a free account on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Create a new cluster
-- Create a database user in "Database Access"
-- Add IP access permissions in "Network Access"
-- Get the connection string
-
-2. Render.com Deployment
-- Connect your GitHub repository
-- Create a new Web Service
-- Set environment variables:
-  - `MONGODB_URI`: MongoDB Atlas connection string
-  - `NODE_ENV`: production
-  - Other necessary environment variables
-
-3. Local Development
-- Copy `.env.example` to `.env`
-- Fill in your local environment variables
-- Run `npm install`
-- Run `npm start`
 
 ## Security Configuration
 
 This project uses environment variables for sensitive information. Never commit actual secrets to the repository.
-
-### Required Environment Variables
-- `NODE_ENV`: Set to 'production' in production environment
-- `MONGODB_URI`: MongoDB connection string
-- `PORT`: Server port number
-
-### Local Development
-1. Copy `.env.example` to `.env`
-2. Fill in your local development values
-3. Never commit `.env` file
-
-### Production Deployment
-All sensitive information should be set as environment variables in your deployment platform (e.g., Render.com).
