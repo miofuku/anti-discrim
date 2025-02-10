@@ -183,11 +183,50 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/posts', (req, res) => {
-    res.render('posts', {
-        path: req.path,
-        content: content
-    });
+app.get('/posts', async (req, res) => {
+    try {
+        // Fetch data similarly to /api/posts, but without sending a JSON response
+        let postsData = {};
+        if (req.query.id) {
+            const post = await Post.findById(req.query.id);
+            if (!post) {
+                // Render a 404 page or redirect
+                return res.status(404).render('404'); // Assuming you have a 404.ejs
+            }
+            postsData = { posts: [post.toObject()], total: 1, pages: 1, currentPage: 1 };
+        } else {
+          // Fetch all posts, similar to /api/posts
+            const page = parseInt(req.query.page) || 1;
+            const limit = 5;
+            const skip = (page - 1) * limit;
+            let query = {};
+            if (req.query.tags) {
+                const tagArray = req.query.tags.split(',');
+                query.tags = { $all: tagArray };
+            }
+            const total = await Post.countDocuments(query);
+            const posts = await Post.find(query)
+                .sort({ timestamp: -1 })
+                .skip(skip)
+                .limit(limit);
+
+            postsData = { posts: posts.map(p => p.toObject()), total: total, pages: Math.ceil(total/limit), currentPage: page};
+        }
+
+        // Pass the data to the template
+        res.render('posts', {
+            path: req.path,
+            content: content,
+            posts: postsData.posts, // Pass the posts data
+            total: postsData.total,
+            pages: postsData.pages,
+            currentPage: postsData.currentPage
+        });
+
+    } catch (error) {
+        console.error("Error rendering /posts:", error);
+        res.status(500).render('error', { message: 'Error loading page' }); // Assuming you have an error.ejs
+    }
 });
 
 app.get('/about', (req, res) => {
@@ -210,19 +249,50 @@ app.get('/api/posts', catchAsync(async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = 5;
         const skip = (page - 1) * limit;
-        
+
         let query = {};
+
+        // Check if an 'id' parameter is present
+        if (req.query.id) {
+            // Fetch a single post by ID
+            const post = await Post.findById(req.query.id);
+
+            if (!post) {
+                return res.status(404).json({ message: '故事不存在' });
+            }
+
+            // Translate tags for the single post
+            const translatedPost = post.toObject();
+            if (content && content.form && content.form.tags) {
+                translatedPost.tags = translatedPost.tags.map(tag => {
+                    const tagConfig = Object.values(content.form.tags)
+                        .find(t => t.value === tag);
+                    return {
+                        value: tag,
+                        label: tagConfig ? tagConfig.label : tag
+                    };
+                });
+            }
+
+            return res.json({
+                posts: [translatedPost], // Return as an array for consistency
+                total: 1,
+                pages: 1,
+                currentPage: 1
+            });
+        }
+
+        // Existing logic for fetching multiple posts (with pagination and filtering)
         if (req.query.tags) {
             const tagArray = req.query.tags.split(',');
             query.tags = { $all: tagArray };
         }
-        
-        // Add debug logging
+
         console.log('Query:', query);
-        
+
         const total = await Post.countDocuments(query);
         console.log('Total documents:', total);
-        
+
         if (total === 0) {
             return res.json({
                 posts: [],
@@ -232,15 +302,14 @@ app.get('/api/posts', catchAsync(async (req, res) => {
                 message: '没有找到符合条件的故事'
             });
         }
-        
+
         const posts = await Post.find(query)
             .sort({ timestamp: -1 })
             .skip(skip)
             .limit(limit);
-            
+
         console.log('Found posts:', posts.length);
-            
-        // Simplify the tag translation logic
+
         const translatedPosts = posts.map(post => {
             const doc = post.toObject();
             if (content && content.form && content.form.tags) {
@@ -255,7 +324,7 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             }
             return doc;
         });
-        
+
         res.json({
             posts: translatedPosts,
             total,
@@ -264,7 +333,7 @@ app.get('/api/posts', catchAsync(async (req, res) => {
         });
     } catch (error) {
         console.error('Error in /api/posts:', error);
-        res.status(500).json({ 
+        res.status(500).json({
             message: '获取故事时出错',
             error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
@@ -464,4 +533,41 @@ process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
+});
+
+app.get('/sitemap.xml', async (req, res) => {
+    try {
+        const posts = await Post.find({}).sort({ timestamp: -1 });
+
+        let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
+        sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+        // Add the main pages
+        const baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.counterwind.de' : 'http://localhost:3000'; // Replace with your actual domain
+        const staticPages = ['', '/posts', '/help-support', '/about'];
+
+        staticPages.forEach(page => {
+            sitemap += `  <url>\n`;
+            sitemap += `    <loc>${baseUrl}${page}</loc>\n`;
+            sitemap += `    <lastmod>${new Date().toISOString()}</lastmod>\n`; // Use current date for static pages
+            sitemap += `  </url>\n`;
+        });
+
+        // Add each post to the sitemap
+        posts.forEach(post => {
+            sitemap += `  <url>\n`;
+            sitemap += `    <loc>${baseUrl}/posts?id=${post._id}</loc>\n`; // Assuming you have a way to view individual posts, e.g., /posts?id=123
+            sitemap += `    <lastmod>${post.timestamp.toISOString()}</lastmod>\n`;
+            sitemap += `  </url>\n`;
+        });
+
+        sitemap += '</urlset>\n';
+
+        res.header('Content-Type', 'application/xml');
+        res.send(sitemap);
+
+    } catch (error) {
+        console.error('Sitemap generation error:', error);
+        res.status(500).send('Error generating sitemap');
+    }
 });

@@ -32,7 +32,13 @@
 
         <section id="posts-section">
             <div id="posts-container" class="posts-grid"></div>
-            <div class="pagination"></div>
+            <% if (posts && posts.length === 1) { %>
+                <article class="post">
+                    <!-- ... detailed post content ... -->
+                </article>
+            <% } else { %>
+                <div class="pagination"></div>
+            <% } %>
         </section>
     </main>
 
