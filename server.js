@@ -432,6 +432,48 @@ app.get('/api/posts/:id', catchAsync(async (req, res) => {
     });
 }));
 
+app.get('/sitemap.xml', async (req, res) => {
+    try {
+        const posts = await Post.find({}).sort({ timestamp: -1 }).select('_id timestamp'); // Only fetch necessary fields
+
+        let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
+        sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+        const baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.counterwind.de' : 'http://localhost:3000';
+        const staticPages = ['', '/posts', '/help-support', '/about'];
+
+        staticPages.forEach(page => {
+            sitemap += `  <url>\n`;
+            sitemap += `    <loc>${baseUrl}${page}</loc>\n`;
+            sitemap += `    <lastmod>${new Date().toISOString()}</lastmod>\n`;
+            sitemap += `  </url>\n`;
+        });
+
+        // Use for...of loop for better async handling
+        for (const post of posts) {
+            sitemap += `  <url>\n`;
+            sitemap += `    <loc>${baseUrl}/posts?id=${post._id}</loc>\n`;
+            // Handle potential missing timestamp more gracefully
+            sitemap += `    <lastmod>${post.timestamp ? post.timestamp.toISOString() : new Date().toISOString()}</lastmod>\n`;
+            sitemap += `  </url>\n`;
+        }
+
+        sitemap += '</urlset>\n';
+
+        res.header('Content-Type', 'application/xml');
+        res.send(sitemap);
+
+    } catch (error) {
+        console.error('Sitemap generation error:', error);
+        // Provide more detailed error information in development
+        if (process.env.NODE_ENV === 'development') {
+            res.status(500).send(`Error generating sitemap: ${error.message}<br><pre>${error.stack}</pre>`);
+        } else {
+            res.status(500).send('Error generating sitemap');
+        }
+    }
+});
+
 // Error handling middleware
 app.use((req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -533,41 +575,4 @@ process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.log(err.name, err.message);
   process.exit(1);
-});
-
-app.get('/sitemap.xml', async (req, res) => {
-    try {
-        const posts = await Post.find({}).sort({ timestamp: -1 });
-
-        let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
-        sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-
-        // Add the main pages
-        const baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.counterwind.de' : 'http://localhost:3000'; // Replace with your actual domain
-        const staticPages = ['', '/posts', '/help-support', '/about'];
-
-        staticPages.forEach(page => {
-            sitemap += `  <url>\n`;
-            sitemap += `    <loc>${baseUrl}${page}</loc>\n`;
-            sitemap += `    <lastmod>${new Date().toISOString()}</lastmod>\n`; // Use current date for static pages
-            sitemap += `  </url>\n`;
-        });
-
-        // Add each post to the sitemap
-        posts.forEach(post => {
-            sitemap += `  <url>\n`;
-            sitemap += `    <loc>${baseUrl}/posts?id=${post._id}</loc>\n`; // Assuming you have a way to view individual posts, e.g., /posts?id=123
-            sitemap += `    <lastmod>${post.timestamp.toISOString()}</lastmod>\n`;
-            sitemap += `  </url>\n`;
-        });
-
-        sitemap += '</urlset>\n';
-
-        res.header('Content-Type', 'application/xml');
-        res.send(sitemap);
-
-    } catch (error) {
-        console.error('Sitemap generation error:', error);
-        res.status(500).send('Error generating sitemap');
-    }
 });
