@@ -148,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
             initializePostsPage();
         }, 100);
     }
+
+    // Example (assuming you have a form with id="postForm"):
+    const form = document.getElementById('postForm');
+    if (form) { // Check if the form exists on the current page
+        form.addEventListener('submit', createPost);
+    }
 });
 
 function initializePostsPage() {
@@ -420,54 +426,19 @@ function validateTags() {
 async function createPost(event) {
     event.preventDefault();
     
-    const form = event.target;
-    
-    // 1. First validate required fields
-    const requiredFields = {
-        'title': '标题',
-        'story': '故事内容'
-    };
-
-    for (const [fieldId, fieldName] of Object.entries(requiredFields)) {
-        const field = form.querySelector(`#${fieldId}`);
-        if (!field || !field.value.trim()) {
-            alert(`请填写${fieldName}`);
-            field?.focus();
-            return;
-        }
-    }
-
-    // 2. Then validate tags (before user type)
-    const checkboxes = document.querySelectorAll('input[name="tag"]:checked');
-    const errorElement = document.getElementById('tagsError');
-    if (checkboxes.length === 0) {
-        errorElement.style.display = 'block';
-        const tagsSection = document.getElementById('availableTags');
-        tagsSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-    errorElement.style.display = 'none';
-    
-    // 3. Finally validate user type
-    const userType = form.querySelector('#userType').value;
-    if (!userType) {
-        alert('请选择你的身份类型');
-        form.querySelector('#userType')?.focus();
-        return;
-    }
-    
-    const submitButton = form.querySelector('button[type="submit"]');
+    const submitButton = document.querySelector('.submit-button-container button[type="submit"]');
     submitButton.disabled = true;
 
-    try {
-        const formData = new FormData(form);
-        // Get hCaptcha response
-        const hcaptchaResponse = formData.get('h-captcha-response');
-        if (!hcaptchaResponse) {
-            alert('请完成人机验证');
-            return;
-        }
+    // Get hCaptcha response
+    const hcaptchaResponse = document.querySelector('[name="h-captcha-response"]').value;
+    if (!hcaptchaResponse) {
+        alert('请完成人机验证');
+        submitButton.disabled = false; // Re-enable button
+        return;
+    }
 
+    try {
+        const formData = new FormData(event.target); // Use event.target instead of form
         const post = {
             name: formData.get('name') || '匿名',
             title: formData.get('title'),
