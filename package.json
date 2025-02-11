@@ -2,7 +2,7 @@
   "name": "simple-post-website",
   "version": "1.0.0",
   "description": "A simple website for creating and viewing posts",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
