@@ -22,7 +22,7 @@ const useragent = require('express-useragent');
 const dbUri = process.env.MONGODB_URI;
 
 mongoose.connect(dbUri, {
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
     retryWrites: true,
     retryReads: true,
