@@ -113,11 +113,11 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://js.hcaptcha.com", "https://*.hcaptcha.com"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://js.hcaptcha.com", "https://*.hcaptcha.com", "https://scripts.simpleanalyticscdn.com"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https:", "https://*.hcaptcha.com"],
             frameSrc: ["'self'", "https://*.hcaptcha.com"],
-            connectSrc: ["'self'", "https://*.hcaptcha.com"],
+            connectSrc: ["'self'", "https://api.counterwind.de", "https://simpleanalytics.com"],
             workerSrc: ["'self'", "blob:"],
             childSrc: ["'self'", "blob:"],
             scriptSrcAttr: ["'unsafe-inline'"],
