@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
-const connectDB = require('../db');
 const Post = require('../models/Post');
 const AppError = require('../errors');
 const { postSchema } = require('../validation');
@@ -26,7 +25,8 @@ mongoose.connect(dbUri, {
     socketTimeoutMS: 45000,
     retryWrites: true,
     retryReads: true,
-    w: 'majority'
+    w: 'majority',
+    maxPoolSize: 5  // Add connection pool limit
 }).then(() => {
     console.log('Connected to MongoDB');
 })

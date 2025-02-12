@@ -4,8 +4,8 @@
   "description": "A simple website for creating and viewing posts",
   "main": "api/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js",
     "generate-posts": "node generateSamplePosts.js"
   },
   "dependencies": {
