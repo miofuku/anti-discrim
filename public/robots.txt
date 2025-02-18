@@ -3,4 +3,12 @@ Allow: /posts
 Allow: /about
 Allow: /help-support
 Allow: /sitemap.xml
+
+# Prevent duplicate content from pagination and filters
+Disallow: /posts?page=
+Disallow: /posts?tags=
+
+# Allow viewing individual posts
+Allow: /posts?id=
+
 Sitemap: https://www.counterwind.de/sitemap.xml 

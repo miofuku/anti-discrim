@@ -192,17 +192,23 @@ app.get('/', (req, res) => {
 
 app.get('/posts', async (req, res) => {
     try {
-        // Fetch data similarly to /api/posts, but without sending a JSON response
         let postsData = {};
+        const baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.counterwind.de' : 'http://localhost:3000';
+        
         if (req.query.id) {
             const post = await Post.findById(req.query.id);
             if (!post) {
-                // Render a 404 page or redirect
-                return res.status(404).render('404'); // Assuming you have a 404.ejs
+                return res.status(404).render('404');
             }
-            postsData = { posts: [post.toObject()], total: 1, pages: 1, currentPage: 1 };
+            postsData = { 
+                posts: [post.toObject()], 
+                total: 1, 
+                pages: 1, 
+                currentPage: 1,
+                canonicalUrl: `${baseUrl}/posts?id=${post._id}`
+            };
         } else {
-          // Fetch all posts, similar to /api/posts
+            // Fetch all posts, similar to /api/posts
             const page = parseInt(req.query.page) || 1;
             const limit = 5;
             const skip = (page - 1) * limit;
@@ -218,21 +224,22 @@ app.get('/posts', async (req, res) => {
                 .limit(limit);
 
             postsData = { posts: posts.map(p => p.toObject()), total: total, pages: Math.ceil(total/limit), currentPage: page};
+            postsData.canonicalUrl = `${baseUrl}/posts`;
         }
 
-        // Pass the data to the template
         res.render('posts', {
             path: req.path,
             content: content,
-            posts: postsData.posts, // Pass the posts data
+            posts: postsData.posts,
             total: postsData.total,
             pages: postsData.pages,
-            currentPage: postsData.currentPage
+            currentPage: postsData.currentPage,
+            canonicalUrl: postsData.canonicalUrl
         });
 
     } catch (error) {
         console.error("Error rendering /posts:", error);
-        res.status(500).render('error', { message: 'Error loading page' }); // Assuming you have an error.ejs
+        res.status(500).render('error', { message: 'Error loading page' });
     }
 });
 

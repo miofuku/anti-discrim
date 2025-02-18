@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故事分享 | CounterWind 逆风</title>
+    <% if (posts && posts.length === 1) { %>
+        <link rel="canonical" href="https://www.counterwind.de/posts?id=<%= posts[0]._id %>" />
+    <% } else { %>
+        <link rel="canonical" href="https://www.counterwind.de/posts" />
+    <% } %>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body data-page="posts" data-tags='<%- JSON.stringify(content.form.tags) %>'>
