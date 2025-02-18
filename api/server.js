@@ -157,6 +157,13 @@ app.use((req, res, next) => {
 // IP address middleware
 app.use(requestIp.mw());
 
+// Add these headers for better crawling
+app.use((req, res, next) => {
+    res.header('X-Robots-Tag', 'index, follow');
+    res.header('Cache-Control', 'public, max-age=3600');
+    next();
+});
+
 // Helper function to catch async errors
 const catchAsync = fn => {
   return (req, res, next) => {
