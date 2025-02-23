@@ -265,67 +265,35 @@ app.get('/api/posts', catchAsync(async (req, res) => {
         const skip = (page - 1) * limit;
 
         let query = {};
+        
+        // Add more detailed logging
+        console.log('Request query:', req.query);
+        console.log('Pagination:', { page, limit, skip });
 
-        // Check if an 'id' parameter is present
-        if (req.query.id) {
-            // Fetch a single post by ID
-            const post = await Post.findById(req.query.id);
-
-            if (!post) {
-                return res.status(404).json({ message: '故事不存在' });
-            }
-
-            // Translate tags for the single post
-            const translatedPost = post.toObject();
-            if (content && content.form && content.form.tags) {
-                translatedPost.tags = translatedPost.tags.map(tag => {
-                    const tagConfig = Object.values(content.form.tags)
-                        .find(t => t.value === tag);
-                    return {
-                        value: tag,
-                        label: tagConfig ? tagConfig.label : tag
-                    };
-                });
-            }
-
-            return res.json({
-                posts: [translatedPost], // Return as an array for consistency
-                total: 1,
-                pages: 1,
-                currentPage: 1
-            });
-        }
-
-        // Existing logic for fetching multiple posts (with pagination and filtering)
         if (req.query.tags) {
             const tagArray = req.query.tags.split(',');
             query.tags = { $all: tagArray };
         }
 
-        console.log('Query:', query);
+        // Log the query being sent to MongoDB
+        console.log('MongoDB query:', JSON.stringify(query));
 
         const total = await Post.countDocuments(query);
-        console.log('Total documents:', total);
-
-        if (total === 0) {
-            return res.json({
-                posts: [],
-                total: 0,
-                pages: 0,
-                currentPage: 1,
-                message: '没有找到符合条件的故事'
-            });
-        }
+        console.log('Total documents found:', total);
 
         const posts = await Post.find(query)
             .sort({ timestamp: -1 })
             .skip(skip)
-            .limit(limit);
+            .limit(limit)
+            .lean(); // Add lean() for better performance
 
-        console.log('Found posts:', posts.length);
+        console.log('Posts retrieved:', posts.length);
 
+        // Transform tags before sending response
         const translatedPosts = posts.map(post => {
-            const doc = post.toObject();
+            if (!post.tags) return post; // Guard against undefined tags
+            
+            const doc = { ...post };
             if (content && content.form && content.form.tags) {
                 doc.tags = doc.tags.map(tag => {
                     const tagConfig = Object.values(content.form.tags)
@@ -346,7 +314,12 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             currentPage: page
         });
     } catch (error) {
-        console.error('Error in /api/posts:', error);
+        console.error('Detailed error in /api/posts:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+        
         res.status(500).json({
             message: '获取故事时出错',
             error: process.env.NODE_ENV === 'development' ? error.message : undefined

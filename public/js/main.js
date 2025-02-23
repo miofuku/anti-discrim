@@ -518,3 +518,28 @@ function showSuccessMessage(message) {
     // Scroll to the message
     messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
+
+async function fetchPosts(page = 1, tags = []) {
+    try {
+        const queryParams = new URLSearchParams({
+            page: page.toString()
+        });
+        
+        if (tags.length > 0) {
+            queryParams.set('tags', tags.join(','));
+        }
+
+        const response = await fetch(`/api/posts?${queryParams}`);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || '获取故事失败');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        throw error;
+    }
+}
