@@ -26,7 +26,7 @@ const postSchema = Joi.object({
       'string.pattern.base': '内容包含非法字符'
     }),
   tags: Joi.array().items(Joi.string().valid(
-    'language_barrier',
+    'language_discrimination',
     'bureaucracy',
     'housing_discrimination',
     'workplace_discrimination',
@@ -38,6 +38,7 @@ const postSchema = Joi.object({
     'visa_residence',
     'racism_xenophobia',
     'religious_discrimination',
+    'gender_discrimination',
     'service_discrimination',
     'other'
   )).min(1).required().messages({

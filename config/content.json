@@ -85,8 +85,8 @@
 		"tagLabel": "标签（可多选）",
 		"tags": [
 			{
-				"value": "language_barrier",
-				"label": "语言障碍"
+				"value": "language_discrimination",
+				"label": "语言歧视"
 			},
 			{
 				"value": "bureaucracy",
