@@ -464,7 +464,8 @@ async function createPost(event) {
         }
 
         // Success handling
-        window.location.href = '/posts';
+        window.location.href = '/posts?_=' + new Date().getTime();
+        window.location.reload(true);
     } catch (error) {
         console.error('Error creating post:', error);
         alert(error.message || '提交失败，请稍后重试');
@@ -522,7 +523,8 @@ function showSuccessMessage(message) {
 async function fetchPosts(page = 1, tags = []) {
     try {
         const queryParams = new URLSearchParams({
-            page: page.toString()
+            page: page.toString(),
+            _t: new Date().getTime() // Add timestamp to prevent caching
         });
         
         if (tags.length > 0) {
