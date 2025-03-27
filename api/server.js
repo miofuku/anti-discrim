@@ -296,8 +296,7 @@ app.get('/api/posts', catchAsync(async (req, res) => {
             const doc = { ...post };
             if (content && content.form && content.form.tags) {
                 doc.tags = doc.tags.map(tag => {
-                    const tagConfig = Object.values(content.form.tags)
-                        .find(t => t.value === tag);
+                    const tagConfig = content.form.tags.find(t => t.value === tag);
                     return {
                         value: tag,
                         label: tagConfig ? tagConfig.label : tag
