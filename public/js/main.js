@@ -154,6 +154,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (form) { // Check if the form exists on the current page
         form.addEventListener('submit', createPost);
     }
+
+    if (localStorage.getItem('newPostSubmitted') === 'true') {
+        localStorage.removeItem('newPostSubmitted');
+        // Force reload with a slight delay
+        setTimeout(() => {
+            const fetchUrl = '/api/posts?_t=' + new Date().getTime();
+            fetch(fetchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const postsContainer = document.getElementById('posts-container');
+                    if (!postsContainer) return;
+                    
+                    postsContainer.innerHTML = '';
+                    
+                    if (!data.posts || data.posts.length === 0) {
+                        postsContainer.innerHTML = '<div class="no-posts-message"><p>暂时没有相关故事</p></div>';
+                        document.querySelector('.pagination').innerHTML = '';
+                        return;
+                    }
+                    
+                    data.posts.forEach(post => {
+                        const postElement = createPostElement(post);
+                        postsContainer.appendChild(postElement);
+                    });
+                    
+                    updatePagination(data.currentPage, data.pages);
+                })
+                .catch(error => console.error('Error reloading posts:', error));
+        }, 500);
+    }
 });
 
 function initializePostsPage() {
@@ -464,8 +494,8 @@ async function createPost(event) {
         }
 
         // Success handling
-        window.location.href = '/posts?_=' + new Date().getTime();
-        window.location.reload(true);
+        localStorage.setItem('newPostSubmitted', 'true');
+        window.location.href = '/posts';
     } catch (error) {
         console.error('Error creating post:', error);
         alert(error.message || '提交失败，请稍后重试');

@@ -191,6 +191,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/posts', async (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
     try {
         let postsData = {};
         const baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.counterwind.de' : 'http://localhost:3000';
@@ -259,6 +263,10 @@ app.get('/help-support', (req, res) => {
 
 // API routes
 app.get('/api/posts', catchAsync(async (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = 5;
