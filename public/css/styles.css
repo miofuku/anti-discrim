@@ -751,3 +751,53 @@ button.btn:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Fix for all buttons to ensure consistent sizing and centered text */
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  appearance: none; /* Standard property */
+  -webkit-appearance: none; /* For iOS Safari */
+}
+
+/* Specific fixes for filter buttons */
+.filter-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 88px; /* Set a consistent minimum width */
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+/* Ensure active state doesn't change button dimensions */
+.filter-btn.active {
+  padding: 8px 16px; /* Same as normal state */
+}
+
+/* Pagination button fixes */
+.page-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px; /* Set a consistent minimum width */
+  padding: 6px 10px;
+}
+
+/* Read more button already has good styling but ensure consistency */
+.read-more-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .filter-btn, .page-btn, .read-more-btn {
+    /* Slightly larger touch targets on mobile */
+    min-height: 44px;
+  }
+}
+
